@@ -1,0 +1,156 @@
+/* =========================
+   Evergreen
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f8f2;
+    color:#2f3d2f;
+    min-height:100vh;
+}
+
+/* =========================
+   Header
+========================= */
+
+header{
+    text-align:center;
+    padding:50px 20px 30px;
+}
+
+header h1{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;
+    color:#4f6b46;
+}
+
+header p{
+    margin-top:10px;
+    color:#6d7c69;
+    font-size:1rem;
+}
+
+/* =========================
+   Main
+========================= */
+
+main{
+    width:90%;
+    max-width:700px;
+    margin:auto;
+}
+
+/* =========================
+   Progress
+========================= */
+
+.progress{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    margin-bottom:30px;
+}
+
+.progress h2{
+    margin-bottom:15px;
+}
+
+.progress-bar{
+    width:100%;
+    height:15px;
+    background:#dfe8d8;
+    border-radius:50px;
+    overflow:hidden;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    background:#7aa76d;
+    transition:.4s;
+}
+
+.progress p{
+    margin-top:12px;
+    font-weight:600;
+}
+
+/* =========================
+   Habits
+========================= */
+
+.habits{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.habit{
+    background:white;
+    padding:18px 22px;
+    border-radius:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.25s;
+}
+
+.habit:hover{
+    transform:translateY(-3px);
+}
+
+.habit span{
+    font-size:1rem;
+    font-weight:500;
+}
+
+/* =========================
+   Button
+========================= */
+
+button{
+    border:none;
+    background:#7aa76d;
+    color:white;
+    padding:10px 22px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:.95rem;
+    transition:.3s;
+}
+
+button:hover{
+    background:#5f8755;
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media(max-width:600px){
+
+header h1{
+    font-size:2.3rem;
+}
+
+.habit{
+    padding:16px;
+}
+
+button{
+    padding:8px 18px;
+}
+
+}
