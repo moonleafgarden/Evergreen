@@ -1,40 +1,135 @@
-// Select all buttons
-const buttons = document.querySelectorAll(".done-btn");
+// ==========================
+// Screens
+// ==========================
 
-// Progress
-let completed = 0;
-const total = buttons.length;
+const welcome = document.querySelector(".welcome-screen");
+const choose = document.querySelector(".choose-screen");
+const home = document.querySelector(".home-screen");
 
-const progressText = document.querySelector(".progress p");
-const progressFill = document.querySelector(".progress-fill");
+document.getElementById("nextBtn").onclick = () => {
 
-// Update progress
-function updateProgress() {
+    welcome.style.display = "none";
+    choose.style.display = "block";
 
-    progressText.textContent = `${completed} / ${total} completed`;
+};
 
-    progressFill.style.width = `${(completed / total) * 100}%`;
+// ==========================
+// Interests
+// ==========================
 
-}
+const interests = [
 
-// Button click
-buttons.forEach(button => {
+"📖 Reading",
+"🇬🇧 English",
+"🇪🇸 Spanish",
+"➗ Math",
+"🧪 Science",
+"💻 Programming",
+"🎯 SAT",
+"📝 IELTS",
+"✍️ Writing",
+"🎓 School",
 
-    button.addEventListener("click", () => {
+"🚀 Space",
+"🌿 Nature",
+"🏛 History",
+"🗺 Geography",
+"🧠 Psychology",
+"💰 Finance",
+"🧬 Biology",
+"🌋 Geology",
 
-        if(button.classList.contains("finished")) return;
+"🏃 Sport",
+"🚴 Cycling",
+"🏋 Gym",
+"🧘 Yoga",
+"🚶 Walking",
+"💧 Drink Water",
+"🥗 Healthy Eating",
+"😴 Sleep",
 
-        button.classList.add("finished");
+"🎨 Drawing",
+"📷 Photography",
+"🎵 Music",
+"🎹 Piano",
+"🎤 Singing",
+"🍳 Cooking",
+"🧁 Baking",
 
-        button.textContent = "Completed";
+"🤖 AI",
+"🌐 Web Development",
+"📱 App Development",
+"🎮 Game Development",
 
-        completed++;
+"🧹 Cleaning",
+"🪴 Gardening",
+"✈ Travel",
+"👨‍👩‍👧 Family",
 
-        updateProgress();
+"🏎 Formula 1",
+"⚽ Football",
+"🏀 Basketball",
+"🎾 Tennis",
+"♟ Chess",
+"🎬 Movies",
+"📺 TV Shows",
+"🎭 Anime",
+"🎮 Gaming"
+
+];
+
+const container = document.getElementById("interestContainer");
+const selectedCount = document.getElementById("selectedCount");
+
+let selected = [];
+
+function displayCards(list){
+
+    container.innerHTML = "";
+
+    list.forEach(item=>{
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
+        card.textContent = item;
+
+        if(selected.includes(item)){
+            card.classList.add("selected");
+        }
+
+        card.onclick = ()=>{
+
+            if(selected.includes(item)){
+
+                selected = selected.filter(i=>i!==item);
+
+                card.classList.remove("selected");
+
+            }else{
+
+                selected.push(item);
+
+                card.classList.add("selected");
+
+            }
+
+            selectedCount.textContent =
+            `Selected: ${selected.length}`;
+
+        };
+
+        container.appendChild(card);
 
     });
 
-});
+}
 
-// Start
-updateProgress();
+displayCards(interests);
+
+// ==========================
+// Search
+// ==========================
+
+const
