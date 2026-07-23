@@ -7,75 +7,72 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>🌲 Evergreen</h1>
-        <p>A peaceful place where you grow.</p>
-    </header>
+<!-- ================= Welcome ================= -->
 
-    <main>
+<section class="welcome-screen">
 
-        <section class="progress">
-            <h2>Today's Progress</h2>
+    <h1>🌲 Evergreen</h1>
 
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
+    <p>Your personal space to grow, one day at a time.</p>
 
-            <p>0 / 8 completed</p>
-        </section>
+    <button id="nextBtn">Next</button>
 
-        <section class="habits">
+</section>
 
-            <div class="habit">
-                <span>📖 Reading</span>
-                <button class="done-btn">Done</button>
-            </div>
+<!-- ================= Interests ================= -->
 
-            <div class="habit">
-                <span>🇬🇧 English</span>
-                <button class="done-btn">Done</button>
-            </div>
+<section class="choose-screen" style="display:none;">
 
-            <div class="habit">
-                <span>➗ Math</span>
-                <button class="done-btn">Done</button>
-            </div>
+    <h2>Choose your interests</h2>
 
-            <div class="habit">
-                <span>💻 Project</span>
-                <button class="done-btn">Done</button>
-            </div>
+    <p>Select at least 5 interests.</p>
 
-            <div class="habit">
-                <span>🏃 Sport</span>
-                <button class="done-btn">Done</button>
-            </div>
+    <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search interests..."
+    >
 
-            <div class="habit">
-                <span>🌍 Explore</span>
-                <button class="done-btn">Done</button>
-            </div>
+    <div id="interestContainer"></div>
 
-            <div class="habit">
-                <span>🏠 Home</span>
-                <button class="done-btn">Done</button>
-            </div>
+    <p id="selectedCount">Selected: 0</p>
 
-            <div class="habit">
-                <span>💖 Self-care</span>
-                <button class="done-btn">Done</button>
-            </div>
+    <button id="continueBtn">Continue</button>
 
-        </section>
+</section>
 
-    </main>
+<!-- ================= Home ================= -->
 
-    <script src="script.js"></script>
+<section class="home-screen" style="display:none;">
 
-</body>
-</html>
+<header>
+
+<h1>🌲 Evergreen</h1>
+
+<p>A peaceful place where you grow.</p>
+
+</header>
+
+<main>
+
+<section class="progress">
+
+<h2>Today's Progress</h2>
+
+<div class="progress-bar">
+
+<div class="progress-fill"></div>
+
+</div>
+
+<p>0 / 8 completed</p>
+
+</section>
+
+<section class="habits">
+
+<div class="
