@@ -198,23 +198,21 @@ function renderCards(data){
 
 }
 // ---------- Search ----------
+// ---------- Search ----------
 search.addEventListener("input", () => {
-search.addEventListener("input", ()=>{
 
     const value = search.value.toLowerCase();
 
     const filtered = {};
 
-    for(const category in interests){
+    for (const category in interests) {
 
-        const result = interests[category].filter(item=>
+        const result = interests[category].filter(item =>
             item.toLowerCase().includes(value)
         );
 
-        if(result.length>0){
-
-            filtered[category]=result;
-
+        if (result.length > 0) {
+            filtered[category] = result;
         }
 
     }
