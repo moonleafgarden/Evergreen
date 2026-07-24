@@ -180,7 +180,53 @@ function createHabits(){
         habitContainer.appendChild(habit);
 
 
-    });
+const doneBtn = habit.querySelector(".done-btn");
 
+
+doneBtn.addEventListener("click",()=>{
+
+
+    if(doneBtn.classList.contains("finished")){
+        return;
+    }
+
+
+    doneBtn.classList.add("finished");
+
+    doneBtn.textContent = "Completed ✓";
+
+
+    updateProgress();
+
+
+});
 
 }
+
+
+let completedHabits = 0;
+
+
+function updateProgress(){
+
+
+    completedHabits++;
+
+
+    const total = selectedInterests.length;
+
+
+    const percent =
+    (completedHabits / total) * 100;
+
+
+    document.querySelector(".progress-fill")
+    .style.width = percent + "%";
+
+
+    document.getElementById("progressText")
+    .textContent =
+    `${completedHabits} / ${total} completed`;
+
+
+}                              
