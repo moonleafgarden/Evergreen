@@ -1,0 +1,15 @@
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Leaves -->
+    <circle cx="90" cy="45" r="22" fill="#6F8F5E"/>
+    <circle cx="65" cy="65" r="22" fill="#7FA36A"/>
+    <circle cx="115" cy="65" r="22" fill="#7FA36A"/>
+    <circle cx="90" cy="82" r="25" fill="#5F7D4D"/>
+
+    <!-- Trunk -->
+    <rect x="82" y="95" width="16" height="45" rx="5" fill="#7B5A40"/>
+
+    <!-- Ground -->
+    <ellipse cx="90" cy="150" rx="32" ry="8" fill="#DCE8D6"/>
+
+</svg>
