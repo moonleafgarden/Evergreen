@@ -39,6 +39,9 @@ continueBtn.addEventListener("click", () => {
 
 const interestContainer = document.getElementById("interestContainer");
 
+let selectedInterests = [];
+
+
 function showInterests(){
 
     interestContainer.innerHTML="";
@@ -51,24 +54,69 @@ function showInterests(){
         section.className="category";
 
 
-        section.innerHTML=`
+        const title=document.createElement("h3");
 
-        <h3>${category}</h3>
+        title.textContent=category;
 
-        <div class="cards">
 
-        ${interests[category].map(item=>`
+        const cards=document.createElement("div");
 
-            <div class="card">
-                ${item}
-            </div>
+        cards.className="cards";
 
-        `).join("")}
 
-        </div>
+        interests[category].forEach(item=>{
 
-        `;
 
+            const card=document.createElement("div");
+
+            card.className="card";
+
+            card.textContent=item;
+
+
+            card.addEventListener("click",()=>{
+
+
+                if(selectedInterests.includes(item)){
+
+
+                    selectedInterests =
+                    selectedInterests.filter(
+                        i=>i!==item
+                    );
+
+
+                    card.classList.remove("selected");
+
+
+                }else{
+
+
+                    selectedInterests.push(item);
+
+                    card.classList.add("selected");
+
+
+                }
+
+
+                document.getElementById("selectedCount")
+                .textContent =
+                `Selected: ${selectedInterests.length}`;
+
+
+            });
+
+
+            cards.appendChild(card);
+
+
+        });
+
+
+        section.appendChild(title);
+
+        section.appendChild(cards);
 
         interestContainer.appendChild(section);
 
