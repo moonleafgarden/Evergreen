@@ -10,33 +10,141 @@ body{
     color:#2f3d2f;
 }
 
-/* ===================== */
-/* Welcome */
-/* ===================== */
+/* ========================= */
+/* Welcome Screen */
+/* ========================= */
 
-.welcome-screen,
-.choose-screen,
-.home-screen{
+.welcome-screen{
 
-    width:90%;
-    max-width:900px;
-    margin:50px auto;
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
     text-align:center;
+
+    background:#f5f8f2;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.logo{
+
+    font-size:90px;
+
+    margin-bottom:20px;
+
+    animation:fadeUp 1s ease;
 
 }
 
 .welcome-screen h1{
 
-    font-family:'Playfair Display',serif;
-    font-size:60px;
+    font-family:"Playfair Display",serif;
+
+    font-size:70px;
+
     color:#4f6b46;
+
+    animation:fadeUp 1.2s ease;
+
+}
+
+.welcome-screen h3{
+
+    margin-top:10px;
+
+    color:#5f7d4d;
+
+    font-weight:500;
+
+    animation:fadeUp 1.4s ease;
 
 }
 
 .welcome-screen p{
 
-    margin:20px 0 40px;
+    max-width:500px;
+
+    margin:20px;
+
     color:#666;
+
+    line-height:1.8;
+
+    animation:fadeUp 1.6s ease;
+
+}
+
+#nextBtn{
+
+    margin-top:20px;
+
+    padding:16px 45px;
+
+    font-size:18px;
+
+    border-radius:50px;
+
+    animation:fadeUp 1.8s ease;
+
+}
+
+/* Leaves */
+
+.leaf{
+
+    position:absolute;
+
+    font-size:50px;
+
+    opacity:.25;
+
+}
+
+.left{
+
+    top:80px;
+
+    left:80px;
+
+}
+
+.right{
+
+    bottom:80px;
+
+    right:80px;
+
+}
+
+/* Animation */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
 
 }
 
