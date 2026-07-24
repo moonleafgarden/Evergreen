@@ -29,13 +29,27 @@ nextBtn.addEventListener("click", () => {
 // Open Home
 // ===========================
 
-continueBtn.addEventListener("click", () => {
+continueBtn.addEventListener("click",()=>{
+
+
+    if(selectedInterests.length < 5){
+
+        alert("Choose at least 5 interests 🌱");
+
+        return;
+
+    }
+
+
+    createHabits();
+
 
     interestsScreen.classList.remove("active");
+
     homeScreen.classList.add("active");
 
-});
 
+});
 
 const interestContainer = document.getElementById("interestContainer");
 
