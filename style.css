@@ -319,3 +319,68 @@ button:hover{
     font-weight:600;
 
 }
+
+
+/* ========================= */
+/* Categories */
+/* ========================= */
+
+.category-title{
+
+    margin-top:35px;
+
+    margin-bottom:15px;
+
+    font-size:28px;
+
+    color:#55744a;
+
+    font-family:"Playfair Display",serif;
+
+}
+
+.cards{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.card{
+
+    padding:14px 22px;
+
+    background:white;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    border:2px solid transparent;
+
+    font-weight:500;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:#7ca66b;
+
+}
+
+.card.selected{
+
+    background:#5f7d4d;
+
+    color:white;
+
+}
