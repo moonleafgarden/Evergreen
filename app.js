@@ -35,3 +35,46 @@ continueBtn.addEventListener("click", () => {
     homeScreen.classList.add("active");
 
 });
+
+
+const interestContainer = document.getElementById("interestContainer");
+
+function showInterests(){
+
+    interestContainer.innerHTML="";
+
+
+    for(let category in interests){
+
+        const section=document.createElement("div");
+
+        section.className="category";
+
+
+        section.innerHTML=`
+
+        <h3>${category}</h3>
+
+        <div class="cards">
+
+        ${interests[category].map(item=>`
+
+            <div class="card">
+                ${item}
+            </div>
+
+        `).join("")}
+
+        </div>
+
+        `;
+
+
+        interestContainer.appendChild(section);
+
+    }
+
+}
+
+
+showInterests();
