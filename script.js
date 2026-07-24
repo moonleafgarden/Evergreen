@@ -138,62 +138,90 @@ nextBtn.addEventListener("click", () => {
 });
 
 // ---------- Cards ----------
-function renderCards(list){
+function renderCards(data){
 
     container.innerHTML = "";
 
-    list.forEach(item => {
+    for(const category in data){
 
-        const card = document.createElement("div");
+        // Category title
+        const title = document.createElement("h3");
+        title.className = "category-title";
+        title.textContent = category;
 
-        card.className = "card";
-        card.textContent = item;
+        container.appendChild(title);
 
-        if(selected.includes(item)){
-            card.classList.add("selected");
-        }
+        // Cards wrapper
+        const wrapper = document.createElement("div");
+        wrapper.className = "cards";
 
-        card.addEventListener("click", () => {
+        data[category].forEach(item=>{
+
+            const card = document.createElement("div");
+
+            card.className = "card";
+
+            card.textContent = item;
 
             if(selected.includes(item)){
-
-                selected = selected.filter(i => i !== item);
-
-                card.classList.remove("selected");
-
-            }else{
-
-                selected.push(item);
-
                 card.classList.add("selected");
-
             }
 
-            selectedCount.textContent = `Selected: ${selected.length}`;
+            card.onclick = ()=>{
+
+                if(selected.includes(item)){
+
+                    selected = selected.filter(i=>i!==item);
+
+                    card.classList.remove("selected");
+
+                }else{
+
+                    selected.push(item);
+
+                    card.classList.add("selected");
+
+                }
+
+                selectedCount.textContent =
+                `Selected: ${selected.length}`;
+
+            };
+
+            wrapper.appendChild(card);
 
         });
 
-        container.appendChild(card);
+        container.appendChild(wrapper);
 
-    });
+    }
 
 }
-
-renderCards(interests);
-
 // ---------- Search ----------
 search.addEventListener("input", () => {
+search.addEventListener("input", ()=>{
 
     const value = search.value.toLowerCase();
 
-    const filtered = interests.filter(item =>
-        item.toLowerCase().includes(value)
-    );
+    const filtered = {};
+
+    for(const category in interests){
+
+        const result = interests[category].filter(item=>
+            item.toLowerCase().includes(value)
+        );
+
+        if(result.length>0){
+
+            filtered[category]=result;
+
+        }
+
+    }
 
     renderCards(filtered);
 
 });
-
 // ---------- Continue ----------
 continueBtn.addEventListener("click", () => {
 
