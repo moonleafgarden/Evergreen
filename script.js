@@ -12,18 +12,115 @@ const nextBtn = document.getElementById("nextBtn");
 const continueBtn = document.getElementById("continueBtn");
 
 // Interests
-const interests = [
-    "📖 Reading","🇬🇧 English","🇪🇸 Spanish","➗ Math","🧪 Science",
-    "💻 Programming","🎯 SAT","📝 IELTS","✍️ Writing","🎓 School",
-    "🚀 Space","🌿 Nature","🏛 History","🗺 Geography","🧠 Psychology",
-    "💰 Finance","🧬 Biology","🌋 Geology","🏃 Sport","🚴 Cycling",
-    "🏋 Gym","🧘 Yoga","🚶 Walking","💧 Drink Water","🥗 Healthy Eating",
-    "😴 Sleep","🎨 Drawing","📷 Photography","🎵 Music","🎹 Piano",
-    "🎤 Singing","🍳 Cooking","🧁 Baking","🤖 AI","🌐 Web Development",
-    "📱 App Development","🎮 Game Development","🧹 Cleaning","🪴 Gardening",
-    "✈ Travel","👨‍👩‍👧 Family","🏎 Formula 1","⚽ Football",
-    "🏀 Basketball","🎾 Tennis","♟ Chess","🎬 Movies",
-    "📺 TV Shows","🎭 Anime","🎮 Gaming"
+const interests = {
+
+    "📚 Learning":[
+        "📖 Reading",
+        "📚 Books",
+        "✍️ Writing",
+        "📝 Journaling",
+        "🎓 School",
+        "🎯 SAT",
+        "📝 IELTS",
+        "🇬🇧 English",
+        "🇺🇸 American English",
+        "🇬🇧 British English",
+        "🇦🇺 Australian English",
+        "🇪🇸 Spanish",
+        "🇫🇷 French",
+        "🇯🇵 Japanese",
+        "📖 Vocabulary",
+        "🎧 Listening",
+        "🗣 Speaking",
+        "✏️ Grammar"
+    ],
+
+    "🔬 Science":[
+        "🚀 Space",
+        "🌌 Astronomy",
+        "☀️ Sun",
+        "🌙 Moon",
+        "🪐 Planets",
+        "🌠 Stars",
+        "🌍 Earth",
+        "🌊 Ocean",
+        "🌿 Nature",
+        "🌳 Forest",
+        "🌺 Plants",
+        "🐶 Animals",
+        "🦋 Insects",
+        "🧬 Biology",
+        "⚛ Physics",
+        "⚗ Chemistry",
+        "🪨 Geology",
+        "🌦 Weather"
+    ],
+
+    "💻 Technology":[
+        "💻 Programming",
+        "🌐 Web Development",
+        "📱 App Development",
+        "🤖 AI",
+        "🧠 Machine Learning",
+        "⌨️ HTML",
+        "🎨 CSS",
+        "⚡ JavaScript",
+        "🐍 Python",
+        "☕ Java",
+        "⚙️ C++",
+        "🎮 Game Development",
+        "🔒 Cybersecurity"
+    ],
+
+    "🎨 Creativity":[
+        "🎨 Drawing",
+        "🖌 Painting",
+        "📷 Photography",
+        "🎥 Filmmaking",
+        "🎬 Video Editing",
+        "🎵 Music",
+        "🎹 Piano",
+        "🎤 Singing",
+        "💃 Dancing",
+        "🎭 Acting",
+        "🍳 Cooking",
+        "🧁 Baking"
+    ],
+
+    "🏃 Health":[
+        "🏃 Running",
+        "🚴 Cycling",
+        "🏋 Gym",
+        "🧘 Yoga",
+        "🚶 Walking",
+        "💧 Drink Water",
+        "🥗 Healthy Eating",
+        "😴 Better Sleep",
+        "🧘 Meditation"
+    ],
+
+    "⚽ Sports":[
+        "⚽ Football",
+        "🏀 Basketball",
+        "🏐 Volleyball",
+        "🎾 Tennis",
+        "🏸 Badminton",
+        "🏓 Table Tennis",
+        "🥊 Boxing",
+        "🏎 Formula 1",
+        "🏍 MotoGP"
+    ],
+
+    "🌱 Personal Growth":[
+        "📅 Discipline",
+        "🎯 Goals",
+        "📈 Self Improvement",
+        "💪 Confidence",
+        "🧠 Memory",
+        "❤️ Gratitude",
+        "⏰ Time Management",
+        "🌿 Healthy Habits"
+    ]
 ];
 
 const container = document.getElementById("interestContainer");
