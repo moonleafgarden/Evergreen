@@ -1,77 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evergreen</title>
 
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Evergreen</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 
-<!-- ================= Welcome ================= -->
+<!-- ========================= -->
+<!-- Welcome -->
+<!-- ========================= -->
 
-<section class="welcome-screen">
+<section id="welcome" class="screen active">
 
-    <div class="leaf left">🍃</div>
-    <div class="leaf right">🌿</div>
+    <div class="welcome-box">
 
-    <div class="logo">
-    <img src="logo.svg" alt="Evergreen Logo">
-</div>
+        <h1>🌲 Evergreen</h1>
 
-    <h1>Evergreen</h1>
+        <p>
+            Grow a little every day.
+        </p>
 
-    <h3>Grow a little every day.</h3>
+        <button id="nextBtn">
+            Get Started
+        </button>
 
-    <p>
-        Your personal space for learning,
-        habits and personal growth.
-    </p>
-
-    <button id="nextBtn">Get Started</button>
+    </div>
 
 </section>
 
-<!-- ================= Interests ================= -->
+<!-- ========================= -->
+<!-- Interests -->
+<!-- ========================= -->
 
-<section class="choose-screen" style="display:none;">
+<section id="interests" class="screen">
 
-    <h2>Choose your interests</h2>
+    <div class="top">
 
-    <p>Select at least 5 interests.</p>
+        <h2>
+            Choose your interests
+        </h2>
 
-    <input
-        type="text"
-        id="search"
-        placeholder="🔍 Search interests..."
-    >
+        <p>
+            Pick at least 5 things you enjoy.
+        </p>
 
-    <div id="interestContainer"></div>
+        <input
+            id="search"
+            type="text"
+            placeholder="Search..."
+        >
 
-    <p id="selectedCount">Selected: 0</p>
+    </div>
 
-    <button id="continueBtn">Continue</button>
+    <div id="interestContainer">
+
+    </div>
+
+    <div class="bottom">
+
+        <p id="selectedCount">
+            Selected: 0
+        </p>
+
+        <button id="continueBtn">
+            Continue
+        </button>
+
+    </div>
 
 </section>
 
-<!-- ================= Home ================= -->
+<!-- ========================= -->
+<!-- Home -->
+<!-- ========================= -->
 
-<section class="home-screen" style="display:none;">
+<section id="home" class="screen">
 
 <header>
 
 <h1>🌲 Evergreen</h1>
 
-<p>A peaceful place where you grow.</p>
+<p>Grow every day.</p>
 
 </header>
 
 <main>
 
-<section class="progress">
+<div class="progress-card">
 
 <h2>Today's Progress</h2>
 
@@ -81,53 +105,17 @@
 
 </div>
 
-<p>0 / 8 completed</p>
+<p id="progressText">
 
-</section>
+0 / 0 completed
 
-<section class="habits">
+</p>
 
-<div class="habit">
-<span>📖 Reading</span>
-<button class="done-btn">Done</button>
 </div>
 
-<div class="habit">
-<span>🇬🇧 English</span>
-<button class="done-btn">Done</button>
-</div>
+<div id="habitContainer">
 
-<div class="habit">
-<span>➗ Math</span>
-<button class="done-btn">Done</button>
 </div>
-
-<div class="habit">
-<span>💻 Project</span>
-<button class="done-btn">Done</button>
-</div>
-
-<div class="habit">
-<span>🏃 Sport</span>
-<button class="done-btn">Done</button>
-</div>
-
-<div class="habit">
-<span>🚀 Space</span>
-<button class="done-btn">Done</button>
-</div>
-
-<div class="habit">
-<span>🌿 Nature</span>
-<button class="done-btn">Done</button>
-</div>
-
-<div class="habit">
-<span>🏎 Formula 1</span>
-<button class="done-btn">Done</button>
-</div>
-
-</section>
 
 </main>
 
@@ -136,4 +124,4 @@
 <script src="script.js"></script>
 
 </body>
-    </html>
+</html>
