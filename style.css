@@ -202,3 +202,163 @@ header h1{
     align-items:center;
     box-shadow:0 5px 12px rgba(0,0,0,.05);
 }
+
+
+/* ========================= */
+/* New Welcome Design */
+/* ========================= */
+
+#welcome{
+    position:relative;
+    overflow:hidden;
+    background:
+    linear-gradient(
+        135deg,
+        #eef5e8,
+        #faf8ef
+    );
+}
+
+
+.logo-circle{
+
+    width:100px;
+    height:100px;
+
+    margin:0 auto 25px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+
+    background:#edf5e7;
+
+    border-radius:50%;
+
+}
+
+
+.welcome-box h1{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:60px;
+
+    color:#35513b;
+
+}
+
+
+.welcome-box h3{
+
+    margin:15px 0;
+
+    color:#6b8762;
+
+    font-weight:500;
+
+}
+
+
+.welcome-box p{
+
+    line-height:1.7;
+
+}
+
+
+.mini-cards{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin:35px 0;
+
+}
+
+
+.mini-cards div{
+
+    background:#f5f8f0;
+
+    padding:15px;
+
+    border-radius:18px;
+
+    width:90px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+
+}
+
+
+.mini-cards span{
+
+    font-size:13px;
+
+}
+
+
+.leaf{
+
+    position:absolute;
+
+    font-size:45px;
+
+    animation:float 4s infinite ease-in-out;
+
+}
+
+
+.leaf1{
+
+    top:10%;
+    left:10%;
+
+}
+
+
+.leaf2{
+
+    top:20%;
+    right:12%;
+
+    animation-delay:1s;
+
+}
+
+
+.leaf3{
+
+    bottom:15%;
+    left:20%;
+
+    animation-delay:2s;
+
+}
+
+
+@keyframes float{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-15px);
+
+    }
+
+}
