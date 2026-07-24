@@ -142,6 +142,7 @@ function renderCards(data){
 
     container.innerHTML = "";
 
+    renderCards(interests);
     for(const category in data){
 
         // Category title
