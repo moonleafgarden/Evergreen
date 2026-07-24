@@ -193,11 +193,12 @@ doneBtn.addEventListener("click",()=>{
 
     doneBtn.classList.add("finished");
 
-    doneBtn.textContent = "Completed ✓";
+doneBtn.textContent = "Completed ✓";
 
+completedHabits++;
 
-    updateProgress();
-
+updateProgress();
+    
 
 });
 
@@ -206,8 +207,7 @@ doneBtn.addEventListener("click",()=>{
 
 let completedHabits = 0;
 
-
-function updateProgress(){
+     function updateProgress(){
 
     const total = selectedInterests.length;
 
@@ -224,4 +224,8 @@ function updateProgress(){
     .textContent =
     `${completedHabits} / ${total} completed`;
 
-}
+                }doneBtn.textContent = "Completed ✓";
+
+completedHabits++;
+
+updateProgress();
