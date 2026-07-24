@@ -141,9 +141,10 @@ nextBtn.addEventListener("click", () => {
 function renderCards(data){
 
     container.innerHTML = "";
+            for(const category in data)}
 
-    renderCards(interests);
-    for(const category in data){
+
+renderCards(interests);
 
         // Category title
         const title = document.createElement("h3");
