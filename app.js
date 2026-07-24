@@ -140,3 +140,47 @@ function showInterests(){
 
 
 showInterests();
+
+
+const habitContainer = document.getElementById("habitContainer");
+
+
+function createHabits(){
+
+    habitContainer.innerHTML = "";
+
+
+    selectedInterests.forEach(item=>{
+
+
+        const habit = document.createElement("div");
+
+        habit.className = "habit";
+
+
+        const text = habitIdeas[item] || item;
+
+
+        habit.innerHTML = `
+
+            <span>
+                ${item}
+                <br>
+                <small>${text}</small>
+            </span>
+
+
+            <button class="done-btn">
+                Done
+            </button>
+
+        `;
+
+
+        habitContainer.appendChild(habit);
+
+
+    });
+
+
+}
