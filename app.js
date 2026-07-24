@@ -209,10 +209,6 @@ let completedHabits = 0;
 
 function updateProgress(){
 
-
-    completedHabits++;
-
-
     const total = selectedInterests.length;
 
 
@@ -228,5 +224,4 @@ function updateProgress(){
     .textContent =
     `${completedHabits} / ${total} completed`;
 
-
-}                              
+}
