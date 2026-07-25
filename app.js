@@ -1,3 +1,7 @@
+let doneHabits = JSON.parse(
+    localStorage.getItem("doneHabits")
+) || [];
+
 console.log("Evergreen started 🌲");
 
 // ==========================
@@ -100,6 +104,12 @@ if(savedDone.includes(item)){
     doneBtn.classList.add("finished");
 
     doneBtn.textContent = "Completed ✓";
+    doneHabits.push(item);
+
+localStorage.setItem(
+    "doneHabits",
+    JSON.stringify(doneHabits)
+);
 
 }
         });
