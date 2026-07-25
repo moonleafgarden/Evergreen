@@ -125,6 +125,11 @@ continueBtn.addEventListener("click", () => {
 
     createHabits();
 
+    localStorage.setItem(
+    "selectedInterests",
+    JSON.stringify(selectedInterests)
+);
+
     interestsScreen.classList.remove("active");
     homeScreen.classList.add("active");
 
@@ -199,5 +204,26 @@ function updateProgress() {
 
     document.getElementById("progressText").textContent =
         `${completedHabits} / ${total} completed`;
+
+}
+
+
+// ==========================
+// Load Saved Data
+// ==========================
+
+const savedInterests = JSON.parse(
+    localStorage.getItem("selectedInterests")
+);
+
+if (savedInterests && savedInterests.length > 0) {
+
+    selectedInterests = savedInterests;
+
+    createHabits();
+
+    welcomeScreen.classList.remove("active");
+    interestsScreen.classList.remove("active");
+    homeScreen.classList.add("active");
 
 }
