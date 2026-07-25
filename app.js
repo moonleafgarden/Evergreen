@@ -20,7 +20,6 @@ const continueBtn = document.getElementById("continueBtn");
 // ==========================
 
 const habitContainer = document.getElementById("habitContainer");
-
 // ==========================
 // Interests
 // ==========================
@@ -28,7 +27,9 @@ const habitContainer = document.getElementById("habitContainer");
 const interestContainer = document.getElementById("interestContainer");
 const selectedCount = document.getElementById("selectedCount");
 
-let selectedInterests = [];
+let selectedInterests = JSON.parse(
+    localStorage.getItem("selectedInterests")
+) || [];
 
 // ==========================
 // Welcome
@@ -90,6 +91,17 @@ function showInterests() {
 
             cards.appendChild(card);
 
+            const savedDone =
+JSON.parse(localStorage.getItem("doneHabits")) || [];
+
+
+if(savedDone.includes(item)){
+
+    doneBtn.classList.add("finished");
+
+    doneBtn.textContent = "Completed ✓";
+
+}
         });
 
         section.appendChild(title);
@@ -173,12 +185,17 @@ function createHabits() {
                 return;
             }
 
-            doneBtn.classList.add("finished");
-            doneBtn.textContent = "Completed ✓";
+           doneBtn.classList.add("finished");
+doneBtn.textContent = "Completed ✓";
 
-            completedHabits++;
-            updateProgress();
+completedHabits++;
 
+localStorage.setItem(
+    "completedHabits",
+    completedHabits
+);
+
+updateProgress();
         });
 
         habitContainer.appendChild(habit);
@@ -225,5 +242,22 @@ if (savedInterests && savedInterests.length > 0) {
     welcomeScreen.classList.remove("active");
     interestsScreen.classList.remove("active");
     homeScreen.classList.add("active");
+
+}
+
+
+// ==========================
+// Load Progress
+// ==========================
+
+const savedCompleted =
+localStorage.getItem("completedHabits");
+
+
+if(savedCompleted){
+
+    completedHabits = Number(savedCompleted);
+
+    updateProgress();
 
 }
