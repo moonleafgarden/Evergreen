@@ -54,7 +54,18 @@ let completedHabits = doneHabits.length;
 nextBtn.addEventListener("click", () => {
 
     welcomeScreen.classList.remove("active");
-    interestsScreen.classList.add("active");
+
+    if (selectedInterests.length >= 5) {
+
+        createHabits();
+
+        homeScreen.classList.add("active");
+
+    } else {
+
+        interestsScreen.classList.add("active");
+
+    }
 
 });
 
@@ -138,12 +149,7 @@ showInterests();
 
 continueBtn.addEventListener("click", () => {
 
-    if (selectedInterests.length < 5) {
-
-        alert("Choose at least 5 interests 🌱");
-        return;
-
-    }
+   
 
     createHabits();
 
