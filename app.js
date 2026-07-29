@@ -1,7 +1,3 @@
-let doneHabits = JSON.parse(
-    localStorage.getItem("doneHabits")
-) || [];
-
 console.log("Evergreen started 🌲");
 
 // ==========================
@@ -20,20 +16,24 @@ const nextBtn = document.getElementById("nextBtn");
 const continueBtn = document.getElementById("continueBtn");
 
 // ==========================
-// Home
-// ==========================
-
-const habitContainer = document.getElementById("habitContainer");
-// ==========================
-// Interests
+// Containers
 // ==========================
 
 const interestContainer = document.getElementById("interestContainer");
 const selectedCount = document.getElementById("selectedCount");
+const habitContainer = document.getElementById("habitContainer");
 
-let selectedInterests = JSON.parse(
-    localStorage.getItem("selectedInterests")
-) || [];
+// ==========================
+// Saved Data
+// ==========================
+
+let selectedInterests =
+JSON.parse(localStorage.getItem("selectedInterests")) || [];
+
+let doneHabits =
+JSON.parse(localStorage.getItem("doneHabits")) || [];
+
+let completedHabits = doneHabits.length;
 
 // ==========================
 // Welcome
@@ -71,6 +71,10 @@ function showInterests() {
             card.className = "card";
             card.textContent = item;
 
+            if (selectedInterests.includes(item)) {
+                card.classList.add("selected");
+            }
+
             card.addEventListener("click", () => {
 
                 if (selectedInterests.includes(item)) {
@@ -88,6 +92,11 @@ function showInterests() {
 
                 }
 
+                localStorage.setItem(
+                    "selectedInterests",
+                    JSON.stringify(selectedInterests)
+                );
+
                 selectedCount.textContent =
                     `Selected: ${selectedInterests.length}`;
 
@@ -95,23 +104,6 @@ function showInterests() {
 
             cards.appendChild(card);
 
-            const savedDone =
-JSON.parse(localStorage.getItem("doneHabits")) || [];
-
-
-if(savedDone.includes(item)){
-
-    doneBtn.classList.add("finished");
-
-    doneBtn.textContent = "Completed ✓";
-    doneHabits.push(item);
-
-localStorage.setItem(
-    "doneHabits",
-    JSON.stringify(doneHabits)
-);
-
-}
         });
 
         section.appendChild(title);
@@ -121,16 +113,12 @@ localStorage.setItem(
 
     }
 
+    selectedCount.textContent =
+        `Selected: ${selectedInterests.length}`;
+
 }
 
 showInterests();
-
-
-// ==========================
-// Progress
-// ==========================
-
-let completedHabits = 0;
 
 // ==========================
 // Continue
@@ -147,11 +135,6 @@ continueBtn.addEventListener("click", () => {
 
     createHabits();
 
-    localStorage.setItem(
-    "selectedInterests",
-    JSON.stringify(selectedInterests)
-);
-
     interestsScreen.classList.remove("active");
     homeScreen.classList.add("active");
 
@@ -165,15 +148,15 @@ function createHabits() {
 
     habitContainer.innerHTML = "";
 
-    completedHabits = 0;
-    updateProgress();
+    completedHabits = doneHabits.length;
 
     selectedInterests.forEach(item => {
 
         const habit = document.createElement("div");
         habit.className = "habit";
 
-        const text = habitIdeas[item] || "Complete this activity";
+        const text =
+            habitIdeas[item] || "Complete this activity";
 
         habit.innerHTML = `
             <span>
@@ -187,7 +170,16 @@ function createHabits() {
             </button>
         `;
 
-        const doneBtn = habit.querySelector(".done-btn");
+        const doneBtn =
+            habit.querySelector(".done-btn");
+
+        // Если привычка уже выполнена
+        if (doneHabits.includes(item)) {
+
+            doneBtn.classList.add("finished");
+            doneBtn.textContent = "Completed ✓";
+
+        }
 
         doneBtn.addEventListener("click", () => {
 
@@ -195,22 +187,27 @@ function createHabits() {
                 return;
             }
 
-           doneBtn.classList.add("finished");
-doneBtn.textContent = "Completed ✓";
+            doneBtn.classList.add("finished");
+            doneBtn.textContent = "Completed ✓";
 
-completedHabits++;
+            doneHabits.push(item);
 
-localStorage.setItem(
-    "completedHabits",
-    completedHabits
-);
+            localStorage.setItem(
+                "doneHabits",
+                JSON.stringify(doneHabits)
+            );
 
-updateProgress();
+            completedHabits = doneHabits.length;
+
+            updateProgress();
+
         });
 
         habitContainer.appendChild(habit);
 
     });
+
+    updateProgress();
 
 }
 
@@ -222,9 +219,8 @@ function updateProgress() {
 
     const total = selectedInterests.length;
 
-    const percent = total === 0
-        ? 0
-        : (completedHabits / total) * 100;
+    const percent =
+        total === 0 ? 0 : (completedHabits / total) * 100;
 
     document.querySelector(".progress-fill").style.width =
         percent + "%";
@@ -234,40 +230,16 @@ function updateProgress() {
 
 }
 
-
 // ==========================
-// Load Saved Data
+// Auto Load
 // ==========================
 
-const savedInterests = JSON.parse(
-    localStorage.getItem("selectedInterests")
-);
-
-if (savedInterests && savedInterests.length > 0) {
-
-    selectedInterests = savedInterests;
-
-    createHabits();
+if (selectedInterests.length >= 5) {
 
     welcomeScreen.classList.remove("active");
     interestsScreen.classList.remove("active");
     homeScreen.classList.add("active");
 
-}
-
-
-// ==========================
-// Load Progress
-// ==========================
-
-const savedCompleted =
-localStorage.getItem("completedHabits");
-
-
-if(savedCompleted){
-
-    completedHabits = Number(savedCompleted);
-
-    updateProgress();
+    createHabits();
 
 }
