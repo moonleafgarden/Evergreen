@@ -149,11 +149,15 @@ showInterests();
 
 continueBtn.addEventListener("click", () => {
 
-   
+    if (selectedInterests.length < 5) {
+
+        alert("Choose at least 5 interests 🌱");
+        return;
+
+    }
 
     createHabits();
 
-    welcomeScreen.classList.remove("active");
     interestsScreen.classList.remove("active");
     homeScreen.classList.add("active");
 
@@ -283,16 +287,3 @@ gardenNav.addEventListener("click", () => openScreen(gardenScreen));
 progressNav.addEventListener("click", () => openScreen(progressScreen));
 profileNav.addEventListener("click", () => openScreen(profileScreen));
 
-// ==========================
-// Auto Load
-// ==========================
-
-if (selectedInterests.length >= 5) {
-
-    welcomeScreen.classList.remove("active");
-    interestsScreen.classList.remove("active");
-    homeScreen.classList.add("active");
-
-    createHabits();
-
-}
