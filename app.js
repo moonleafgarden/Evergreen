@@ -10,6 +10,10 @@ const homeScreen = document.getElementById("home");
 const gardenScreen = document.getElementById("garden");
 const progressScreen = document.getElementById("progress");
 const profileScreen = document.getElementById("profile");
+const settingsScreen = document.getElementById("settings");
+
+const settingsBtn = document.getElementById("settingsBtn");
+const backBtn = document.getElementById("backBtn");
 
 // ==========================
 // Navigation
@@ -287,10 +291,11 @@ function updateProgress() {
 
 function openScreen(screen) {
 
-    homeScreen.classList.remove("active");
-    gardenScreen.classList.remove("active");
-    progressScreen.classList.remove("active");
-    profileScreen.classList.remove("active");
+   \homeScreen.classList.remove("active");
+gardenScreen.classList.remove("active");
+progressScreen.classList.remove("active");
+profileScreen.classList.remove("active");
+settingsScreen.classList.remove("active");
 
     homeNav.classList.remove("active");
     gardenNav.classList.remove("active");
@@ -311,3 +316,15 @@ gardenNav.addEventListener("click", () => openScreen(gardenScreen));
 progressNav.addEventListener("click", () => openScreen(progressScreen));
 profileNav.addEventListener("click", () => openScreen(profileScreen));
 
+
+settingsBtn.addEventListener("click", () => {
+
+    openScreen(settingsScreen);
+
+});
+
+backBtn.addEventListener("click", () => {
+
+    openScreen(profileScreen);
+
+});
