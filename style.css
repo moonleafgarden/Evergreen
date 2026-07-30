@@ -444,3 +444,134 @@ header h1{
     font-weight:600;
 
 }
+
+
+
+
+/* ===========================
+   Profile
+=========================== */
+
+.profile-card{
+
+    background:white;
+
+    margin:25px;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.avatar{
+
+    width:90px;
+
+    height:90px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:#d8f3dc;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:42px;
+
+}
+
+.profile-card h2{
+
+    margin-top:18px;
+
+    font-family:"Playfair Display",serif;
+
+}
+
+.level{
+
+    color:#777;
+
+    margin-top:6px;
+
+}
+
+.profile-stats{
+
+    display:flex;
+
+    justify-content:space-around;
+
+    margin:25px;
+
+    gap:15px;
+
+}
+
+.stat{
+
+    flex:1;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+}
+
+.stat h3{
+
+    font-size:32px;
+
+    color:#2d6a4f;
+
+}
+
+.settings-btn{
+
+    width:90%;
+
+    margin:25px auto;
+
+    display:block;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#2d6a4f;
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.settings-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:#40916c;
+
+}
