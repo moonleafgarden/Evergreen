@@ -46,6 +46,30 @@ let doneHabits =
 JSON.parse(localStorage.getItem("doneHabits")) || [];
 
 let completedHabits = doneHabits.length;
+// ==========================
+// Daily Reset
+// ==========================
+
+const today = new Date().toDateString();
+
+const savedDate = localStorage.getItem("today");
+
+if (savedDate !== today) {
+
+    doneHabits = [];
+    completedHabits = 0;
+
+    localStorage.setItem(
+        "doneHabits",
+        JSON.stringify(doneHabits)
+    );
+
+    localStorage.setItem(
+        "today",
+        today
+    );
+
+}
 
 // ==========================
 // Welcome
