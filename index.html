@@ -15,347 +15,192 @@
 
 <body>
 
-<!-- ========================= -->
 <!-- Welcome -->
-<!-- ========================= -->
-
 <section id="welcome" class="screen active">
-
-    <div class="leaf leaf1">🍃</div>
-    <div class="leaf leaf2">🌿</div>
-    <div class="leaf leaf3">🍀</div>
-
-    <div class="welcome-box">
-
-        <div class="logo-circle">
-            🌲
-        </div>
-
-        <h1>Evergreen</h1>
-
-        <h3>
-            Grow a little every day.
-        </h3>
-
-        <p>
-            A peaceful place where your goals grow,
-            habits bloom, and every small step matters.
-        </p>
-
-
-        <div class="mini-cards">
-
-            <div>
-                📚
-                <span>Learn</span>
-            </div>
-
-            <div>
-                🌱
-                <span>Grow</span>
-            </div>
-
-            <div>
-                ✨
-                <span>Shine</span>
-            </div>
-
-        </div>
-
-
-        <button id="nextBtn">
-            🌱 Start Growing
-        </button>
-
-
-    </div>
-
+...
 </section>
 
-    <!-- ========================= -->
-<!-- Settings -->
-<!-- ========================= -->
-
-<section id="profile" class="screen">
-
-    <div class="profile-header">
-
-        <div class="profile-avatar">
-            🌲
-        </div>
-
-        <h2>Madinabonu</h2>
-
-        <p class="profile-quote">
-            Grow a little every day.
-        </p>
-
-    </div>
-
-    <div class="profile-stats">
-
-        <div class="profile-stat">
-
-            <span class="emoji">🔥</span>
-
-            <h3 id="streakValue">0</h3>
-
-            <p>Daily Streak</p>
-
-        </div>
-
-        <div class="profile-stat">
-
-            <span class="emoji">⭐</span>
-
-            <h3 id="levelValue">1</h3>
-
-            <p>Growth Level</p>
-
-        </div>
-
-        <div class="profile-stat">
-
-            <span class="emoji">🌱</span>
-
-            <h3 id="habitValue">0</h3>
-
-            <p>Total Growth</p>
-
-        </div>
-
-    </div>
-
-    <div class="profile-menu">
-
-        <button id="changeInterestsBtn" class="menu-item">
-            <span>🌱 Change Interests</span>
-            <span>›</span>
-        </button>
-
-        <button id="statisticsBtn" class="menu-item">
-            <span>📊 Statistics</span>
-            <span>›</span>
-        </button>
-
-        <button id="appearanceBtn" class="menu-item">
-            <span>🎨 Appearance</span>
-            <span>›</span>
-        </button>
-
-        <button id="languageBtn" class="menu-item">
-            <span>🌍 Language</span>
-            <span>›</span>
-        </button>
-
-        <button id="resetBtn" class="menu-item danger">
-            <span>🗑 Reset Progress</span>
-            <span>›</span>
-        </button>
-
-        <button id="aboutBtn" class="menu-item">
-            <span>ℹ️ About Evergreen</span>
-            <span>›</span>
-        </button>
-
-    </div>
-
-    <p class="version">
-
-        Evergreen
-
-        <br>
-
-        Version 1.0
-
-    </p>
-
-</section>
-<!-- ========================= -->
 <!-- Interests -->
-<!-- ========================= -->
-
 <section id="interests" class="screen">
-
-    <div class="top">
-
-        <h2>
-            Choose your interests
-        </h2>
-
-        <p>
-            Pick at least 5 things you enjoy.
-        </p>
-
-        <input
-            id="search"
-            type="text"
-            placeholder="Search..."
-        >
-
-    </div>
-
-    <div id="interestContainer">
-
-    </div>
-
-    <div class="bottom">
-
-        <p id="selectedCount">
-            Selected: 0
-        </p>
-
-        <button id="continueBtn">
-            Continue
-        </button>
-
-    </div>
-
+...
 </section>
 
-<!-- ========================= -->
 <!-- Home -->
-<!-- ========================= -->
-
 <section id="home" class="screen">
 
-<header>
+    <header class="home-header">
 
-<h1>🌲 Evergreen</h1>
+        <h1>🌲 Evergreen</h1>
 
-<p>Grow every day.</p>
+        <p>Grow a little every day.</p>
 
-</header>
+    </header>
 
-<main>
+    <main>
 
-<div class="progress-card">
+        <div class="progress-card">
 
-<h2>Today's Progress</h2>
+            <h2>Today's Progress</h2>
 
-<div class="progress-bar">
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
 
-<div class="progress-fill"></div>
+            <p id="progressText">0 / 0 completed</p>
 
-</div>
+        </div>
 
-<p id="progressText">
+        <div id="habitContainer"></div>
 
-0 / 0 completed
-
-</p>
-
-</div>
-
-<div id="habitContainer">
-
-</div>
-
-</main>
+    </main>
 
 </section>
 
-   <!-- ========================= -->
 <!-- Garden -->
-<!-- ========================= -->
-
 <section id="garden" class="screen">
 
-    <h1>🌱 Garden</h1>
+    <header>
 
-    <p>Your garden will grow here.</p>
+        <h1>🌱 Garden</h1>
+
+    </header>
+
+    <main>
+
+        <p>Your garden will grow here.</p>
+
+    </main>
 
 </section>
 
-<!-- ========================= -->
-<!-- Progress -->
-<!-- ========================= -->
-
+<!-- Statistics -->
 <section id="progress" class="screen">
 
-    <h1>📊 Progress</h1>
+    <header>
 
-    <p>Your statistics will appear here.</p>
+        <h1>📊 Statistics</h1>
+
+    </header>
+
+    <main>
+
+        <p>Coming soon...</p>
+
+    </main>
 
 </section>
 
-<!-- ========================= -->
 <!-- Profile -->
-<!-- ========================= -->
-
 <section id="profile" class="screen">
 
-    <div class="profile-card">
+    <main>
 
-        <div class="avatar">
-            🌲
-        </div>
+        <div class="profile-header">
 
-        <h2 id="profileName">
-            Evergreen User
-        </h2>
+            <div class="profile-avatar">
+                🌲
+            </div>
 
-        <p class="level">
-            Level 1 Beginner
-        </p>
+            <h2>Madinabonu</h2>
 
-    </div>
-
-    <div class="profile-stats">
-
-        <div class="stat">
-
-            <h3 id="totalHabits">
-                0
-            </h3>
-
-            <p>Completed Habits</p>
+            <p>Grow a little every day.</p>
 
         </div>
 
-        <div class="stat">
+        <div class="profile-stats">
 
-            <h3 id="streak">
-                0
-            </h3>
+            <div class="profile-stat">
 
-            <p>Current Streak 🔥</p>
+                <div>🔥</div>
+
+                <h3 id="streakValue">0</h3>
+
+                <p>Daily Streak</p>
+
+            </div>
+
+            <div class="profile-stat">
+
+                <div>⭐</div>
+
+                <h3 id="levelValue">1</h3>
+
+                <p>Level</p>
+
+            </div>
+
+            <div class="profile-stat">
+
+                <div>🌱</div>
+
+                <h3 id="habitValue">0</h3>
+
+                <p>Completed</p>
+
+            </div>
 
         </div>
 
-    </div>
+        <div class="profile-menu">
 
-    <button id="settingsBtn" class="settings-btn">
-        ⚙️ Settings
-    </button>
+            <button id="changeInterestsBtn">
+                🌱 Change Interests
+            </button>
+
+            <button id="statisticsBtn">
+                📊 Statistics
+            </button>
+
+            <button id="appearanceBtn">
+                🎨 Appearance
+            </button>
+
+            <button id="languageBtn">
+                🌍 Language
+            </button>
+
+            <button id="aboutBtn">
+                ℹ️ About Evergreen
+            </button>
+
+            <button id="resetBtn">
+                🗑 Reset Progress
+            </button>
+
+        </div>
+
+    </main>
 
 </section>
-    
-    <nav class="bottom-nav">
 
-    <button class="nav-btn active" id="homeNav">
+<!-- Bottom Navigation -->
+
+<nav class="bottom-nav">
+
+    <button id="homeNav">
         🏠
         <span>Home</span>
     </button>
 
-    <button class="nav-btn" id="gardenNav">
+    <button id="gardenNav">
         🌱
         <span>Garden</span>
     </button>
 
-    <button class="nav-btn" id="progressNav">
+    <button id="progressNav">
         📊
-        <span>Progress</span>
+        <span>Statistics</span>
     </button>
 
-    <button class="nav-btn" id="profileNav">
+    <button id="profileNav">
         👤
         <span>Profile</span>
     </button>
 
 </nav>
+
 <script src="interests.js"></script>
 <script src="habits.js"></script>
 <script src="app.js"></script>
+
 </body>
-</html>
