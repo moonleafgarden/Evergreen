@@ -182,6 +182,15 @@ if(doneHabits.includes(item)) return;
 
 doneHabits.push(item);
 
+  xp += 10;
+
+localStorage.setItem(
+"xp",
+xp
+);
+
+updateProfile();
+
 localStorage.setItem(
 "doneHabits",
 JSON.stringify(doneHabits)
@@ -193,14 +202,7 @@ btn.classList.add("finished");
 updateProgress();
 
 };
-xp += 10;
 
-localStorage.setItem(
-"xp",
-xp
-);
-
-updateProfile();
 habitContainer.appendChild(habit);
 
 });
