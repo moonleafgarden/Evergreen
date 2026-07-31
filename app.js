@@ -186,9 +186,27 @@ continueBtn.addEventListener("click", () => {
 
     }
 
+    // Save selected interests
+    localStorage.setItem(
+        "selectedInterests",
+        JSON.stringify(selectedInterests)
+    );
+
+    // Reset today's completed habits
+    doneHabits = [];
+    completedHabits = 0;
+
+    localStorage.setItem(
+        "doneHabits",
+        JSON.stringify(doneHabits)
+    );
+
+    // Create new habits
     createHabits();
 
+    // Go back to Home
     interestsScreen.classList.remove("active");
+    settingsScreen.classList.remove("active");
     homeScreen.classList.add("active");
 
 });
