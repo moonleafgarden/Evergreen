@@ -27,6 +27,12 @@ JSON.parse(localStorage.getItem("selectedInterests"))||[];
 let doneHabits=
 JSON.parse(localStorage.getItem("doneHabits"))||[];
 
+let xp =
+Number(localStorage.getItem("xp")) || 0;
+
+let streak =
+Number(localStorage.getItem("streak")) || 0;
+
 function openScreen(screen){
 
 screens.forEach(s=>s.classList.remove("active"));
@@ -187,7 +193,14 @@ btn.classList.add("finished");
 updateProgress();
 
 };
+xp += 10;
 
+localStorage.setItem(
+"xp",
+xp
+);
+
+updateProfile();
 habitContainer.appendChild(habit);
 
 });
@@ -275,4 +288,35 @@ openScreen(welcome);
 
 }
 
+  updateProfile();
 };
+
+
+function updateProfile(){
+
+const xpElement =
+document.getElementById("xpValue");
+
+const levelElement =
+document.getElementById("levelValue");
+
+const streakElement =
+document.getElementById("streakValue");
+
+
+const level =
+Math.floor(xp / 100) + 1;
+
+
+if(xpElement)
+xpElement.textContent = xp;
+
+
+if(levelElement)
+levelElement.textContent = level;
+
+
+if(streakElement)
+streakElement.textContent = streak;
+
+}
