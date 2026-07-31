@@ -1,8 +1,8 @@
 console.log("Evergreen 🌲");
 
-// ==========================
-// Screens
-// ==========================
+// ======================
+// SCREENS
+// ======================
 
 const welcomeScreen = document.getElementById("welcome");
 const interestsScreen = document.getElementById("interests");
@@ -10,40 +10,41 @@ const homeScreen = document.getElementById("home");
 const gardenScreen = document.getElementById("garden");
 const progressScreen = document.getElementById("progress");
 const profileScreen = document.getElementById("profile");
-const settingsScreen = document.getElementById("settings");
 
-const settingsBtn = document.getElementById("settingsBtn");
-const backBtn = document.getElementById("backBtn");
-const changeInterestsBtn =
-document.getElementById("changeInterestsBtn");
-
-// ==========================
-// Navigation
-// ==========================
+// ======================
+// NAVIGATION
+// ======================
 
 const homeNav = document.getElementById("homeNav");
 const gardenNav = document.getElementById("gardenNav");
 const progressNav = document.getElementById("progressNav");
 const profileNav = document.getElementById("profileNav");
 
-// ==========================
-// Buttons
-// ==========================
+// ======================
+// BUTTONS
+// ======================
 
 const nextBtn = document.getElementById("nextBtn");
 const continueBtn = document.getElementById("continueBtn");
+const changeInterestsBtn =
+document.getElementById("changeInterestsBtn");
 
-// ==========================
-// Containers
-// ==========================
+// ======================
+// CONTAINERS
+// ======================
 
-const interestContainer = document.getElementById("interestContainer");
-const selectedCount = document.getElementById("selectedCount");
-const habitContainer = document.getElementById("habitContainer");
+const interestContainer =
+document.getElementById("interestContainer");
 
-// ==========================
-// Saved Data
-// ==========================
+const selectedCount =
+document.getElementById("selectedCount");
+
+const habitContainer =
+document.getElementById("habitContainer");
+
+// ======================
+// LOCAL STORAGE
+// ======================
 
 let selectedInterests =
 JSON.parse(localStorage.getItem("selectedInterests")) || [];
@@ -52,15 +53,17 @@ let doneHabits =
 JSON.parse(localStorage.getItem("doneHabits")) || [];
 
 let completedHabits = doneHabits.length;
-// ==========================
-// Daily Reset
-// ==========================
+
+// ======================
+// DAILY RESET
+// ======================
 
 const today = new Date().toDateString();
 
-const savedDate = localStorage.getItem("today");
+const savedDate =
+localStorage.getItem("today");
 
-if (savedDate !== today) {
+if(savedDate !== today){
 
     doneHabits = [];
     completedHabits = 0;
@@ -77,62 +80,129 @@ if (savedDate !== today) {
 
 }
 
-// ==========================
-// Welcome
-// ==========================
+// ======================
+// OPEN SCREEN
+// ======================
 
-nextBtn.addEventListener("click", () => {
+function openScreen(screen){
 
-    welcomeScreen.classList.remove("active");
+    const screens = [
+        welcomeScreen,
+        interestsScreen,
+        homeScreen,
+        gardenScreen,
+        progressScreen,
+        profileScreen
+    ];
 
-    if (selectedInterests.length >= 5) {
+    screens.forEach(s=>{
+        if(s) s.classList.remove("active");
+    });
+
+    screen.classList.add("active");
+
+    homeNav.classList.remove("active");
+    gardenNav.classList.remove("active");
+    progressNav.classList.remove("active");
+    profileNav.classList.remove("active");
+
+    if(screen===homeScreen)
+        homeNav.classList.add("active");
+
+    if(screen===gardenScreen)
+        gardenNav.classList.add("active");
+
+    if(screen===progressScreen)
+        progressNav.classList.add("active");
+
+    if(screen===profileScreen)
+        profileNav.classList.add("active");
+
+}
+
+// ======================
+// NAVIGATION
+// ======================
+
+homeNav.onclick=()=>openScreen(homeScreen);
+
+gardenNav.onclick=()=>openScreen(gardenScreen);
+
+progressNav.onclick=()=>openScreen(progressScreen);
+
+profileNav.onclick=()=>openScreen(profileScreen);
+
+// ======================
+// START BUTTON
+// ======================
+
+nextBtn.onclick=()=>{
+
+    if(selectedInterests.length>=5){
 
         createHabits();
 
-        homeScreen.classList.add("active");
+        openScreen(homeScreen);
 
-    } else {
+    }else{
 
-        interestsScreen.classList.add("active");
+        openScreen(interestsScreen);
 
     }
 
-});
+};
 
-// ==========================
-// Show Interests
-// ==========================
+// ======================
+// CHANGE INTERESTS
+// ======================
+
+if(changeInterestsBtn){
+
+changeInterestsBtn.onclick=()=>{
+
+    showInterests();
+
+    openScreen(interestsScreen);
+
+};
+
+}
+
+// ======================
+// SHOW INTERESTS
+// ======================
 
 function showInterests(){
 
-    interestContainer.innerHTML = "";
+    interestContainer.innerHTML="";
 
     for(const category in interests){
 
-        const section = document.createElement("div");
-        section.className = "category";
+        const section=document.createElement("div");
+        section.className="category";
 
-        const title = document.createElement("h3");
-        title.textContent = category;
+        const title=document.createElement("h3");
+        title.textContent=category;
 
-        const cards = document.createElement("div");
-        cards.className = "cards";
+        const cards=document.createElement("div");
+        cards.className="cards";
 
         interests[category].forEach(item=>{
 
-            const card = document.createElement("div");
-            card.className = "card";
-            card.textContent = item;
+            const card=document.createElement("div");
+
+            card.className="card";
+            card.textContent=item;
 
             if(selectedInterests.includes(item)){
                 card.classList.add("selected");
             }
 
-            card.addEventListener("click",()=>{
+            card.onclick=()=>{
 
                 if(selectedInterests.includes(item)){
 
-                    selectedInterests =
+                    selectedInterests=
                     selectedInterests.filter(i=>i!==item);
 
                     card.classList.remove("selected");
@@ -150,10 +220,10 @@ function showInterests(){
                     JSON.stringify(selectedInterests)
                 );
 
-                selectedCount.textContent =
+                selectedCount.textContent=
                 `Selected: ${selectedInterests.length}`;
 
-            });
+            };
 
             cards.appendChild(card);
 
@@ -166,117 +236,110 @@ function showInterests(){
 
     }
 
-    selectedCount.textContent =
+    selectedCount.textContent=
     `Selected: ${selectedInterests.length}`;
 
 }
 
-showInterests();
+// ======================
+// CONTINUE
+// ======================
 
-// ==========================
-// Continue
-// ==========================
+continueBtn.onclick=()=>{
 
-continueBtn.addEventListener("click", () => {
-
-    if (selectedInterests.length < 5) {
+    if(selectedInterests.length<5){
 
         alert("Choose at least 5 interests 🌱");
+
         return;
 
     }
 
-    // Save selected interests
     localStorage.setItem(
         "selectedInterests",
         JSON.stringify(selectedInterests)
     );
 
-    // Reset today's completed habits
-    doneHabits = [];
-    completedHabits = 0;
+    doneHabits=[];
+
+    completedHabits=0;
 
     localStorage.setItem(
         "doneHabits",
         JSON.stringify(doneHabits)
     );
 
-    // Create new habits
     createHabits();
 
-    // Go back to Home
-    interestsScreen.classList.remove("active");
-    settingsScreen.classList.remove("active");
-    homeScreen.classList.add("active");
+    openScreen(homeScreen);
 
-});
+};
 
-// ==========================
-// Create Habits
-// ==========================
+showInterests();
 
-function createHabits() {
+// ======================
+// CREATE HABITS
+// ======================
 
-    habitContainer.innerHTML = "";
+function createHabits(){
 
-    completedHabits = doneHabits.length;
+    habitContainer.innerHTML="";
 
-    selectedInterests.forEach(item => {
+    completedHabits=doneHabits.length;
 
-        const habit = document.createElement("div");
-        habit.className = "habit";
+    selectedInterests.forEach(item=>{
 
-        const text =
-            habitIdeas[item] || "Complete this activity";
+        const habit=document.createElement("div");
 
-        habit.innerHTML = `
+        habit.className="habit";
+
+        const description=
+        habitIdeas[item] || "Complete this activity";
+
+        habit.innerHTML=`
             <span>
                 ${item}
                 <br>
-                <small>${text}</small>
+                <small>${description}</small>
             </span>
 
             <button class="done-btn">
-                Done
+                ${doneHabits.includes(item)
+                    ? "Completed ✓"
+                    : "Done"}
             </button>
         `;
 
-        const doneBtn =
-            habit.querySelector(".done-btn");
+        const btn=
+        habit.querySelector(".done-btn");
 
-        // Уже выполнена?
-        if (doneHabits.includes(item)) {
+        if(doneHabits.includes(item)){
 
-            doneBtn.classList.add("finished");
-            doneBtn.textContent = "Completed ✓";
+            btn.classList.add("finished");
 
         }
 
-        doneBtn.addEventListener("click", () => {
+        btn.onclick=()=>{
 
-            if (doneBtn.classList.contains("finished")) {
+            if(btn.classList.contains("finished"))
                 return;
-            }
 
-            doneBtn.classList.add("finished");
-            doneBtn.textContent = "Completed ✓";
+            btn.classList.add("finished");
 
-            if (!doneHabits.includes(item)) {
+            btn.textContent="Completed ✓";
 
-                doneHabits.push(item);
+            doneHabits.push(item);
 
-                localStorage.setItem(
-                    "doneHabits",
-                    JSON.stringify(doneHabits)
-                );
+            completedHabits++;
 
-            }
-
-            completedHabits = doneHabits.length;
+            localStorage.setItem(
+                "doneHabits",
+                JSON.stringify(doneHabits)
+            );
 
             updateProgress();
 
-        });
+        };
 
         habitContainer.appendChild(habit);
 
@@ -286,75 +349,45 @@ function createHabits() {
 
 }
 
-// ==========================
-// Update Progress
-// ==========================
+// ======================
+// UPDATE PROGRESS
+// ======================
 
-function updateProgress() {
+function updateProgress(){
 
-    const total = selectedInterests.length;
+    const total=selectedInterests.length;
 
-    const percent =
-        total === 0 ? 0 : (completedHabits / total) * 100;
+    const percent=
+    total===0
+    ?0
+    :(completedHabits/total)*100;
 
-    document.querySelector(".progress-fill").style.width =
-        percent + "%";
+    document.querySelector(".progress-fill").style.width=
+    percent+"%";
 
-    document.getElementById("progressText").textContent =
-        `${completedHabits} / ${total} completed`;
-
-}
-
-// ==========================
-// Navigation
-// ==========================
-
-function openScreen(screen) {
-
-homeScreen.classList.remove("active");
-gardenScreen.classList.remove("active");
-progressScreen.classList.remove("active");
-profileScreen.classList.remove("active");
-settingsScreen.classList.remove("active");
-
-    homeNav.classList.remove("active");
-    gardenNav.classList.remove("active");
-    progressNav.classList.remove("active");
-    profileNav.classList.remove("active");
-
-    screen.classList.add("active");
-
-    if (screen === homeScreen) homeNav.classList.add("active");
-    if (screen === gardenScreen) gardenNav.classList.add("active");
-    if (screen === progressScreen) progressNav.classList.add("active");
-    if (screen === profileScreen) profileNav.classList.add("active");
+    document.getElementById("progressText").textContent=
+    `${completedHabits} / ${total} completed`;
 
 }
 
-homeNav.addEventListener("click", () => openScreen(homeScreen));
-gardenNav.addEventListener("click", () => openScreen(gardenScreen));
-progressNav.addEventListener("click", () => openScreen(progressScreen));
-profileNav.addEventListener("click", () => openScreen(profileScreen));
+// ======================
+// AUTO LOAD
+// ======================
 
-
-settingsBtn.addEventListener("click", () => {
-
-    openScreen(settingsScreen);
-
-});
-
-backBtn.addEventListener("click", () => {
-
-    openScreen(profileScreen);
-
-});
-
-changeInterestsBtn.addEventListener("click", () => {
-
-    settingsScreen.classList.remove("active");
-
-    interestsScreen.classList.add("active");
+window.onload=()=>{
 
     showInterests();
 
-});
+    if(selectedInterests.length>=5){
+
+        createHabits();
+
+        openScreen(homeScreen);
+
+    }else{
+
+        openScreen(welcomeScreen);
+
+    }
+
+};
