@@ -14,6 +14,8 @@ const settingsScreen = document.getElementById("settings");
 
 const settingsBtn = document.getElementById("settingsBtn");
 const backBtn = document.getElementById("backBtn");
+const changeInterestsBtn =
+document.getElementById("changeInterestsBtn");
 
 // ==========================
 // Navigation
@@ -326,5 +328,15 @@ settingsBtn.addEventListener("click", () => {
 backBtn.addEventListener("click", () => {
 
     openScreen(profileScreen);
+
+});
+
+changeInterestsBtn.addEventListener("click", () => {
+
+    settingsScreen.classList.remove("active");
+
+    interestsScreen.classList.add("active");
+
+    showInterests();
 
 });
