@@ -76,41 +76,99 @@
 <!-- Settings -->
 <!-- ========================= -->
 
-<section id="settings" class="screen">
+<section id="profile" class="screen">
 
-    <header class="settings-header">
+    <div class="profile-header">
 
-        <button id="backBtn">
-            ←
+        <div class="profile-avatar">
+            🌲
+        </div>
+
+        <h2>Madinabonu</h2>
+
+        <p class="profile-quote">
+            Grow a little every day.
+        </p>
+
+    </div>
+
+    <div class="profile-stats">
+
+        <div class="profile-stat">
+
+            <span class="emoji">🔥</span>
+
+            <h3 id="streakValue">0</h3>
+
+            <p>Daily Streak</p>
+
+        </div>
+
+        <div class="profile-stat">
+
+            <span class="emoji">⭐</span>
+
+            <h3 id="levelValue">1</h3>
+
+            <p>Growth Level</p>
+
+        </div>
+
+        <div class="profile-stat">
+
+            <span class="emoji">🌱</span>
+
+            <h3 id="habitValue">0</h3>
+
+            <p>Total Growth</p>
+
+        </div>
+
+    </div>
+
+    <div class="profile-menu">
+
+        <button id="changeInterestsBtn" class="menu-item">
+            <span>🌱 Change Interests</span>
+            <span>›</span>
         </button>
 
-        <h2>⚙️ Settings</h2>
-
-    </header>
-
-    <div class="settings-list">
-
-        <button class="setting-item" id="changeInterestsBtn">
-            🌱 Change Interests
+        <button id="statisticsBtn" class="menu-item">
+            <span>📊 Statistics</span>
+            <span>›</span>
         </button>
 
-        <button class="setting-item">
-            🎨 Theme
+        <button id="appearanceBtn" class="menu-item">
+            <span>🎨 Appearance</span>
+            <span>›</span>
         </button>
 
-        <button class="setting-item">
-            🌍 Language
+        <button id="languageBtn" class="menu-item">
+            <span>🌍 Language</span>
+            <span>›</span>
         </button>
 
-        <button class="setting-item">
-            ℹ️ About Evergreen
+        <button id="resetBtn" class="menu-item danger">
+            <span>🗑 Reset Progress</span>
+            <span>›</span>
         </button>
 
-        <button class="setting-item danger">
-            🗑 Reset Progress
+        <button id="aboutBtn" class="menu-item">
+            <span>ℹ️ About Evergreen</span>
+            <span>›</span>
         </button>
 
     </div>
+
+    <p class="version">
+
+        Evergreen
+
+        <br>
+
+        Version 1.0
+
+    </p>
 
 </section>
 <!-- ========================= -->
