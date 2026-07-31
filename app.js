@@ -339,6 +339,38 @@ function createHabits(){
 
             updateProgress();
 
+
+            // Statistics
+
+const statCompleted =
+document.getElementById("statCompleted");
+
+const statTotal =
+document.getElementById("statTotal");
+
+const statPercent =
+document.getElementById("statPercent");
+
+const statLevel =
+document.getElementById("statLevel");
+
+if(statCompleted)
+statCompleted.textContent = completedHabits;
+
+if(statTotal)
+statTotal.textContent = total;
+
+if(statPercent)
+statPercent.textContent = Math.round(percent) + "%";
+
+if(statLevel){
+
+const level =
+Math.floor(completedHabits / 5) + 1;
+
+statLevel.textContent = level;
+
+}
         };
 
         habitContainer.appendChild(habit);
