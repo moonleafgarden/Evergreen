@@ -291,7 +291,7 @@ function updateProgress() {
 
 function openScreen(screen) {
 
-   \homeScreen.classList.remove("active");
+homeScreen.classList.remove("active");
 gardenScreen.classList.remove("active");
 progressScreen.classList.remove("active");
 profileScreen.classList.remove("active");
