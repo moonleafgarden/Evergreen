@@ -45,14 +45,18 @@ body{
         #f8fcf6 0%,
         #edf8eb 100%
     );
-   body{
 
     position:relative;
 
     overflow:hidden;
 
-}
+    color:var(--text);
 
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+}
     color:var(--text);
 
     min-height:100vh;
@@ -65,17 +69,6 @@ body{
    Screens
 ========================= */
 
-.screen{
-
-    display:none;
-
-    min-height:100vh;
-
-    padding:28px;
-
-    animation:fade .45s ease;
-
-}
 
 .screen.active{
 
