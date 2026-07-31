@@ -259,36 +259,12 @@ tree.textContent="🌸";
 
 window.onload=()=>{
 
-const today=new Date().toDateString();
-
-if(localStorage.getItem("today")!==today){
-
-localStorage.setItem("today",today);
-
-doneHabits=[];
-
-localStorage.setItem(
-"doneHabits",
-JSON.stringify(doneHabits)
-);
-
-}
-
 showInterests();
-
-if(selectedInterests.length>=5){
-
-createHabits();
-
-openScreen(home);
-
-}else{
 
 openScreen(welcome);
 
-}
+updateProfile();
 
-  updateProfile();
 };
 
 
