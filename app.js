@@ -35,9 +35,16 @@ Number(localStorage.getItem("streak")) || 0;
 
 function openScreen(screen){
 
-screens.forEach(s=>s.classList.remove("active"));
+    screens.forEach(s=>{
 
-screen.classList.add("active");
+        s.classList.remove("active");
+        s.style.display = "none";
+
+    });
+
+
+    screen.classList.add("active");
+    screen.style.display = "flex";
 
 }
 
