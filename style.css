@@ -1171,3 +1171,142 @@ color:var(--green-dark);
 color:var(--green-dark);
 
 }
+
+
+.page-header{
+    text-align:center;
+    padding:30px 20px;
+}
+
+.page-header h1{
+    font-family:"Playfair Display", serif;
+    font-size:32px;
+}
+
+.page-header p{
+    color:#6b8f71;
+}
+
+
+.garden-card{
+
+    margin:30px auto;
+    padding:35px 20px;
+
+    width:85%;
+
+    background:#f4f8f1;
+
+    border-radius:30px;
+
+    text-align:center;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+
+}
+
+
+.tree{
+
+    font-size:90px;
+
+    margin-bottom:20px;
+
+    transition:0.5s;
+
+}
+
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+
+    padding:20px;
+
+}
+
+
+.stat-card{
+
+    background:#f4f8f1;
+
+    padding:25px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+}
+
+
+.stat-card h3{
+
+    font-size:32px;
+
+    color:#4d7c50;
+
+}
+
+
+.profile-header{
+
+    text-align:center;
+
+    padding:40px 20px;
+
+}
+
+
+.profile-avatar{
+
+    font-size:80px;
+
+}
+
+
+.profile-header h2{
+
+    font-family:"Playfair Display",serif;
+
+    margin:15px;
+
+}
+
+
+.profile-menu{
+
+    padding:20px;
+
+}
+
+
+.menu-item{
+
+    width:100%;
+
+    padding:18px;
+
+    margin:10px 0;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#f4f8f1;
+
+    font-size:16px;
+
+    text-align:left;
+
+}
+
+
+.danger{
+
+    color:#b44;
+
+}
