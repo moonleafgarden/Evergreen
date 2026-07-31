@@ -1,425 +1,278 @@
-console.log("Evergreen 🌲");
+console.log("Evergreen");
 
-// ======================
-// SCREENS
-// ======================
+const screens=document.querySelectorAll(".screen");
 
-const welcomeScreen = document.getElementById("welcome");
-const interestsScreen = document.getElementById("interests");
-const homeScreen = document.getElementById("home");
-const gardenScreen = document.getElementById("garden");
-const progressScreen = document.getElementById("progress");
-const profileScreen = document.getElementById("profile");
+const welcome=document.getElementById("welcome");
+const interestsPage=document.getElementById("interests");
+const home=document.getElementById("home");
+const garden=document.getElementById("garden");
+const progress=document.getElementById("progress");
+const profile=document.getElementById("profile");
 
-// ======================
-// NAVIGATION
-// ======================
+const nextBtn=document.getElementById("nextBtn");
+const continueBtn=document.getElementById("continueBtn");
 
-const homeNav = document.getElementById("homeNav");
-const gardenNav = document.getElementById("gardenNav");
-const progressNav = document.getElementById("progressNav");
-const profileNav = document.getElementById("profileNav");
+const homeNav=document.getElementById("homeNav");
+const gardenNav=document.getElementById("gardenNav");
+const progressNav=document.getElementById("progressNav");
+const profileNav=document.getElementById("profileNav");
 
-// ======================
-// BUTTONS
-// ======================
+const interestContainer=document.getElementById("interestContainer");
+const selectedCount=document.getElementById("selectedCount");
+const habitContainer=document.getElementById("habitContainer");
 
-const nextBtn = document.getElementById("nextBtn");
-const continueBtn = document.getElementById("continueBtn");
-const changeInterestsBtn =
-document.getElementById("changeInterestsBtn");
+let selectedInterests=
+JSON.parse(localStorage.getItem("selectedInterests"))||[];
 
-// ======================
-// CONTAINERS
-// ======================
-
-const interestContainer =
-document.getElementById("interestContainer");
-
-const selectedCount =
-document.getElementById("selectedCount");
-
-const habitContainer =
-document.getElementById("habitContainer");
-
-// ======================
-// LOCAL STORAGE
-// ======================
-
-let selectedInterests =
-JSON.parse(localStorage.getItem("selectedInterests")) || [];
-
-let doneHabits =
-JSON.parse(localStorage.getItem("doneHabits")) || [];
-
-let completedHabits = doneHabits.length;
-
-// ======================
-// DAILY RESET
-// ======================
-
-const today = new Date().toDateString();
-
-const savedDate =
-localStorage.getItem("today");
-
-if(savedDate !== today){
-
-    doneHabits = [];
-    completedHabits = 0;
-
-    localStorage.setItem(
-        "doneHabits",
-        JSON.stringify(doneHabits)
-    );
-
-    localStorage.setItem(
-        "today",
-        today
-    );
-
-}
-
-// ======================
-// OPEN SCREEN
-// ======================
+let doneHabits=
+JSON.parse(localStorage.getItem("doneHabits"))||[];
 
 function openScreen(screen){
 
-    const screens = [
-        welcomeScreen,
-        interestsScreen,
-        homeScreen,
-        gardenScreen,
-        progressScreen,
-        profileScreen
-    ];
+screens.forEach(s=>s.classList.remove("active"));
 
-    screens.forEach(s=>{
-        if(s) s.classList.remove("active");
-    });
-
-    screen.classList.add("active");
-
-    homeNav.classList.remove("active");
-    gardenNav.classList.remove("active");
-    progressNav.classList.remove("active");
-    profileNav.classList.remove("active");
-
-    if(screen===homeScreen)
-        homeNav.classList.add("active");
-
-    if(screen===gardenScreen)
-        gardenNav.classList.add("active");
-
-    if(screen===progressScreen)
-        progressNav.classList.add("active");
-
-    if(screen===profileScreen)
-        profileNav.classList.add("active");
+screen.classList.add("active");
 
 }
-
-// ======================
-// NAVIGATION
-// ======================
-
-homeNav.onclick=()=>openScreen(homeScreen);
-
-gardenNav.onclick=()=>openScreen(gardenScreen);
-
-progressNav.onclick=()=>openScreen(progressScreen);
-
-profileNav.onclick=()=>openScreen(profileScreen);
-
-// ======================
-// START BUTTON
-// ======================
 
 nextBtn.onclick=()=>{
 
-    if(selectedInterests.length>=5){
+if(selectedInterests.length>=5){
 
-        createHabits();
+createHabits();
 
-        openScreen(homeScreen);
+openScreen(home);
 
-    }else{
+}else{
 
-        openScreen(interestsScreen);
-
-    }
-
-};
-
-// ======================
-// CHANGE INTERESTS
-// ======================
-
-if(changeInterestsBtn){
-
-changeInterestsBtn.onclick=()=>{
-
-    showInterests();
-
-    openScreen(interestsScreen);
-
-};
+openScreen(interestsPage);
 
 }
 
-// ======================
-// SHOW INTERESTS
-// ======================
+};
+
+homeNav.onclick=()=>openScreen(home);
+gardenNav.onclick=()=>openScreen(garden);
+progressNav.onclick=()=>openScreen(progress);
+profileNav.onclick=()=>openScreen(profile);
 
 function showInterests(){
 
-    interestContainer.innerHTML="";
+interestContainer.innerHTML="";
 
-    for(const category in interests){
+for(const category in interests){
 
-        const section=document.createElement("div");
-        section.className="category";
+const title=document.createElement("h3");
+title.textContent=category;
 
-        const title=document.createElement("h3");
-        title.textContent=category;
+interestContainer.appendChild(title);
 
-        const cards=document.createElement("div");
-        cards.className="cards";
+const box=document.createElement("div");
+box.className="cards";
 
-        interests[category].forEach(item=>{
+interests[category].forEach(item=>{
 
-            const card=document.createElement("div");
+const card=document.createElement("div");
 
-            card.className="card";
-            card.textContent=item;
+card.className="card";
 
-            if(selectedInterests.includes(item)){
-                card.classList.add("selected");
-            }
+card.textContent=item;
 
-            card.onclick=()=>{
+if(selectedInterests.includes(item))
+card.classList.add("selected");
 
-                if(selectedInterests.includes(item)){
+card.onclick=()=>{
 
-                    selectedInterests=
-                    selectedInterests.filter(i=>i!==item);
+if(selectedInterests.includes(item)){
 
-                    card.classList.remove("selected");
+selectedInterests=
+selectedInterests.filter(i=>i!==item);
 
-                }else{
+card.classList.remove("selected");
 
-                    selectedInterests.push(item);
+}else{
 
-                    card.classList.add("selected");
+selectedInterests.push(item);
 
-                }
-
-                localStorage.setItem(
-                    "selectedInterests",
-                    JSON.stringify(selectedInterests)
-                );
-
-                selectedCount.textContent=
-                `Selected: ${selectedInterests.length}`;
-
-            };
-
-            cards.appendChild(card);
-
-        });
-
-        section.appendChild(title);
-        section.appendChild(cards);
-
-        interestContainer.appendChild(section);
-
-    }
-
-    selectedCount.textContent=
-    `Selected: ${selectedInterests.length}`;
+card.classList.add("selected");
 
 }
 
-// ======================
-// CONTINUE
-// ======================
+selectedCount.textContent=
+`Selected: ${selectedInterests.length}`;
+
+};
+
+box.appendChild(card);
+
+});
+
+interestContainer.appendChild(box);
+
+}
+
+selectedCount.textContent=
+`Selected: ${selectedInterests.length}`;
+
+}
 
 continueBtn.onclick=()=>{
 
-    if(selectedInterests.length<5){
+if(selectedInterests.length<5){
 
-        alert("Choose at least 5 interests 🌱");
+alert("Choose at least 5 interests.");
 
-        return;
+return;
 
-    }
+}
 
-    localStorage.setItem(
-        "selectedInterests",
-        JSON.stringify(selectedInterests)
-    );
+localStorage.setItem(
+"selectedInterests",
+JSON.stringify(selectedInterests)
+);
 
-    doneHabits=[];
+doneHabits=[];
 
-    completedHabits=0;
+localStorage.setItem(
+"doneHabits",
+JSON.stringify(doneHabits)
+);
 
-    localStorage.setItem(
-        "doneHabits",
-        JSON.stringify(doneHabits)
-    );
+createHabits();
 
-    createHabits();
-
-    openScreen(homeScreen);
+openScreen(home);
 
 };
 
 showInterests();
 
-// ======================
-// CREATE HABITS
-// ======================
-
 function createHabits(){
 
-    habitContainer.innerHTML="";
+habitContainer.innerHTML="";
 
-    completedHabits=doneHabits.length;
+selectedInterests.forEach(item=>{
 
-    selectedInterests.forEach(item=>{
+const habit=document.createElement("div");
 
-        const habit=document.createElement("div");
+habit.className="habit";
 
-        habit.className="habit";
+habit.innerHTML=`
+<span>${item}</span>
+<button class="done-btn">
+${doneHabits.includes(item)
+?"Completed ✓"
+:"Done"}
+</button>
+`;
 
-        const description=
-        habitIdeas[item] || "Complete this activity";
+const btn=habit.querySelector(".done-btn");
 
-        habit.innerHTML=`
-            <span>
-                ${item}
-                <br>
-                <small>${description}</small>
-            </span>
+if(doneHabits.includes(item))
+btn.classList.add("finished");
 
-            <button class="done-btn">
-                ${doneHabits.includes(item)
-                    ? "Completed ✓"
-                    : "Done"}
-            </button>
-        `;
+btn.onclick=()=>{
 
-        const btn=
-        habit.querySelector(".done-btn");
+if(doneHabits.includes(item)) return;
 
-        if(doneHabits.includes(item)){
+doneHabits.push(item);
 
-            btn.classList.add("finished");
+localStorage.setItem(
+"doneHabits",
+JSON.stringify(doneHabits)
+);
 
-        }
+btn.textContent="Completed ✓";
+btn.classList.add("finished");
 
-        btn.onclick=()=>{
+updateProgress();
 
-            if(btn.classList.contains("finished"))
-                return;
+};
 
-            btn.classList.add("finished");
+habitContainer.appendChild(habit);
 
-            btn.textContent="Completed ✓";
+});
 
-            doneHabits.push(item);
-
-            completedHabits++;
-
-            localStorage.setItem(
-                "doneHabits",
-                JSON.stringify(doneHabits)
-            );
-
-            updateProgress();
-
-
-            // Statistics
-
-const statCompleted =
-document.getElementById("statCompleted");
-
-const statTotal =
-document.getElementById("statTotal");
-
-const statPercent =
-document.getElementById("statPercent");
-
-const statLevel =
-document.getElementById("statLevel");
-
-if(statCompleted)
-statCompleted.textContent = completedHabits;
-
-if(statTotal)
-statTotal.textContent = total;
-
-if(statPercent)
-statPercent.textContent = Math.round(percent) + "%";
-
-if(statLevel){
-
-const level =
-Math.floor(completedHabits / 5) + 1;
-
-statLevel.textContent = level;
+updateProgress();
 
 }
-        };
-
-        habitContainer.appendChild(habit);
-
-    });
-
-    updateProgress();
-
-}
-
-// ======================
-// UPDATE PROGRESS
-// ======================
 
 function updateProgress(){
 
-    const total=selectedInterests.length;
+const total=selectedInterests.length;
 
-    const percent=
-    total===0
-    ?0
-    :(completedHabits/total)*100;
+const completed=doneHabits.length;
 
-    document.querySelector(".progress-fill").style.width=
-    percent+"%";
+const percent=
+total===0
+?0
+:completed/total*100;
 
-    document.getElementById("progressText").textContent=
-    `${completedHabits} / ${total} completed`;
+document.querySelector(".progress-fill").style.width=
+percent+"%";
+
+document.getElementById("progressText").textContent=
+`${completed} / ${total} completed`;
+
+const statCompleted=document.getElementById("statCompleted");
+const statTotal=document.getElementById("statTotal");
+const statPercent=document.getElementById("statPercent");
+
+if(statCompleted) statCompleted.textContent=completed;
+if(statTotal) statTotal.textContent=total;
+if(statPercent) statPercent.textContent=Math.round(percent)+"%";
+
+const tree=document.getElementById("treeEmoji");
+
+if(tree){
+
+if(percent===0)
+tree.textContent="🌱";
+
+else if(percent<30)
+tree.textContent="🌿";
+
+else if(percent<60)
+tree.textContent="🌳";
+
+else if(percent<100)
+tree.textContent="🌲";
+
+else
+tree.textContent="🌸";
 
 }
 
-// ======================
-// AUTO LOAD
-// ======================
+}
 
 window.onload=()=>{
 
-    showInterests();
+const today=new Date().toDateString();
 
-    if(selectedInterests.length>=5){
+if(localStorage.getItem("today")!==today){
 
-        createHabits();
+localStorage.setItem("today",today);
 
-        openScreen(homeScreen);
+doneHabits=[];
 
-    }else{
+localStorage.setItem(
+"doneHabits",
+JSON.stringify(doneHabits)
+);
 
-        openScreen(welcomeScreen);
+}
 
-    }
+showInterests();
+
+if(selectedInterests.length>=5){
+
+createHabits();
+
+openScreen(home);
+
+}else{
+
+openScreen(welcome);
+
+}
 
 };
