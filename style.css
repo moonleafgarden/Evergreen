@@ -98,7 +98,7 @@ transform:translateY(0);
     display:none;
     min-height:100vh;
     width:100%;
-    padding:28px;
+    padding:40px;
     animation:fade .45s ease;
 }
 /* =========================
@@ -261,6 +261,10 @@ padding:42px;
 box-shadow:var(--shadow);
 
 text-align:center;
+
+   width:100%;
+max-width:900px;
+margin:0 auto 24px;
 
 }
 
