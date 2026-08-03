@@ -1,162 +1,84 @@
 console.log("Evergreen");
 
-const screens=document.querySelectorAll(".screen");
+/* =========================
+   Screens
+========================= */
 
-const welcome=document.getElementById("welcome");
-const interestsPage=document.getElementById("interests");
-const home=document.getElementById("home");
-const garden=document.getElementById("garden");
-const progress=document.getElementById("progress");
-const profile=document.getElementById("profile");
+const screens = document.querySelectorAll(".screen");
 
-const nextBtn=document.getElementById("nextBtn");
-const continueBtn=document.getElementById("continueBtn");
-
-const homeNav=document.getElementById("homeNav");
-const gardenNav=document.getElementById("gardenNav");
-const progressNav=document.getElementById("progressNav");
-const profileNav=document.getElementById("profileNav");
-
-const interestContainer=document.getElementById("interestContainer");
-const selectedCount=document.getElementById("selectedCount");
-const habitContainer=document.getElementById("habitContainer");
-
+const welcome = document.getElementById("welcome");
+const interestsPage = document.getElementById("interests");
+const home = document.getElementById("home");
+const garden = document.getElementById("garden");
+const progress = document.getElementById("progress");
+const profile = document.getElementById("profile");
 const shop = document.getElementById("shop");
 
-const openShopBtn = document.getElementById("openShopBtn");
+/* =========================
+   Buttons
+========================= */
 
+const nextBtn = document.getElementById("nextBtn");
+const continueBtn = document.getElementById("continueBtn");
+
+const homeNav = document.getElementById("homeNav");
+const gardenNav = document.getElementById("gardenNav");
+const progressNav = document.getElementById("progressNav");
+const profileNav = document.getElementById("profileNav");
+
+const openShopBtn = document.getElementById("openShopBtn");
 const backGarden = document.getElementById("backGarden");
 
-let selectedInterests=
-JSON.parse(localStorage.getItem("selectedInterests"))||[];
+/* =========================
+   Elements
+========================= */
 
-let doneHabits=
-JSON.parse(localStorage.getItem("doneHabits"))||[];
+const interestContainer = document.getElementById("interestContainer");
+const selectedCount = document.getElementById("selectedCount");
+const habitContainer = document.getElementById("habitContainer");
+
+/* =========================
+   Saved Data
+========================= */
+
+let selectedInterests =
+JSON.parse(localStorage.getItem("selectedInterests")) || [];
+
+selectedInterests = [...new Set(selectedInterests)];
+
+let doneHabits =
+JSON.parse(localStorage.getItem("doneHabits")) || [];
 
 let xp =
 Number(localStorage.getItem("xp")) || 0;
+
 let coins =
 Number(localStorage.getItem("coins")) || 0;
 
 let streak =
 Number(localStorage.getItem("streak")) || 0;
 
+/* =========================
+   Screen Functions
+========================= */
+
 function openScreen(screen){
 
-    screens.forEach(s=>{
+screens.forEach(s=>{
 
-        s.classList.remove("active");
-        s.style.display = "none";
-
-    });
-
-
-    screen.classList.add("active");
-    screen.style.display = "flex";
-
-}
-
-nextBtn.onclick=()=>{
-
-if(selectedInterests.length>=5){
-
-createHabits();
-
-openScreen(home);
-
-}else{
-
-openScreen(interestsPage);
-
-}
-
-};
-
-homeNav.onclick = () => {
-
-openScreen(home);
-setActiveNav(homeNav);
-
-};
-
-gardenNav.onclick = () => {
-
-openScreen(garden);
-setActiveNav(gardenNav);
-
-};
-
-progressNav.onclick = () => {
-
-openScreen(progress);
-setActiveNav(progressNav);
-
-};
-
-profileNav.onclick = () => {
-
-openScreen(profile);
-setActiveNav(profileNav);
-
-};
-function showInterests(){
-
-interestContainer.innerHTML="";
-
-for(const category in interests){
-
-const title=document.createElement("h3");
-title.textContent=category;
-
-interestContainer.appendChild(title);
-
-const box=document.createElement("div");
-box.className="cards";
-
-interests[category].forEach(item=>{
-
-const card=document.createElement("div");
-
-card.className="card";
-
-card.textContent=item;
-
-if(selectedInterests.includes(item))
-card.classList.add("selected");
-
-card.onclick=()=>{
-
-if(selectedInterests.includes(item)){
-
-selectedInterests=
-selectedInterests.filter(i=>i!==item);
-
-card.classList.remove("selected");
-
-}else{
-
-selectedInterests.push(item);
-
-card.classList.add("selected");
-
-}
-
-selectedCount.textContent=
-`Selected: ${selectedInterests.length}`;
-
-};
-
-box.appendChild(card);
+s.classList.remove("active");
 
 });
 
-interestContainer.appendChild(box);
+screen.classList.add("active");
 
 }
 
-selectedCount.textContent=
-`Selected: ${selectedInterests.length}`;
-    function setActiveNav(button){
+/* =========================
+   Navigation
+========================= */
+
+function setActiveNav(button){
 
 document.querySelectorAll(".nav-btn").forEach(btn=>{
 
@@ -168,192 +90,403 @@ button.classList.add("active");
 
 }
 
+/* =========================
+   Welcome
+========================= */
+
+nextBtn.onclick = () => {
+
+if(selectedInterests.length >= 5){
+
+createHabits();
+
+openScreen(home);
+
+setActiveNav(homeNav);
+
+}else{
+
+openScreen(interestsPage);
+
 }
 
-continueBtn.onclick=()=>{
+};
 
-if(selectedInterests.length<5){
+/* =========================
+   Bottom Navigation
+========================= */
 
-alert("Choose at least 5 interests.");
+homeNav.onclick = () => {
 
-return;
+openScreen(home);
+
+setActiveNav(homeNav);
+
+};
+
+gardenNav.onclick = () => {
+
+openScreen(garden);
+
+setActiveNav(gardenNav);
+
+};
+
+progressNav.onclick = () => {
+
+openScreen(progress);
+
+setActiveNav(progressNav);
+
+};
+
+profileNav.onclick = () => {
+
+openScreen(profile);
+
+setActiveNav(profileNav);
+
+};
+
+if(openShopBtn){
+
+openShopBtn.onclick = () => {
+
+openScreen(shop);
+
+};
 
 }
+
+if(backGarden){
+
+backGarden.onclick = () => {
+
+openScreen(garden);
+
+};
+
+}
+
+/* =========================
+   Interests
+========================= */
+
+function updateSelectedCount(){
+
+selectedCount.textContent =
+`Selected: ${selectedInterests.length}`;
+
+}
+
+function saveInterests(){
+
+selectedInterests = [...new Set(selectedInterests)];
 
 localStorage.setItem(
+
 "selectedInterests",
+
 JSON.stringify(selectedInterests)
+
 );
 
-doneHabits=[];
+}
+
+/* =========================
+   Interest Selection
+========================= */
+
+const interestCards = document.querySelectorAll(".interest-card");
+
+
+interestCards.forEach(card => {
+
+
+card.onclick = () => {
+
+
+const interest = card.dataset.interest;
+
+
+if(selectedInterests.includes(interest)){
+
+
+selectedInterests =
+selectedInterests.filter(i => i !== interest);
+
+
+card.classList.remove("selected");
+
+
+}else{
+
+
+selectedInterests.push(interest);
+
+
+card.classList.add("selected");
+
+
+}
+
+
+updateSelectedCount();
+
+saveInterests();
+
+
+};
+
+
+});
+
+
+/* =========================
+   Continue Interests
+========================= */
+
+continueBtn.onclick = () => {
+
+
+if(selectedInterests.length >= 5){
+
+
+createHabits();
+
+
+openScreen(home);
+
+setActiveNav(homeNav);
+
+
+}else{
+
+
+alert("Choose at least 5 interests 🌱");
+
+
+}
+
+
+};
+
+
+updateSelectedCount();
+
+/* =========================
+   Habits
+========================= */
+
+const habitIdeas = {
+
+Learning:[
+"Read 10 pages 📖",
+"Learn 5 new words ✨",
+"Study for 20 minutes"
+],
+
+Science:[
+"Watch a science video 🔬",
+"Learn one new fact 🌎",
+"Read about nature"
+],
+
+Technology:[
+"Practice coding 💻",
+"Learn a new tech skill",
+"Build something"
+],
+
+Creativity:[
+"Draw something 🎨",
+"Write a short idea",
+"Create something new"
+],
+
+Health:[
+"Drink enough water 💧",
+"Stretch for 10 minutes",
+"Go for a walk 🚶"
+],
+
+Growth:[
+"Write a journal entry ✍️",
+"Plan tomorrow",
+"Reflect on your day"
+]
+
+};
+
+
+
+function createHabits(){
+
+
+habitContainer.innerHTML = "";
+
+
+let habits = [];
+
+
+selectedInterests.forEach(interest=>{
+
+
+if(habitIdeas[interest]){
+
+
+habits.push(
+...habitIdeas[interest]
+.slice(0,3)
+);
+
+
+}
+
+
+});
+
+
+
+habits.forEach(habit=>{
+
+
+const div = document.createElement("div");
+
+
+div.className = "habit";
+
+
+div.innerHTML = `
+
+<span>${habit}</span>
+
+<button class="doneBtn">
+✓
+</button>
+
+`;
+
+
+
+const button = div.querySelector(".doneBtn");
+
+
+button.onclick = ()=>{
+
+
+if(!doneHabits.includes(habit)){
+
+
+doneHabits.push(habit);
+
+xp += 10;
+
+coins += 5;
+
 
 localStorage.setItem(
 "doneHabits",
 JSON.stringify(doneHabits)
 );
 
-createHabits();
-
-openScreen(home);
-
-};
-
-showInterests();
-
-function createHabits(){
-
-habitContainer.innerHTML="";
-
-selectedInterests.forEach(item=>{
-
-const habit=document.createElement("div");
-
-habit.className="habit";
-
-habit.innerHTML=`
-<span>${item}</span>
-<button class="done-btn">
-${doneHabits.includes(item)
-?"Completed ✓"
-:"Done"}
-</button>
-`;
-
-const btn=habit.querySelector(".done-btn");
-
-if(doneHabits.includes(item))
-btn.classList.add("finished");
-
-btn.onclick=()=>{
-
-if(doneHabits.includes(item)) return;
-
-doneHabits.push(item);
-
-xp += 10;
-    coins += 10;
-
-localStorage.setItem(
-"coins",
-coins
-);
 
 localStorage.setItem(
 "xp",
 xp
 );
 
-updateProfile();
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+
+button.classList.add("completed");
+
+
+}else{
+
+
+doneHabits =
+doneHabits.filter(h => h !== habit);
+
+
+xp -= 10;
+
+coins -= 5;
+
 
 localStorage.setItem(
 "doneHabits",
 JSON.stringify(doneHabits)
 );
 
-btn.textContent="Completed ✓";
-btn.classList.add("finished");
-    const coinElement =
-document.getElementById("coinCount");
 
-if(coinElement)
-coinElement.textContent = coins;
+localStorage.setItem(
+"xp",
+xp
+);
 
-updateProgress();
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+
+button.classList.remove("completed");
+
+
+}
+
 
 };
 
-habitContainer.appendChild(habit);
+if(!doneHabits.includes(habit)){
+
+
+doneHabits.push(habit);
+
+xp += 10;
+
+coins += 5;
+
+
+localStorage.setItem(
+"doneHabits",
+JSON.stringify(doneHabits)
+);
+
+
+localStorage.setItem(
+"xp",
+xp
+);
+
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+
+button.classList.add("completed");
+
+
+}
+
+
+};
+
+
+
+habitContainer.appendChild(div);
+
 
 });
 
-updateProgress();
 
 }
-
-function updateProgress(){
-
-const total=selectedInterests.length;
-
-const completed=doneHabits.length;
-
-const percent=
-total===0
-?0
-:completed/total*100;
-
-document.querySelector(".progress-fill").style.width=
-percent+"%";
-
-document.getElementById("progressText").textContent=
-`${completed} / ${total} completed`;
-
-const statCompleted=document.getElementById("statCompleted");
-const statTotal=document.getElementById("statTotal");
-const statPercent=document.getElementById("statPercent");
-
-if(statCompleted) statCompleted.textContent=completed;
-if(statTotal) statTotal.textContent=total;
-if(statPercent) statPercent.textContent=Math.round(percent)+"%";
-
-const tree=document.getElementById("treeEmoji");
-
-if(tree){
-
-if(percent===0)
-tree.textContent="🌱";
-
-else if(percent<30)
-tree.textContent="🌿";
-
-else if(percent<60)
-tree.textContent="🌳";
-
-else if(percent<100)
-tree.textContent="🌲";
-
-else
-tree.textContent="🌸";
-
-}
-
-}
-
-window.onload=()=>{
-
-showInterests();
-
-openScreen(welcome);
-
-updateProfile();
-
-};
-
-
-function updateProfile(){
-
-const xpElement =
-document.getElementById("xpValue");
-
-const levelElement =
-document.getElementById("levelValue");
-
-const streakElement =
-document.getElementById("streakValue");
-
-
-const level =
-Math.floor(xp / 100) + 1;
-
-
-if(xpElement)
-xpElement.textContent = xp;
-
-
-if(levelElement)
-levelElement.textContent = level;
-
-
-if(streakElement)
-streakElement.textContent = streak;
-
 }
