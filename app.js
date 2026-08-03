@@ -35,6 +35,8 @@ JSON.parse(localStorage.getItem("doneHabits"))||[];
 
 let xp =
 Number(localStorage.getItem("xp")) || 0;
+let coins =
+Number(localStorage.getItem("coins")) || 0;
 
 let streak =
 Number(localStorage.getItem("streak")) || 0;
@@ -228,7 +230,13 @@ if(doneHabits.includes(item)) return;
 
 doneHabits.push(item);
 
-  xp += 10;
+xp += 10;
+    coins += 10;
+
+localStorage.setItem(
+"coins",
+coins
+);
 
 localStorage.setItem(
 "xp",
@@ -244,6 +252,11 @@ JSON.stringify(doneHabits)
 
 btn.textContent="Completed ✓";
 btn.classList.add("finished");
+    const coinElement =
+document.getElementById("coinCount");
+
+if(coinElement)
+coinElement.textContent = coins;
 
 updateProgress();
 
