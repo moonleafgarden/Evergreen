@@ -325,7 +325,11 @@ function createHabits(){
 
 habitContainer.innerHTML = "";
 
+if(doneHabits.includes(habit)){
 
+button.classList.add("completed");
+
+}
 let habits = [];
 
 
