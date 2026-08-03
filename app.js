@@ -70,13 +70,33 @@ openScreen(interestsPage);
 
 };
 
-homeNav.onclick = () => openScreen(home);
-gardenNav.onclick = () => openScreen(garden);
-progressNav.onclick = () => openScreen(progress);
-profileNav.onclick = () => openScreen(profile);
+homeNav.onclick = () => {
 
-backGarden.onclick = () => openScreen(garden);
+openScreen(home);
+setActiveNav(homeNav);
 
+};
+
+gardenNav.onclick = () => {
+
+openScreen(garden);
+setActiveNav(gardenNav);
+
+};
+
+progressNav.onclick = () => {
+
+openScreen(progress);
+setActiveNav(progressNav);
+
+};
+
+profileNav.onclick = () => {
+
+openScreen(profile);
+setActiveNav(profileNav);
+
+};
 function showInterests(){
 
 interestContainer.innerHTML="";
