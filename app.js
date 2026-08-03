@@ -21,6 +21,12 @@ const interestContainer=document.getElementById("interestContainer");
 const selectedCount=document.getElementById("selectedCount");
 const habitContainer=document.getElementById("habitContainer");
 
+const shop = document.getElementById("shop");
+
+const openShopBtn = document.getElementById("openShopBtn");
+
+const backGarden = document.getElementById("backGarden");
+
 let selectedInterests=
 JSON.parse(localStorage.getItem("selectedInterests"))||[];
 
@@ -68,6 +74,9 @@ homeNav.onclick=()=>openScreen(home);
 gardenNav.onclick=()=>openScreen(garden);
 progressNav.onclick=()=>openScreen(progress);
 profileNav.onclick=()=>openScreen(profile);
+openShopBtn.onclick = () => openScreen(shop);
+
+backGarden.onclick = () => openScreen(garden);
 
 function showInterests(){
 
