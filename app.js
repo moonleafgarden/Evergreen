@@ -70,11 +70,10 @@ openScreen(interestsPage);
 
 };
 
-homeNav.onclick=()=>openScreen(home);
-gardenNav.onclick=()=>openScreen(garden);
-progressNav.onclick=()=>openScreen(progress);
-profileNav.onclick=()=>openScreen(profile);
-openShopBtn.onclick = () => openScreen(shop);
+homeNav.onclick = () => openScreen(home);
+gardenNav.onclick = () => openScreen(garden);
+progressNav.onclick = () => openScreen(progress);
+profileNav.onclick = () => openScreen(profile);
 
 backGarden.onclick = () => openScreen(garden);
 
@@ -135,6 +134,17 @@ interestContainer.appendChild(box);
 
 selectedCount.textContent=
 `Selected: ${selectedInterests.length}`;
+    function setActiveNav(button){
+
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+
+btn.classList.remove("active");
+
+});
+
+button.classList.add("active");
+
+}
 
 }
 
