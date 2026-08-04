@@ -145,3 +145,56 @@ window.onload = () => {
 openScreen(welcome);
 
 };
+
+let selectedInterests =
+JSON.parse(localStorage.getItem("selectedInterests")) || [];
+
+const cards = document.querySelectorAll(".card");
+
+// Восстанавливаем выбранные карточки
+cards.forEach(card => {
+
+    if (selectedInterests.includes(card.textContent.trim())) {
+
+        card.classList.add("selected");
+
+    }
+
+});
+
+document.getElementById("selectedCount").textContent =
+`Selected: ${selectedInterests.length}`;
+
+// Обработка нажатия
+cards.forEach(card => {
+
+    card.onclick = () => {
+
+        const name = card.textContent.trim();
+
+        if (selectedInterests.includes(name)) {
+
+            selectedInterests =
+                selectedInterests.filter(i => i !== name);
+
+            card.classList.remove("selected");
+
+        } else {
+
+            selectedInterests.push(name);
+
+            card.classList.add("selected");
+
+        }
+
+        document.getElementById("selectedCount").textContent =
+        `Selected: ${selectedInterests.length}`;
+
+        localStorage.setItem(
+            "selectedInterests",
+            JSON.stringify(selectedInterests)
+        );
+
+    };
+
+});
