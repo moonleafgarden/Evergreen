@@ -1,24 +1,77 @@
-const habitIdeas = {
+/* ===========================
+   HABITS
+=========================== */
 
-    "📖 Reading": "Read for 20 minutes",
-    "📚 Books": "Read a few pages",
+let doneHabits =
+load("doneHabits", []);
 
-    "🇬🇧 English": "Practice English",
-    "📝 IELTS": "Study IELTS",
+let xp =
+load("xp", 0);
 
-    "🚀 Space": "Learn something about space",
-    "🌿 Nature": "Spend time outside",
+let coins =
+load("coins", 0);
 
-    "💻 Programming": "Code something",
-    "🌐 Web Development": "Build a website",
+function createHabits(){
 
-    "🎨 Drawing": "Create something",
-    "💃 Dancing": "Practice dancing",
+    const container =
+    document.getElementById("habitContainer");
 
-    "🚴 Cycling": "Go cycling",
-    "🏃 Running": "Run today",
+    if(!container) return;
 
-    "📅 Discipline": "Complete your routine",
-    "🎯 Goals": "Work on your goal"
+    container.innerHTML = "";
 
-};
+    selectedInterests.forEach(item=>{
+
+        const habit =
+        document.createElement("div");
+
+        habit.className = "habit";
+
+        habit.innerHTML = 
+        <span>${item}</span>
+        <button class="done-btn">
+        ${doneHabits.includes(item)
+        ? "Completed ✓"
+        : "Done"}
+        </button>
+        ;
+
+        const btn =
+        habit.querySelector(".done-btn");
+
+        if(doneHabits.includes(item)){
+
+            btn.classList.add("finished");
+
+        }
+
+        btn.onclick = ()=>{
+
+            if(doneHabits.includes(item))
+            return;
+
+            doneHabits.push(item);
+
+            xp += 10;
+            coins += 5;
+
+            save(
+                "doneHabits",
+                doneHabits
+            );
+
+            save("xp", xp);
+            save("coins", coins);
+
+            btn.textContent =
+            "Completed ✓";
+
+            btn.classList.add("finished");
+
+        };
+
+        container.appendChild(habit);
+
+    });
+
+}
