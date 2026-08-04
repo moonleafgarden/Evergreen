@@ -1,142 +1,66 @@
-const interests = {
-
-Learning: [
-"English",
-"Math",
-"SAT",
-"IELTS",
-"Reading",
-"Coding"
-],
-
-Science: [
-"Biology",
-"Chemistry",
-"Physics",
-"Astronomy",
-"Nature"
-],
-
-Technology: [
-"Programming",
-"AI",
-"Robotics",
-"Web Design",
-"Game Development"
-],
-
-Creativity: [
-"Drawing",
-"Writing",
-"Music",
-"Dancing",
-"Photography"
-],
-
-Health: [
-"Workout",
-"Cycling",
-"Healthy Food",
-"Sleep",
-"Meditation"
-],
-
-Growth: [
-"Discipline",
-"Productivity",
-"Confidence",
-"Habits",
-"Self Improvement"
-]
-
-};
-
-const interestContainer =
-document.getElementById("interestContainer");
-
-const selectedCount =
-document.getElementById("selectedCount");
+/* ===========================
+   INTERESTS
+=========================== */
 
 let selectedInterests =
-JSON.parse(localStorage.getItem("selectedInterests")) || [];
+load("selectedInterests", []);
 
-selectedInterests =
-[...new Set(selectedInterests)];
+function updateSelectedCount(){
 
-function saveInterests(){
+    const counter =
+    document.getElementById("selectedCount");
 
-localStorage.setItem(
-"selectedInterests",
-JSON.stringify(selectedInterests)
-);
+    if(counter){
 
-}
-function showInterests(){
+        counter.textContent =
+        Selected: ${selectedInterests.length};
 
-interestContainer.innerHTML = "";
-
-for(const category in interests){
-
-const title = document.createElement("h3");
-title.textContent = category;
-
-interestContainer.appendChild(title);
-
-const cards = document.createElement("div");
-cards.className = "cards";
-
-interests[category].forEach(item=>{
-
-const card = document.createElement("div");
-
-card.className = "card";
-
-card.textContent = item;
-
-if(selectedInterests.includes(item)){
-
-card.classList.add("selected");
+    }
 
 }
 
-card.onclick = ()=>{
+function initInterests(){
 
-if(selectedInterests.includes(item)){
+    const cards =
+    document.querySelectorAll(".card");
 
-selectedInterests =
-selectedInterests.filter(i=>i!==item);
+    cards.forEach(card=>{
 
-card.classList.remove("selected");
+        const name =
+        card.textContent.trim();
 
-}else{
+        if(selectedInterests.includes(name)){
 
-selectedInterests.push(item);
+            card.classList.add("selected");
 
-selectedInterests =
-[...new Set(selectedInterests)];
+        }
 
-card.classList.add("selected");
+        card.onclick = ()=>{
+
+            card.classList.toggle("selected");
+
+            if(selectedInterests.includes(name)){
+
+                selectedInterests =
+                selectedInterests.filter(i=>i!==name);
+
+            }else{
+
+                selectedInterests.push(name);
+
+            }
+
+            save(
+                "selectedInterests",
+                selectedInterests
+            );
+
+            updateSelectedCount();
+
+        };
+
+    });
+
+    updateSelectedCount();
 
 }
-
-selectedCount.textContent =
-`Selected: ${selectedInterests.length}`;
-
-saveInterests();
-
-};
-
-cards.appendChild(card);
-
-});
-
-interestContainer.appendChild(cards);
-
-}
-
-selectedCount.textContent =
-`Selected: ${selectedInterests.length}`;
-
-}
-
-showInterests();
