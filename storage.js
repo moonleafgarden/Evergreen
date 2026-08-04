@@ -61,3 +61,80 @@ function saveUser() {
     Storage.set("lastVisit", user.lastVisit);
 
 }
+
+
+/* ===========================
+   NAVIGATION
+=========================== */
+
+const screens =
+document.querySelectorAll(".screen");
+
+function openScreen(id){
+
+screens.forEach(screen=>{
+
+screen.classList.remove("active");
+
+});
+
+document
+.getElementById(id)
+.classList.add("active");
+
+}
+
+/* ---------- Bottom Navigation ---------- */
+
+document
+.getElementById("homeNav")
+.onclick = () => openScreen("home");
+
+document
+.getElementById("gardenNav")
+.onclick = () => openScreen("garden");
+
+document
+.getElementById("progressNav")
+.onclick = () => openScreen("progress");
+
+document
+.getElementById("profileNav")
+.onclick = () => openScreen("profile");
+
+/* ---------- Shop ---------- */
+
+const shopBtn =
+document.getElementById("openShopBtn");
+
+if(shopBtn){
+
+shopBtn.onclick = ()=>{
+
+openScreen("shop");
+
+};
+
+}
+
+const backBtn =
+document.getElementById("backGarden");
+
+if(backBtn){
+
+backBtn.onclick = ()=>{
+
+openScreen("garden");
+
+};
+
+}
+/* ===========================
+   APP START
+=========================== */
+
+window.onload = () => {
+
+    openScreen("welcome");
+
+};
