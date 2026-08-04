@@ -1,7 +1,7 @@
 console.log("Evergreen");
 
 /* =========================
-   Screens
+   SCREENS
 ========================= */
 
 const screens = document.querySelectorAll(".screen");
@@ -15,7 +15,7 @@ const profile = document.getElementById("profile");
 const shop = document.getElementById("shop");
 
 /* =========================
-   Buttons
+   BUTTONS
 ========================= */
 
 const nextBtn = document.getElementById("nextBtn");
@@ -30,21 +30,27 @@ const openShopBtn = document.getElementById("openShopBtn");
 const backGarden = document.getElementById("backGarden");
 
 /* =========================
-   Elements
+   ELEMENTS
 ========================= */
 
-const interestContainer = document.getElementById("interestContainer");
-const selectedCount = document.getElementById("selectedCount");
-const habitContainer = document.getElementById("habitContainer");
+const interestContainer =
+document.getElementById("interestContainer");
+
+const selectedCount =
+document.getElementById("selectedCount");
+
+const habitContainer =
+document.getElementById("habitContainer");
 
 /* =========================
-   Saved Data
+   SAVE DATA
 ========================= */
 
 let selectedInterests =
 JSON.parse(localStorage.getItem("selectedInterests")) || [];
 
-selectedInterests = [...new Set(selectedInterests)];
+selectedInterests =
+[...new Set(selectedInterests)];
 
 let doneHabits =
 JSON.parse(localStorage.getItem("doneHabits")) || [];
@@ -59,7 +65,7 @@ let streak =
 Number(localStorage.getItem("streak")) || 0;
 
 /* =========================
-   Screen Functions
+   SCREEN FUNCTIONS
 ========================= */
 
 function openScreen(screen){
@@ -75,12 +81,13 @@ screen.classList.add("active");
 }
 
 /* =========================
-   Navigation
+   NAVIGATION
 ========================= */
 
 function setActiveNav(button){
 
-document.querySelectorAll(".nav-btn").forEach(btn=>{
+document.querySelectorAll(".nav-btn")
+.forEach(btn=>{
 
 btn.classList.remove("active");
 
@@ -91,7 +98,7 @@ button.classList.add("active");
 }
 
 /* =========================
-   Welcome
+   WELCOME
 ========================= */
 
 nextBtn.onclick = () => {
@@ -113,13 +120,12 @@ openScreen(interestsPage);
 };
 
 /* =========================
-   Bottom Navigation
+   BOTTOM NAVIGATION
 ========================= */
 
 homeNav.onclick = () => {
 
 openScreen(home);
-
 setActiveNav(homeNav);
 
 };
@@ -127,7 +133,6 @@ setActiveNav(homeNav);
 gardenNav.onclick = () => {
 
 openScreen(garden);
-
 setActiveNav(gardenNav);
 
 };
@@ -135,7 +140,6 @@ setActiveNav(gardenNav);
 progressNav.onclick = () => {
 
 openScreen(progress);
-
 setActiveNav(progressNav);
 
 };
@@ -143,7 +147,6 @@ setActiveNav(progressNav);
 profileNav.onclick = () => {
 
 openScreen(profile);
-
 setActiveNav(profileNav);
 
 };
@@ -169,7 +172,7 @@ openScreen(garden);
 }
 
 /* =========================
-   Interests
+   INTERESTS
 ========================= */
 
 function updateSelectedCount(){
@@ -181,7 +184,8 @@ selectedCount.textContent =
 
 function saveInterests(){
 
-selectedInterests = [...new Set(selectedInterests)];
+selectedInterests =
+[...new Set(selectedInterests)];
 
 localStorage.setItem(
 
@@ -193,304 +197,259 @@ JSON.stringify(selectedInterests)
 
 }
 
-/* =========================
-   Interest Selection
-========================= */
+function showInterests(){
 
-const interestCards = document.querySelectorAll(".interest-card");
+interestContainer.innerHTML = "";
 
+for(const category in interests){
 
-interestCards.forEach(card => {
+const title =
+document.createElement("h3");
 
+title.textContent = category;
 
-card.onclick = () => {
+interestContainer.appendChild(title);
 
+const box =
+document.createElement("div");
 
-const interest = card.dataset.interest;
+box.className = "cards";
 
+   interests[category].forEach(item=>{
 
-if(selectedInterests.includes(interest)){
+const card =
+document.createElement("div");
 
+card.className = "card";
 
-selectedInterests =
-selectedInterests.filter(i => i !== interest);
+card.textContent = item;
 
-
-card.classList.remove("selected");
-
-
-}else{
-
-
-selectedInterests.push(interest);
-
+if(selectedInterests.includes(item)){
 
 card.classList.add("selected");
 
-
 }
 
+card.onclick = ()=>{
+
+if(selectedInterests.includes(item)){
+
+selectedInterests =
+selectedInterests.filter(i=>i!==item);
+
+card.classList.remove("selected");
+
+}else{
+
+selectedInterests.push(item);
+
+selectedInterests =
+[...new Set(selectedInterests)];
+
+card.classList.add("selected");
+
+}
 
 updateSelectedCount();
 
 saveInterests();
 
-
 };
 
+box.appendChild(card);
 
 });
 
+interestContainer.appendChild(box);
+
+}
+
+updateSelectedCount();
+
+}
 
 /* =========================
-   Continue Interests
+   CONTINUE
 ========================= */
 
-continueBtn.onclick = () => {
+continueBtn.onclick = ()=>{
 
+if(selectedInterests.length < 5){
 
-if(selectedInterests.length >= 5){
+alert("Choose at least 5 interests 🌱");
 
+return;
+
+}
+
+doneHabits = [];
+
+localStorage.setItem(
+
+"doneHabits",
+
+JSON.stringify(doneHabits)
+
+);
 
 createHabits();
-
 
 openScreen(home);
 
 setActiveNav(homeNav);
 
-
-}else{
-
-
-alert("Choose at least 5 interests 🌱");
-
-
-}
-
-
 };
 
-
-updateSelectedCount();
+showInterests();
 
 /* =========================
-   Habits
+   HABITS
 ========================= */
-
-const habitIdeas = {
-
-Learning:[
-"Read 10 pages 📖",
-"Learn 5 new words ✨",
-"Study for 20 minutes"
-],
-
-Science:[
-"Watch a science video 🔬",
-"Learn one new fact 🌎",
-"Read about nature"
-],
-
-Technology:[
-"Practice coding 💻",
-"Learn a new tech skill",
-"Build something"
-],
-
-Creativity:[
-"Draw something 🎨",
-"Write a short idea",
-"Create something new"
-],
-
-Health:[
-"Drink enough water 💧",
-"Stretch for 10 minutes",
-"Go for a walk 🚶"
-],
-
-Growth:[
-"Write a journal entry ✍️",
-"Plan tomorrow",
-"Reflect on your day"
-]
-
-};
-
-
 
 function createHabits(){
 
-
 habitContainer.innerHTML = "";
 
-if(doneHabits.includes(habit)){
+selectedInterests.forEach(item=>{
 
-button.classList.add("completed");
+const habit = document.createElement("div");
 
-}
-let habits = [];
+habit.className = "habit";
 
-
-selectedInterests.forEach(interest=>{
-
-
-if(habitIdeas[interest]){
-
-
-habits.push(
-...habitIdeas[interest]
-.slice(0,3)
-);
-
-
-}
-
-
-});
-
-
-
-habits.forEach(habit=>{
-
-
-const div = document.createElement("div");
-
-
-div.className = "habit";
-
-
-div.innerHTML = `
-
-<span>${habit}</span>
-
-<button class="doneBtn">
-✓
+habit.innerHTML = `
+<span>${item}</span>
+<button class="done-btn">
+${doneHabits.includes(item) ? "Completed ✓" : "Done"}
 </button>
-
 `;
 
+const btn = habit.querySelector(".done-btn");
 
-
-const button = div.querySelector(".doneBtn");
-
-
-button.onclick = ()=>{
-
-
-if(!doneHabits.includes(habit)){
-
-
-doneHabits.push(habit);
-
-xp += 10;
-
-coins += 5;
-
-
-localStorage.setItem(
-"doneHabits",
-JSON.stringify(doneHabits)
-);
-
-
-localStorage.setItem(
-"xp",
-xp
-);
-
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-
-button.classList.add("completed");
-
-
-}else{
-
-
-doneHabits =
-doneHabits.filter(h => h !== habit);
-
-
-xp -= 10;
-
-coins -= 5;
-
-
-localStorage.setItem(
-"doneHabits",
-JSON.stringify(doneHabits)
-);
-
-
-localStorage.setItem(
-"xp",
-xp
-);
-
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-
-button.classList.remove("completed");
-
-
+if(doneHabits.includes(item)){
+btn.classList.add("finished");
 }
 
+btn.onclick = ()=>{
+
+if(doneHabits.includes(item)) return;
+
+doneHabits.push(item);
+
+xp += 10;
+coins += 5;
+
+localStorage.setItem(
+"doneHabits",
+JSON.stringify(doneHabits)
+);
+
+localStorage.setItem(
+"xp",
+xp
+);
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+btn.textContent = "Completed ✓";
+btn.classList.add("finished");
+
+updateProgress();
+
+updateProfile();
 
 };
 
-if(!doneHabits.includes(habit)){
-
-
-doneHabits.push(habit);
-
-xp += 10;
-
-coins += 5;
-
-
-localStorage.setItem(
-"doneHabits",
-JSON.stringify(doneHabits)
-);
-
-
-localStorage.setItem(
-"xp",
-xp
-);
-
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-
-button.classList.add("completed");
-
-
-}
-
-
-};
-
-
-
-habitContainer.appendChild(div);
-
+habitContainer.appendChild(habit);
 
 });
 
+updateProgress();
 
 }
+
+/* =========================
+   PROGRESS
+========================= */
+
+function updateProgress(){
+
+const total = selectedInterests.length;
+const completed = doneHabits.length;
+
+const percent =
+total === 0 ? 0 :
+(completed / total) * 100;
+
+const bar =
+document.querySelector(".progress-fill");
+
+if(bar){
+bar.style.width = percent + "%";
 }
+
+const text =
+document.getElementById("progressText");
+
+if(text){
+text.textContent =
+`${completed} / ${total} completed`;
+}
+
+const tree =
+document.getElementById("treeEmoji");
+
+if(tree){
+
+if(percent === 0){
+tree.textContent = "🌱";
+}
+else if(percent < 30){
+tree.textContent = "🌿";
+}
+else if(percent < 60){
+tree.textContent = "🌳";
+}
+else if(percent < 100){
+tree.textContent = "🌲";
+}
+else{
+tree.textContent = "🌸";
+}
+
+}
+
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+function updateProfile(){
+
+const coin =
+document.getElementById("coinCount");
+
+if(coin){
+coin.textContent = coins;
+}
+
+}
+
+/* =========================
+   START
+========================= */
+
+window.onload = ()=>{
+
+showInterests();
+
+updateProfile();
+
+updateProgress();
+
+openScreen(welcome);
+
+};
