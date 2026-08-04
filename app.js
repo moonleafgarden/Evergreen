@@ -1,200 +1,278 @@
 console.log("Evergreen");
 
 /* ===========================
-SCREENS
+   SCREENS
 =========================== */
 
-const screens = document.querySelectorAll(".screen");
+const screens =
+document.querySelectorAll(".screen");
 
-const welcome = document.getElementById("welcome");
-const interests = document.getElementById("interests");
-const home = document.getElementById("home");
-const garden = document.getElementById("garden");
-const shop = document.getElementById("shop");
-const progress = document.getElementById("progress");
-const profile = document.getElementById("profile");
+const welcome =
+document.getElementById("welcome");
+
+const interestsScreen =
+document.getElementById("interests");
+
+const home =
+document.getElementById("home");
+
+const garden =
+document.getElementById("garden");
+
+const shop =
+document.getElementById("shop");
+
+const progress =
+document.getElementById("progress");
+
+const profile =
+document.getElementById("profile");
 
 /* ===========================
-BUTTONS
+   BUTTONS
 =========================== */
 
-const nextBtn = document.getElementById("nextBtn");
-const continueBtn = document.getElementById("continueBtn");
+const nextBtn =
+document.getElementById("nextBtn");
 
-const homeNav = document.getElementById("homeNav");
-const gardenNav = document.getElementById("gardenNav");
-const progressNav = document.getElementById("progressNav");
-const profileNav = document.getElementById("profileNav");
+const continueBtn =
+document.getElementById("continueBtn");
 
-const openShopBtn = document.getElementById("openShopBtn");
-const backGarden = document.getElementById("backGarden");
+const homeNav =
+document.getElementById("homeNav");
+
+const gardenNav =
+document.getElementById("gardenNav");
+
+const progressNav =
+document.getElementById("progressNav");
+
+const profileNav =
+document.getElementById("profileNav");
+
+const openShopBtn =
+document.getElementById("openShopBtn");
+
+const backGarden =
+document.getElementById("backGarden");
 
 /* ===========================
-OPEN SCREEN
+   OPEN SCREEN
 =========================== */
 
 function openScreen(screen){
 
-screens.forEach(s=>{
+    screens.forEach(s=>{
 
-s.classList.remove("active");
+        s.classList.remove("active");
 
-});
+    });
 
-screen.classList.add("active");
+    screen.classList.add("active");
 
 }
 
 /* ===========================
-BOTTOM NAVIGATION
+   ACTIVE NAVIGATION
 =========================== */
 
 function setActive(button){
 
-document.querySelectorAll(".nav-btn").forEach(btn=>{
+    document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
 
-btn.classList.remove("active");
+        btn.classList.remove("active");
 
-});
+    });
 
-button.classList.add("active");
+    button.classList.add("active");
 
 }
-/* ===========================
-WELCOME
-=========================== */
-
-nextBtn.onclick = () => {
-
-openScreen(interests);
-
-};
 
 /* ===========================
-CONTINUE
+   START BUTTON
 =========================== */
 
-continueBtn.onclick = () => {
+nextBtn.onclick = ()=>{
 
-openScreen(home);
-
-setActive(homeNav);
+    openScreen(interestsScreen);
 
 };
 
 /* ===========================
-BOTTOM NAVIGATION
+   CONTINUE BUTTON
 =========================== */
 
-homeNav.onclick = () => {
+continueBtn.onclick = ()=>{
 
-openScreen(home);
+    if(selectedInterests.length < 5){
 
-setActive(homeNav);
-
-};
-
-gardenNav.onclick = () => {
-
-openScreen(garden);
-
-setActive(gardenNav);
-
-};
-
-progressNav.onclick = () => {
-
-openScreen(progress);
-
-setActive(progressNav);
-
-};
-
-profileNav.onclick = () => {
-
-openScreen(profile);
-
-setActive(profileNav);
-
-};
-
-/* ===========================
-SHOP
-=========================== */
-
-openShopBtn.onclick = () => {
-
-openScreen(shop);
-
-};
-
-backGarden.onclick = () => {
-
-openScreen(garden);
-
-setActive(gardenNav);
-
-};
-
-/* ===========================
-START
-=========================== */
-
-window.onload = () => {
-
-openScreen(welcome);
-
-};
-
-let selectedInterests =
-JSON.parse(localStorage.getItem("selectedInterests")) || [];
-
-const cards = document.querySelectorAll(".card");
-
-// Восстанавливаем выбранные карточки
-cards.forEach(card => {
-
-    if (selectedInterests.includes(card.textContent.trim())) {
-
-        card.classList.add("selected");
+        alert("Choose at least 5 interests 🌱");
+        return;
 
     }
 
-});
+    createHabits();
 
-document.getElementById("selectedCount").textContent =
-`Selected: ${selectedInterests.length}`;
+    openScreen(home);
 
-// Обработка нажатия
-cards.forEach(card => {
+    setActive(homeNav);
 
-    card.onclick = () => {
+};
 
-        const name = card.textContent.trim();
+/* ===========================
+   BOTTOM NAVIGATION
+=========================== */
 
-        if (selectedInterests.includes(name)) {
+homeNav.onclick = ()=>{
 
-            selectedInterests =
-                selectedInterests.filter(i => i !== name);
+    openScreen(home);
+    setActive(homeNav);
 
-            card.classList.remove("selected");
+};
 
-        } else {
+gardenNav.onclick = ()=>{
 
-            selectedInterests.push(name);
+    openScreen(garden);
+    setActive(gardenNav);
 
-            card.classList.add("selected");
+};
 
-        }
+progressNav.onclick = ()=>{
 
-        document.getElementById("selectedCount").textContent =
-        `Selected: ${selectedInterests.length}`;
+    openScreen(progress);
+    setActive(progressNav);
 
-        localStorage.setItem(
-            "selectedInterests",
-            JSON.stringify(selectedInterests)
-        );
+};
+
+profileNav.onclick = ()=>{
+
+    openScreen(profile);
+    setActive(profileNav);
+
+};
+
+/* ===========================
+   SHOP
+=========================== */
+
+if(openShopBtn){
+
+    openShopBtn.onclick = ()=>{
+
+        openScreen(shop);
 
     };
 
-});
+}
+
+if(backGarden){
+
+    backGarden.onclick = ()=>{
+
+        openScreen(garden);
+        setActive(gardenNav);
+
+    };
+
+}
+
+/* ===========================
+   START APP
+=========================== */
+
+window.onload = ()=>{
+
+    openScreen(welcome);
+
+    if(typeof initInterests === "function"){
+
+        initInterests();
+
+    }
+
+};
+
+/* ===========================
+   UPDATE FUNCTIONS
+=========================== */
+
+function updateCoins(){
+
+    const coin1 =
+    document.getElementById("coinCount");
+
+    const coin2 =
+    document.getElementById("coins");
+
+    if(coin1){
+
+        coin1.textContent = coins;
+
+    }
+
+    if(coin2){
+
+        coin2.textContent = coins;
+
+    }
+
+}
+
+function updateStatistics(){
+
+    const completed =
+    document.getElementById("statCompleted");
+
+    const total =
+    document.getElementById("statTotal");
+
+    const percent =
+    document.getElementById("statPercent");
+
+    const level =
+    document.getElementById("statLevel");
+
+    if(completed){
+
+        completed.textContent =
+        doneHabits.length;
+
+    }
+
+    if(total){
+
+        total.textContent =
+        selectedInterests.length;
+
+    }
+
+    if(percent){
+
+        let value = 0;
+
+        if(selectedInterests.length > 0){
+
+            value = Math.round(
+                doneHabits.length /
+                selectedInterests.length * 100
+            );
+
+        }
+
+        percent.textContent =
+        value + "%";
+
+    }
+
+    if(level){
+
+        level.textContent =
+        Math.floor(xp / 100) + 1;
+
+    }
+
+    updateCoins();
+
+}
