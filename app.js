@@ -183,8 +183,14 @@ if(backGarden){
 =========================== */
 
 window.onload = ()=>{
+   
 
     openScreen(welcome);
+   checkNewDay();
+
+updateStatistics();
+
+updateCoins();
 
     if(typeof initInterests === "function"){
 
