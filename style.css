@@ -1,624 +1,195 @@
-/* =========================
-   EVERGREEN
-========================= */
+/* ===========================
+   EVERGREEN V2
+=========================== */
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 :root{
 
-    --green:#6FAF6B;
-    --green-dark:#4F8B4D;
-    --green-light:#DFF4DD;
+--green:#6FAF6B;
+--greenDark:#4F8B4D;
+--light:#F7FBF5;
+--white:#ffffff;
+--text:#2F4633;
+--shadow:0 12px 30px rgba(0,0,0,.08);
+--radius:24px;
 
-    --bg:#F7FBF5;
-    --white:#ffffff;
-
-    --text:#2F4633;
-    --text-light:#6D7C6D;
-
-    --shadow:0 12px 35px rgba(0,0,0,.08);
-
-    --radius:24px;
-
-    --transition:.3s ease;
-
-}
-
-html{
-    scroll-behavior:smooth;
 }
 
 body{
 
-    font-family:"Poppins",sans-serif;
+font-family:"Poppins",sans-serif;
 
-    background:linear-gradient(
-        180deg,
-        #f8fcf6,
-        #edf8eb
-    );
+background:linear-gradient(
+180deg,
+#f8fcf6,
+#edf8eb
+);
 
-    color:var(--text);
+color:var(--text);
 
-    min-height:100vh;
+overflow-x:hidden;
 
-    overflow-x:hidden;
+min-height:100vh;
 
 }
 
-/* =========================
-   Screens
-========================= */
+/* ===========================
+Screens
+=========================== */
 
 .screen{
 
-    display:none;
+display:none;
 
-    min-height:100vh;
+flex-direction:column;
 
-    width:100%;
+min-height:100vh;
 
-    padding:30px;
+padding:35px;
 
-    animation:fade .4s;
+animation:fade .35s;
 
 }
 
 .screen.active{
 
-    display:flex;
-
-    flex-direction:column;
+display:flex;
 
 }
 
 @keyframes fade{
 
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
+from{
 
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+opacity:0;
+transform:translateY(15px);
 
 }
 
-main{
+to{
 
-    width:100%;
-    max-width:1000px;
-    margin:auto;
-
-}
-
-.page-header{
-
-    width:100%;
-    max-width:1000px;
-
-    margin:auto;
-
-    margin-bottom:30px;
+opacity:1;
+transform:translateY(0);
 
 }
 
-/* =========================
-   Typography
-========================= */
+}
+
+/* ===========================
+Typography
+=========================== */
 
 h1{
 
-    font-family:"Playfair Display",serif;
-    font-size:42px;
-    margin-bottom:12px;
+font-family:"Playfair Display",serif;
+
+font-size:42px;
+
+margin-bottom:10px;
 
 }
 
 h2{
 
-    font-size:28px;
-    margin-bottom:10px;
+font-size:28px;
 
-}
-
-h3{
-
-    font-size:18px;
+margin-bottom:10px;
 
 }
 
 p{
 
-    color:var(--text-light);
-    line-height:1.7;
+color:#6D7C6D;
+
+line-height:1.7;
 
 }
 
-/* =========================
-   Buttons
-========================= */
+/* ===========================
+Buttons
+=========================== */
 
 button{
 
-    border:none;
-    cursor:pointer;
+border:none;
 
-    font-family:inherit;
+cursor:pointer;
 
-    transition:var(--transition);
+font-family:inherit;
+
+transition:.25s;
 
 }
 
 button:hover{
 
-    transform:translateY(-2px);
+transform:translateY(-2px);
 
 }
 
 button:active{
 
-    transform:scale(.97);
+transform:scale(.96);
 
 }
 
-/* =========================
-   Cards
-========================= */
-
-.card,
-.habit,
-.progress-card,
-.garden-card,
-.stat-card,
-.menu-item{
-
-    background:var(--white);
-
-    border-radius:var(--radius);
-
-    box-shadow:var(--shadow);
-
-}
-
-/* =========================
-   Containers
-========================= */
-
-.container{
-
-    width:100%;
-    max-width:1000px;
-    margin:auto;
-
-}
-
-/* =========================
-   Welcome
-========================= */
+/* ===========================
+Welcome
+=========================== */
 
 #welcome{
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    position:relative;
-    overflow:hidden;
+justify-content:center;
+
+align-items:center;
+
+position:relative;
+
+overflow:hidden;
 
 }
 
 .welcome-box{
 
-    width:100%;
-    max-width:900px;
+width:100%;
 
-    margin:auto;
+max-width:850px;
 
-    background:rgba(255,255,255,.75);
+background:rgba(255,255,255,.82);
 
-    backdrop-filter:blur(18px);
+backdrop-filter:blur(18px);
 
-    border-radius:32px;
+padding:55px;
 
-    padding:50px;
+border-radius:35px;
 
-    text-align:center;
+text-align:center;
 
-    box-shadow:0 20px 50px rgba(0,0,0,.08);
+box-shadow:var(--shadow);
 
 }
 
 .logo-circle{
 
-    width:120px;
-    height:120px;
-
-    margin:auto;
-
-    border-radius:50%;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    font-size:60px;
-
-    background:linear-gradient(
-        135deg,
-        #9dd98f,
-        #6faf6b
-    );
-
-    box-shadow:0 20px 40px rgba(111,175,107,.35);
-
-    margin-bottom:25px;
-
-}
-
-.mini-cards{
-
-    display:flex;
-    justify-content:center;
-    gap:20px;
-
-    flex-wrap:wrap;
-
-    margin:35px 0;
-
-}
-
-.mini-cards div{
-
-    width:140px;
-
-    padding:20px;
-
-    border-radius:22px;
-
-    background:white;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
-
-    transition:.3s;
-
-}
-
-.mini-cards div:hover{
-
-    transform:translateY(-6px);
-
-}
-
-#nextBtn{
-
-    width:100%;
-
-    padding:18px;
-
-    border-radius:20px;
-
-    background:linear-gradient(
-        135deg,
-        #6faf6b,
-        #4F8B4D
-    );
-
-    color:white;
-
-    font-size:18px;
-
-    font-weight:600;
-
-}
-
-/* =========================
-   HOME
-========================= */
-
-.home-header{
-
-    width:100%;
-    max-width:1000px;
-
-    margin:auto;
-
-    margin-bottom:25px;
-
-}
-
-.home-header h1{
-
-    font-size:40px;
-
-}
-
-.welcome-card{
-
-    width:100%;
-
-    padding:35px;
-
-    margin:20px auto;
-
-    background:linear-gradient(
-        135deg,
-        #9dd98f,
-        #6faf6b
-    );
-
-    border-radius:30px;
-
-    color:white;
-
-    box-shadow:0 20px 40px rgba(111,175,107,.35);
-
-}
-
-.welcome-card h2{
-
-    color:white;
-
-    font-size:28px;
-
-}
-
-.welcome-card p{
-
-    color:white;
-
-    opacity:.95;
-
-}
-
-.progress-card{
-
-    width:100%;
-
-    padding:30px;
-
-    margin:20px auto;
-
-}
-
-.progress-bar{
-
-    width:100%;
-
-    height:15px;
-
-    background:#edf3ea;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    margin:18px 0;
-
-}
-
-.progress-fill{
-
-    width:0%;
-
-    height:100%;
-
-    background:linear-gradient(
-        90deg,
-        #8fd98b,
-        #4F8B4D
-    );
-
-    transition:.5s;
-
-}
-
-#habitContainer{
-
-    width:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
-    margin-top:25px;
-
-}
-
-.habit{
-
-    width:100%;
-
-    padding:24px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:20px;
-
-}
-
-.done-btn{
-
-    min-width:140px;
-
-    padding:14px 20px;
-
-    border-radius:16px;
-
-    background:#eaf8e8;
-
-    font-weight:600;
-
-}
-
-.done-btn.finished{
-
-    background:#6faf6b;
-
-    color:white;
-
-}
-
-/* =========================
-   GARDEN
-========================= */
-
-.garden-card{
-
-    width:100%;
-    max-width:1000px;
-
-    margin:auto;
-
-    padding:40px;
-
-    border-radius:30px;
-
-    background:linear-gradient(
-        180deg,
-        #dff4dd 0%,
-        #f8fcf6 70%
-    );
-
-    position:relative;
-
-    overflow:hidden;
-
-    min-height:520px;
-
-}
-
-/* Небо */
-
-.garden-sky{
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:70%;
-
-    background:linear-gradient(
-        #bfe9ff,
-        #e9f9ff
-    );
-
-}
-
-/* Земля */
-
-.garden-ground{
-
-    position:absolute;
-
-    bottom:0;
-    left:0;
-
-    width:100%;
-    height:30%;
-
-    background:#7dbb63;
-
-    border-top:8px solid #6aa652;
-
-}
-
-/* Дерево */
-
-.tree{
-
-    position:absolute;
-
-    bottom:18%;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    font-size:120px;
-
-    transition:.4s;
-
-}
-
-/* Монеты */
-
-.coin-bar{
-
-    position:absolute;
-
-    top:20px;
-    right:20px;
-
-    background:white;
-
-    padding:12px 18px;
-
-    border-radius:20px;
-
-    font-weight:600;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
-
-}
-
-/* Кнопка магазина */
-
-.shop-button{
-
-    position:absolute;
-
-    bottom:20px;
-    right:20px;
-
-    padding:15px 25px;
-
-    border-radius:18px;
-
-    background:#6faf6b;
-
-    color:white;
-
-    font-weight:600;
-
-}
-
-/* =========================
-   PROFILE
-========================= */
-
-.profile-header{
-
-text-align:center;
-
-margin-bottom:35px;
-
-}
-
-.profile-avatar{
-
 width:120px;
+
 height:120px;
 
 margin:auto;
 
+margin-bottom:25px;
+
 border-radius:50%;
 
 display:flex;
+
 justify-content:center;
+
 align-items:center;
 
 font-size:60px;
@@ -629,218 +200,21 @@ background:linear-gradient(
 #6faf6b
 );
 
-box-shadow:0 15px 35px rgba(111,175,107,.35);
-
-margin-bottom:20px;
+color:white;
 
 }
 
-.profile-header h2{
-
-font-size:30px;
-
-margin-bottom:10px;
-
-}
-
-.profile-subtitle{
-
-font-size:16px;
-
-}
-
-.profile-menu{
-
-display:flex;
-
-flex-direction:column;
-
-gap:18px;
-
-margin-top:25px;
-
-}
-
-.menu-item{
-
-width:100%;
-
-padding:22px;
-
-border:none;
-
-border-radius:22px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-font-size:18px;
-
-font-weight:600;
-
-background:white;
-
-box-shadow:0 10px 25px rgba(0,0,0,.05);
-
-}
-
-.menu-item:hover{
-
-transform:translateY(-3px);
-
-}
-
-.menu-item.danger{
-
-color:#c54848;
-
-}
-
-.profile-footer{
+#nextBtn{
 
 margin-top:35px;
 
-text-align:center;
-
-opacity:.7;
-
-}
-
-/* =========================
-   STATISTICS
-========================= */
-
-.stats-grid{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:22px;
-
-margin-top:20px;
-
-}
-
-.stat-card{
-
-padding:30px;
-
-border-radius:24px;
-
-text-align:center;
-
-background:white;
-
-box-shadow:0 10px 25px rgba(0,0,0,.06);
-
-transition:.3s;
-
-}
-
-.stat-card:hover{
-
-transform:translateY(-5px);
-
-}
-
-.stat-card h3{
-
-font-size:38px;
-
-color:#4F8B4D;
-
-margin-bottom:10px;
-
-}
-
-.stat-card p{
-
-font-size:15px;
-
-font-weight:500;
-
-color:#6D7C6D;
-
-}
-/* =========================
-   SHOP
-========================= */
-
-.shop-grid{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:22px;
-
-margin-top:25px;
-
-}
-
-.shop-item{
-
-background:white;
-
-border-radius:24px;
-
-padding:28px;
-
-text-align:center;
-
-box-shadow:0 10px 25px rgba(0,0,0,.06);
-
-transition:.3s;
-
-}
-
-.shop-item:hover{
-
-transform:translateY(-5px);
-
-}
-
-.shop-item{
-
-font-size:60px;
-
-}
-
-.shop-item h3{
-
-margin-top:12px;
-
-font-size:22px;
-
-color:#4F8B4D;
-
-}
-
-.shop-item p{
-
-margin:12px 0;
-
-font-size:17px;
-
-font-weight:600;
-
-}
-
-.buyBtn{
-
-margin-top:12px;
-
 width:100%;
 
-padding:14px;
+padding:18px;
 
-border:none;
+font-size:18px;
 
-border-radius:18px;
+border-radius:20px;
 
 background:linear-gradient(
 135deg,
@@ -850,51 +224,35 @@ background:linear-gradient(
 
 color:white;
 
-font-size:16px;
-
 font-weight:600;
 
-transition:.3s;
-
 }
 
-.buyBtn:hover{
-
-transform:translateY(-3px);
-
-box-shadow:0 10px 20px rgba(111,175,107,.35);
-
-}
-
-/* =========================
-   FLOATING LEAVES
-========================= */
+/* ===========================
+Floating Leaves
+=========================== */
 
 .leaf{
 
 position:absolute;
 
-font-size:44px;
+font-size:42px;
 
-opacity:.18;
-
-animation:float 8s ease-in-out infinite;
-
-pointer-events:none;
+animation:float 7s ease-in-out infinite;
 
 }
 
 .leaf1{
 
-top:8%;
 left:6%;
+top:10%;
 
 }
 
 .leaf2{
 
-top:18%;
 right:8%;
+top:25%;
 
 animation-delay:2s;
 
@@ -902,8 +260,8 @@ animation-delay:2s;
 
 .leaf3{
 
+left:15%;
 bottom:10%;
-left:18%;
 
 animation-delay:4s;
 
@@ -911,31 +269,468 @@ animation-delay:4s;
 
 @keyframes float{
 
-0%{
-transform:translateY(0) rotate(0deg);
+0%,100%{
+
+transform:translateY(0px);
+
 }
 
 50%{
-transform:translateY(-18px) rotate(10deg);
-}
 
-100%{
-transform:translateY(0) rotate(0deg);
+transform:translateY(-18px);
+
 }
 
 }
-/* =========================
-   BOTTOM NAVIGATION
-========================= */
+/* ===========================
+HOME
+=========================== */
+
+.page-header{
+
+max-width:1100px;
+width:100%;
+margin:auto;
+margin-bottom:25px;
+
+}
+
+.welcome-card{
+
+max-width:1100px;
+width:100%;
+
+margin:auto;
+margin-bottom:25px;
+
+padding:35px;
+
+border-radius:30px;
+
+background:linear-gradient(
+135deg,
+#9dd98f,
+#6FAF6B
+);
+
+color:white;
+
+box-shadow:0 20px 40px rgba(111,175,107,.3);
+
+}
+
+.welcome-card h2{
+
+color:white;
+
+margin-bottom:10px;
+
+}
+
+.welcome-card p{
+
+color:white;
+
+opacity:.95;
+
+}
+
+.progress-card{
+
+max-width:1100px;
+width:100%;
+
+margin:auto;
+margin-bottom:25px;
+
+padding:30px;
+
+background:white;
+
+border-radius:30px;
+
+box-shadow:var(--shadow);
+
+}
+
+.progress-bar{
+
+width:100%;
+
+height:16px;
+
+background:#e8f2e7;
+
+border-radius:20px;
+
+overflow:hidden;
+
+margin:18px 0;
+
+}
+
+.progress-fill{
+
+width:0%;
+
+height:100%;
+
+background:linear-gradient(
+90deg,
+#90db8b,
+#4F8B4D
+);
+
+transition:.4s;
+
+}
+
+#habitContainer{
+
+max-width:1100px;
+width:100%;
+
+margin:auto;
+
+display:flex;
+
+flex-direction:column;
+
+gap:18px;
+
+}
+
+.habit{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:22px 28px;
+
+background:white;
+
+border-radius:22px;
+
+box-shadow:var(--shadow);
+
+}
+
+.done-btn{
+
+padding:14px 24px;
+
+border-radius:16px;
+
+background:#eaf8e8;
+
+font-weight:600;
+
+min-width:140px;
+
+}
+
+.done-btn.finished{
+
+background:#6FAF6B;
+
+color:white;
+
+}
+
+/* ===========================
+GARDEN
+=========================== */
+
+.garden-card{
+
+position:relative;
+
+width:100%;
+
+max-width:1100px;
+
+height:560px;
+
+margin:auto;
+
+overflow:hidden;
+
+border-radius:35px;
+
+box-shadow:var(--shadow);
+
+background:white;
+
+}
+
+.garden-sky{
+
+position:absolute;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:72%;
+
+background:linear-gradient(
+180deg,
+#bfe9ff,
+#eefcff
+);
+
+}
+
+.garden-ground{
+
+position:absolute;
+
+bottom:0;
+
+left:0;
+
+width:100%;
+
+height:28%;
+
+background:#78b85d;
+
+border-top:8px solid #67a64f;
+
+}
+
+.tree{
+
+position:absolute;
+
+left:50%;
+
+bottom:16%;
+
+transform:translateX(-50%);
+
+font-size:120px;
+
+transition:.4s;
+
+}
+
+.coin-bar{
+
+position:absolute;
+
+top:20px;
+
+right:20px;
+
+padding:12px 18px;
+
+background:white;
+
+border-radius:20px;
+
+box-shadow:var(--shadow);
+
+font-weight:600;
+
+}
+
+.shop-button{
+
+position:absolute;
+
+bottom:20px;
+
+right:20px;
+
+padding:15px 28px;
+
+border-radius:18px;
+
+background:#6FAF6B;
+
+color:white;
+
+font-size:16px;
+
+font-weight:600;
+
+}
+/* ===========================
+SHOP
+=========================== */
+
+.shop-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:25px;
+
+max-width:1100px;
+
+width:100%;
+
+margin:30px auto;
+
+}
+
+.shop-item{
+
+background:white;
+
+border-radius:25px;
+
+padding:30px;
+
+text-align:center;
+
+box-shadow:var(--shadow);
+
+transition:.3s;
+
+}
+
+.shop-item:hover{
+
+transform:translateY(-6px);
+
+}
+
+.shop-item{
+
+font-size:50px;
+
+}
+
+.buyBtn{
+
+margin-top:18px;
+
+width:100%;
+
+padding:14px;
+
+border-radius:16px;
+
+background:#6FAF6B;
+
+color:white;
+
+font-weight:600;
+
+}
+
+#backGarden{
+
+margin:25px auto;
+
+padding:16px 30px;
+
+border-radius:18px;
+
+background:#4F8B4D;
+
+color:white;
+
+font-weight:600;
+
+}
+
+/* ===========================
+STATISTICS
+=========================== */
+
+.stats-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:25px;
+
+max-width:1100px;
+
+width:100%;
+
+margin:auto;
+
+}
+
+.stat-card{
+
+background:white;
+
+padding:35px;
+
+border-radius:25px;
+
+text-align:center;
+
+box-shadow:var(--shadow);
+
+}
+
+.stat-card h2{
+
+font-size:40px;
+
+color:#4F8B4D;
+
+margin-bottom:10px;
+
+}
+
+/* ===========================
+PROFILE
+=========================== */
+
+.profile-card{
+
+max-width:700px;
+
+width:100%;
+
+margin:40px auto;
+
+padding:40px;
+
+background:white;
+
+border-radius:30px;
+
+text-align:center;
+
+box-shadow:var(--shadow);
+
+}
+
+.profile-card h2{
+
+margin-bottom:15px;
+
+}
+
+/* ===========================
+BOTTOM NAVIGATION
+=========================== */
 
 .bottom-nav{
 
 position:fixed;
 
 bottom:0;
+
 left:0;
 
 width:100%;
+
 height:90px;
 
 background:white;
@@ -943,50 +738,52 @@ background:white;
 display:flex;
 
 justify-content:space-around;
-align-items:center;
 
-padding:0 15px;
+align-items:center;
 
 box-shadow:0 -10px 25px rgba(0,0,0,.08);
 
-z-index:1000;
+z-index:100;
 
 }
 
 .nav-btn{
 
-flex:1;
-
-height:68px;
-
-margin:0 6px;
+background:none;
 
 border:none;
-
-background:#f5faf4;
-
-border-radius:20px;
 
 display:flex;
 
 flex-direction:column;
 
-justify-content:center;
 align-items:center;
+
+justify-content:center;
 
 gap:5px;
 
-font-size:26px;
+font-size:15px;
 
-color:#7d967a;
+color:#777;
 
-transition:.3s;
+width:100%;
+
+height:100%;
+
+transition:.25s;
 
 }
 
 .nav-btn span{
 
-font-size:14px;
+font-size:13px;
+
+}
+
+.nav-btn.active{
+
+color:#4F8B4D;
 
 font-weight:600;
 
@@ -994,24 +791,38 @@ font-weight:600;
 
 .nav-btn:hover{
 
-transform:translateY(-3px);
+background:#f2faf1;
 
 }
 
-.nav-btn.active{
+/* ===========================
+Responsive
+=========================== */
 
-background:linear-gradient(
-135deg,
-#6FAF6B,
-#4F8B4D
-);
+@media(max-width:768px){
 
-color:white;
+h1{
+
+font-size:34px;
 
 }
 
-.nav-btn.active span{
+.welcome-box{
 
-color:white;
+padding:35px;
+
+}
+
+.garden-card{
+
+height:460px;
+
+}
+
+.tree{
+
+font-size:90px;
+
+}
 
 }
