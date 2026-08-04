@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -16,124 +15,56 @@
 
 <body>
 
-<!-- ========================= -->
 <!-- Welcome -->
-<!-- ========================= -->
-
 <section id="welcome" class="screen active">
 
-    <div class="leaf leaf1">🍃</div>
-    <div class="leaf leaf2">🌿</div>
-    <div class="leaf leaf3">🍀</div>
+<div class="leaf leaf1">🍃</div>
+<div class="leaf leaf2">🌿</div>
+<div class="leaf leaf3">🍀</div>
 
-    <div class="welcome-box">
+<div class="welcome-box">
 
-        <div class="logo-circle">
-            🌲
-        </div>
+<div class="logo-circle">🌲</div>
 
-        <h1>Evergreen</h1>
+<h1>Evergreen</h1>
 
-        <h3>Grow a little every day.</h3>
+<p>Grow a little every day.</p>
 
-        <p>
-            A peaceful place where your goals grow,
-            habits bloom,
-            and every small step matters.
-        </p>
+<button id="nextBtn">🌱 Start Growing</button>
 
-        <div class="mini-cards">
-
-            <div>
-                📚
-                <span>Learn</span>
-            </div>
-
-            <div>
-                🌱
-                <span>Grow</span>
-            </div>
-
-            <div>
-                ✨
-                <span>Shine</span>
-            </div>
-
-        </div>
-
-        <button id="nextBtn">
-            🌱 Start Growing
-        </button>
-
-    </div>
+</div>
 
 </section>
 
-<!-- ========================= -->
 <!-- Interests -->
-<!-- ========================= -->
-
 <section id="interests" class="screen">
 
-    <div class="top">
+<h1>Choose your interests</h1>
 
-        <h2>Choose your interests</h2>
+<div id="interestContainer"></div>
 
-        <p>
-            Pick at least 5 things you enjoy.
-        </p>
+<p id="selectedCount">Selected: 0</p>
 
-        <input
-            id="search"
-            type="text"
-            placeholder="Search..."
-        >
-
-    </div>
-
-    <div id="interestContainer"></div>
-
-    <div class="bottom">
-
-        <p id="selectedCount">
-            Selected: 0
-        </p>
-
-        <button id="continueBtn">
-            Continue
-        </button>
-
-    </div>
+<button id="continueBtn">Continue</button>
 
 </section>
 
-<!-- ========================= -->
 <!-- Home -->
-<!-- ========================= -->
-
 <section id="home" class="screen">
 
-<header class="home-header">
+<header class="page-header">
 
-<h1>🌲 Evergreen</h1>
+<h1>🏡 Home</h1>
 
-<p id="todayGreeting">
-Welcome back 🌿
-</p>
+<p>Welcome back!</p>
 
 </header>
 
-<main>
-
 <div class="welcome-card">
 
-<h2 id="dailyTitle">
-Today is a new beginning.
-</h2>
+<h2 id="dailyTitle">Today's Goal</h2>
 
-<p id="dailyQuote">
-Small steps every day create big results.
-</p>
+<p id="dailyQuote">Small steps every day create big results.</p>
 
 </div>
 
@@ -147,275 +78,164 @@ Small steps every day create big results.
 
 </div>
 
-<p id="progressText">
-
-0 / 0 completed
-
-</p>
+<p id="progressText">0 / 0 completed</p>
 
 </div>
 
-<div id="habitContainer">
-
-</div>
-
-</main>
+<div id="habitContainer"></div>
 
 </section>
 
-
-    <!-- ========================= -->
 <!-- Garden -->
-<!-- ========================= -->
-
 <section id="garden" class="screen">
 
 <header class="page-header">
 
 <h1>🌱 Garden</h1>
 
-<p>Watch yourself grow.</p>
-
 </header>
-
-<main>
 
 <div class="garden-card">
 
-    <div class="garden-sky"></div>
+<div class="garden-sky"></div>
 
-    <div class="garden-ground"></div>
+<div class="garden-ground"></div>
 
-    <div class="coin-bar">
-        🪙 <span id="coins">0</span>
-    </div>
+<div class="coin-bar">
 
-    <div id="treeEmoji" class="tree">
-        🌱
-    </div>
-
-    <button class="shop-button" id="openShopBtn">
-        🛒 Shop
-    </button>
-
-</div>
-    <div class="coin-bar">
 🪙 <span id="coinCount">0</span>
+
 </div>
 
-</main>
+<div id="treeEmoji" class="tree">
+
+🌱
+
+</div>
+
+<button id="openShopBtn" class="shop-button">
+
+🛒 Shop
+
+</button>
+
+</div>
 
 </section>
 
-    <section id="shop" class="screen">
+<!-- Shop -->
+<section id="shop" class="screen">
 
 <header class="page-header">
-    <p>Buy decorations for your garden.</p>
-    <h1>🛒 Garden Shop</h1>
-    <p>Buy decorations for your garden.</p>
+
+<h1>🛒 Garden Shop</h1>
+
 </header>
 
 <div class="shop-grid">
 
-<div class="shop-item">
-🌸
-<h3>Flower</h3>
-<p>20 🪙</p>
-<button class="buyBtn" data-item="flower" data-price="20">
-Buy
-</button>
 </div>
 
-<div class="shop-item">
-🌳
-<h3>Tree</h3>
-<p>50 🪙</p>
-<button class="buyBtn" data-item="tree" data-price="50">
-Buy
-</button>
-</div>
+<button id="backGarden">
 
-<div class="shop-item">
-🍄
-<h3>Mushroom</h3>
-<p>15 🪙</p>
-<button class="buyBtn" data-item="mushroom" data-price="15">
-Buy
-</button>
-</div>
-
-<div class="shop-item">
-🪨
-<h3>Stone</h3>
-<p>10 🪙</p>
-<button class="buyBtn" data-item="stone" data-price="10">
-Buy
-</button>
-</div>
-
-</div>
-        <button id="backGarden">
 ⬅ Back
+
 </button>
 
 </section>
 
-<!-- ========================= -->
 <!-- Statistics -->
-<!-- ========================= -->
-
 <section id="progress" class="screen">
 
 <header class="page-header">
 
 <h1>📊 Statistics</h1>
 
-<p>Your growth journey</p>
-
 </header>
-
-<main>
 
 <div class="stats-grid">
 
 <div class="stat-card">
-<h3 id="statCompleted">0</h3>
-<p>Completed Today</p>
+
+<h2 id="statCompleted">0</h2>
+
+<p>Completed</p>
+
 </div>
 
 <div class="stat-card">
-<h3 id="statTotal">0</h3>
-<p>Total Interests</p>
+
+<h2 id="statTotal">0</h2>
+
+<p>Total</p>
+
 </div>
 
 <div class="stat-card">
-<h3 id="statPercent">0%</h3>
-<p>Today's Progress</p>
+
+<h2 id="statPercent">0%</h2>
+
+<p>Progress</p>
+
 </div>
 
 <div class="stat-card">
-<h3 id="statLevel">1</h3>
-<p>Level</p>
-</div>
+
+<h2 id="xpValue">0</h2>
+
+<p>XP</p>
 
 </div>
 
-</main>
+</div>
 
 </section>
-<!-- ========================= -->
-<!-- Profile -->
-<!-- ========================= -->
 
+<!-- Profile -->
 <section id="profile" class="screen">
 
-<main>
+<h1>👤 Profile</h1>
 
-<div class="profile-header">
+<div class="profile-card">
 
-<div class="profile-avatar">
+<h2>Madinabonu</h2>
 
-🌲
+<p>Level <span id="levelValue">1</span></p>
 
-</div>
-
-<h2 id="profileName">
-Madinabonu
-</h2>
-
-<p class="profile-subtitle">
-
-Grow a little every day.
-
-</p>
+<p>Coins: <span id="profileCoins">0</span></p>
 
 </div>
-
-<div class="profile-menu">
-
-<button class="menu-item" id="changeInterestsBtn">
-
-🌱
-<span>Change Interests</span>
-
-</button>
-
-<button class="menu-item" id="appearanceBtn">
-
-🎨
-<span>Appearance</span>
-
-</button>
-
-<button class="menu-item" id="languageBtn">
-
-🌍
-<span>Language</span>
-
-</button>
-
-<button class="menu-item" id="aboutBtn">
-
-ℹ️
-<span>About Evergreen</span>
-
-</button>
-
-<button class="menu-item danger" id="resetBtn">
-
-🗑
-<span>Reset Progress</span>
-
-</button>
-
-</div>
-
-<div class="profile-footer">
-
-<p>Evergreen</p>
-
-<small>Version 1.0</small>
-
-</div>
-
-</main>
 
 </section>
 
-<!-- ========================= -->
 <!-- Bottom Navigation -->
-<!-- ========================= -->
 
 <nav class="bottom-nav">
 
-<button class="nav-btn active" id="homeNav">
+<button id="homeNav" class="nav-btn active">
 
 🏠
-
 <span>Home</span>
 
 </button>
 
-<button class="nav-btn" id="gardenNav">
+<button id="gardenNav" class="nav-btn">
 
 🌱
-
 <span>Garden</span>
 
 </button>
 
-<button class="nav-btn" id="progressNav">
+<button id="progressNav" class="nav-btn">
 
 📊
-
 <span>Statistics</span>
 
 </button>
 
-<button class="nav-btn" id="profileNav">
+<button id="profileNav" class="nav-btn">
 
 👤
-
 <span>Profile</span>
 
 </button>
@@ -424,6 +244,10 @@ Grow a little every day.
 
 <script src="interests.js"></script>
 <script src="habits.js"></script>
+<script src="garden.js"></script>
+<script src="shop.js"></script>
+<script src="progress.js"></script>
+<script src="profile.js"></script>
 <script src="app.js"></script>
 
 </body>
