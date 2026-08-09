@@ -1,239 +1,342 @@
 console.log("Evergreen — app.js");
 
-/* =========================
+/* ===========================
    SCREENS
-========================= */
+=========================== */
 
-const screens = document.querySelectorAll(".screen");
+const Screens = {
 
-const welcome = document.getElementById("welcome");
-const interests = document.getElementById("interests");
-const home = document.getElementById("home");
-const garden = document.getElementById("garden");
-const shop = document.getElementById("shop");
-const progress = document.getElementById("progress");
-const profile = document.getElementById("profile");
+    welcome: document.getElementById("welcome"),
+    interests: document.getElementById("interests"),
+    home: document.getElementById("home"),
+    garden: document.getElementById("garden"),
+    shop: document.getElementById("shop"),
+    progress: document.getElementById("progress"),
+    profile: document.getElementById("profile")
 
-
-/* =========================
-   BUTTONS
-========================= */
-
-const nextBtn = document.getElementById("nextBtn");
-const continueBtn = document.getElementById("continueBtn");
-
-const homeNav = document.getElementById("homeNav");
-const gardenNav = document.getElementById("gardenNav");
-const progressNav = document.getElementById("progressNav");
-const profileNav = document.getElementById("profileNav");
-
-const openShopBtn = document.getElementById("openShopBtn");
-const backGarden = document.getElementById("backGarden");
+};
 
 
-/* =========================
+/* ===========================
+   USER DATA
+=========================== */
+
+let user =
+    JSON.parse(
+        localStorage.getItem("evergreenUser")
+    ) || {
+
+        interests: [],
+        xp: 0,
+        coins: 0,
+        level: 1,
+        streak: 0,
+        completedToday: [],
+        lastActiveDate: null
+
+    };
+
+
+/* ===========================
+   CLEAN USER DATA
+=========================== */
+
+if (!Array.isArray(user.interests)) {
+    user.interests = [];
+}
+
+if (!Array.isArray(user.completedToday)) {
+    user.completedToday = [];
+}
+
+if (typeof user.xp !== "number") {
+    user.xp = Number(user.xp) || 0;
+}
+
+if (typeof user.coins !== "number") {
+    user.coins = Number(user.coins) || 0;
+}
+
+if (typeof user.streak !== "number") {
+    user.streak = Number(user.streak) || 0;
+}
+
+
+/* ===========================
+   SAVE USER
+=========================== */
+
+function saveUser() {
+
+    localStorage.setItem(
+        "evergreenUser",
+        JSON.stringify(user)
+    );
+
+}
+
+
+/* ===========================
    OPEN SCREEN
-========================= */
+=========================== */
 
 function openScreen(screen) {
 
     if (!screen) {
-        console.error("Screen not found");
+        console.error("Screen does not exist.");
         return;
     }
 
-    screens.forEach(s => {
-        s.classList.remove("active");
-    });
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(element => {
+
+            element.classList.remove("active");
+
+        });
+
 
     screen.classList.add("active");
+
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 
-/* =========================
-   ACTIVE NAV
-========================= */
+/* ===========================
+   NAVIGATION
+=========================== */
 
-function setActive(button) {
+function setActiveNav(button) {
 
-    document.querySelectorAll(".nav-btn")
+    document
+        .querySelectorAll(".nav-btn")
         .forEach(btn => {
+
             btn.classList.remove("active");
+
         });
+
 
     if (button) {
         button.classList.add("active");
     }
+
 }
 
 
-/* =========================
+/* ===========================
+   BUTTONS
+=========================== */
+
+const nextBtn =
+    document.getElementById("nextBtn");
+
+const homeNav =
+    document.getElementById("homeNav");
+
+const gardenNav =
+    document.getElementById("gardenNav");
+
+const progressNav =
+    document.getElementById("progressNav");
+
+const profileNav =
+    document.getElementById("profileNav");
+
+const openShopBtn =
+    document.getElementById("openShopBtn");
+
+const backGarden =
+    document.getElementById("backGarden");
+
+
+/* ===========================
    WELCOME
-========================= */
+=========================== */
 
 if (nextBtn) {
 
-    nextBtn.addEventListener("click", () => {
+    nextBtn.addEventListener(
+        "click",
+        () => {
 
-        openScreen(interests);
+            openScreen(
+                Screens.interests
+            );
 
-    });
+        }
+    );
 
 }
 
 
-/* =========================
-   INTERESTS
-========================= */
-
-if (continueBtn) {
-
-    continueBtn.addEventListener("click", () => {
-
-        const selected =
-            JSON.parse(
-                localStorage.getItem("selectedInterests")
-            ) || [];
-
-        if (selected.length < 5) {
-
-            alert("Choose at least 5 interests 🌱");
-
-            return;
-        }
-
-        openScreen(home);
-
-        setActive(homeNav);
-
-        if (typeof createHabits === "function") {
-            createHabits();
-        }
-
-    });
-
-}
-
-
-/* =========================
+/* ===========================
    HOME
-========================= */
+=========================== */
 
 if (homeNav) {
 
-    homeNav.addEventListener("click", () => {
+    homeNav.addEventListener(
+        "click",
+        () => {
 
-        openScreen(home);
+            openScreen(
+                Screens.home
+            );
 
-        setActive(homeNav);
+            setActiveNav(homeNav);
 
-    });
+        }
+    );
 
 }
 
 
-/* =========================
+/* ===========================
    GARDEN
-========================= */
+=========================== */
 
 if (gardenNav) {
 
-    gardenNav.addEventListener("click", () => {
+    gardenNav.addEventListener(
+        "click",
+        () => {
 
-        openScreen(garden);
+            openScreen(
+                Screens.garden
+            );
 
-        setActive(gardenNav);
+            setActiveNav(gardenNav);
 
-        if (typeof updateGarden === "function") {
-            updateGarden();
+
+            if (
+                typeof updateGarden === "function"
+            ) {
+
+                updateGarden();
+
+            }
+
         }
-
-    });
+    );
 
 }
 
 
-/* =========================
+/* ===========================
    STATISTICS
-========================= */
+=========================== */
 
 if (progressNav) {
 
-    progressNav.addEventListener("click", () => {
+    progressNav.addEventListener(
+        "click",
+        () => {
 
-        openScreen(progress);
+            openScreen(
+                Screens.progress
+            );
 
-        setActive(progressNav);
+            setActiveNav(progressNav);
 
-        if (typeof updateStatistics === "function") {
-            updateStatistics();
+
+            if (
+                typeof updateStatistics === "function"
+            ) {
+
+                updateStatistics();
+
+            }
+
         }
-
-    });
+    );
 
 }
 
 
-/* =========================
+/* ===========================
    PROFILE
-========================= */
+=========================== */
 
 if (profileNav) {
 
-    profileNav.addEventListener("click", () => {
+    profileNav.addEventListener(
+        "click",
+        () => {
 
-        openScreen(profile);
+            openScreen(
+                Screens.profile
+            );
 
-        setActive(profileNav);
+            setActiveNav(profileNav);
 
-    });
+        }
+    );
 
 }
 
 
-/* =========================
+/* ===========================
    SHOP
-========================= */
+=========================== */
 
 if (openShopBtn) {
 
-    openShopBtn.addEventListener("click", () => {
+    openShopBtn.addEventListener(
+        "click",
+        () => {
 
-        openScreen(shop);
+            openScreen(
+                Screens.shop
+            );
 
-    });
+        }
+    );
 
 }
 
 
-/* =========================
+/* ===========================
    BACK TO GARDEN
-========================= */
+=========================== */
 
 if (backGarden) {
 
-    backGarden.addEventListener("click", () => {
+    backGarden.addEventListener(
+        "click",
+        () => {
 
-        openScreen(garden);
+            openScreen(
+                Screens.garden
+            );
 
-        setActive(gardenNav);
+            setActiveNav(gardenNav);
 
-    });
+        }
+    );
 
 }
 
 
-/* =========================
+/* ===========================
    START
-========================= */
+=========================== */
 
-window.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    openScreen(welcome);
+        saveUser();
 
-});
+        openScreen(
+            Screens.welcome
+        );
+
+    }
+);
