@@ -1,3 +1,4 @@
+```javascript
 /* ===========================
    CALENDAR & DAILY RESET
 =========================== */
@@ -6,24 +7,38 @@ function getToday() {
 
     const date = new Date();
 
-    return date.toISOString().split("T")[0];
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1)
+            .padStart(2, "0");
+
+    const day =
+        String(date.getDate())
+            .padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
 
 }
 
 
-/* ---------- CHECK NEW DAY ---------- */
+/* ===========================
+   CHECK NEW DAY
+=========================== */
 
 function checkNewDay() {
 
-    const today = getToday();
+    const today =
+        getToday();
 
-    const lastVisit = user.lastVisit;
 
+    if (!user.lastActiveDate) {
 
-    // Первый запуск
-    if (!lastVisit) {
+        user.lastActiveDate =
+            today;
 
-        user.lastVisit = today;
+        user.completedToday = [];
 
         saveUser();
 
@@ -32,46 +47,102 @@ function checkNewDay() {
     }
 
 
-    // Новый день
-    if (lastVisit !== today) {
+    if (
+        user.lastActiveDate !==
+        today
+    ) {
 
-        resetDailyData();
+        user.completedToday = [];
 
-        user.lastVisit = today;
+        user.lastActiveDate =
+            today;
 
         saveUser();
+
+
+        if (
+            typeof createHabits ===
+            "function"
+        ) {
+
+            createHabits();
+
+        }
+
+
+        if (
+            typeof updateStatistics ===
+            "function"
+        ) {
+
+            updateStatistics();
+
+        }
+
+        console.log(
+            "🌱 New Evergreen day!"
+        );
 
     }
 
 }
 
 
-/* ---------- DAILY RESET ---------- */
+/* ===========================
+   DAILY RESET
+=========================== */
 
 function resetDailyData() {
 
-    // Сбрасываем только сегодняшние выполненные задания
-    user.completed = [];
+    user.completedToday = [];
+
+    user.lastActiveDate =
+        getToday();
 
     saveUser();
+
+
+    if (
+        typeof createHabits ===
+        "function"
+    ) {
+
+        createHabits();
+
+    }
+
+
+    if (
+        typeof updateStatistics ===
+        "function"
+    ) {
+
+        updateStatistics();
+
+    }
 
 }
 
 
-/* ---------- STREAK ---------- */
+/* ===========================
+   STREAK
+=========================== */
 
 function updateStreak() {
 
-    const today = getToday();
+    const today =
+        getToday();
 
-    const lastVisit = user.lastVisit;
+    const lastDate =
+        user.lastActiveDate;
 
 
-    if (!lastVisit) {
+    if (!lastDate) {
 
         user.streak = 1;
 
-        user.lastVisit = today;
+        user.lastActiveDate =
+            today;
 
         saveUser();
 
@@ -80,19 +151,25 @@ function updateStreak() {
     }
 
 
-    if (lastVisit === today) {
+    if (lastDate === today) {
 
         return;
 
     }
 
 
-    const last = new Date(lastVisit);
-    const current = new Date(today);
+    const last =
+        new Date(lastDate);
+
+    const current =
+        new Date(today);
+
 
     const difference =
         Math.floor(
-            (current - last) /
+            (
+                current - last
+            ) /
             (1000 * 60 * 60 * 24)
         );
 
@@ -108,24 +185,32 @@ function updateStreak() {
     }
 
 
-    user.lastVisit = today;
+    user.lastActiveDate =
+        today;
 
     saveUser();
 
 }
 
 
-/* ---------- DATE DISPLAY ---------- */
+/* ===========================
+   DATE DISPLAY
+=========================== */
 
 function updateDate() {
 
     const dateElement =
-        document.getElementById("todayDate");
+        document.getElementById(
+            "todayDate"
+        );
+
 
     if (!dateElement) return;
 
 
-    const today = new Date();
+    const today =
+        new Date();
+
 
     dateElement.textContent =
         today.toLocaleDateString(
@@ -140,7 +225,9 @@ function updateDate() {
 }
 
 
-/* ---------- START CALENDAR ---------- */
+/* ===========================
+   START CALENDAR
+=========================== */
 
 function startCalendar() {
 
@@ -151,3 +238,25 @@ function startCalendar() {
     updateDate();
 
 }
+
+
+/* ===========================
+   START
+=========================== */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        startCalendar
+    );
+
+} else {
+
+    startCalendar();
+
+}
+```
