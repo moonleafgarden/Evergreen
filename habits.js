@@ -1,4 +1,3 @@
-```javascript
 console.log("Evergreen habits.js loaded");
 
 /* ===========================
@@ -46,6 +45,8 @@ function createHabits() {
 
         button.onclick = () => {
 
+            /* Already completed */
+
             if (
                 user.completedToday.includes(interest)
             ) {
@@ -64,30 +65,48 @@ function createHabits() {
             );
 
 
-            /* XP */
+            /* ===========================
+               XP
+            =========================== */
 
             user.xp += 10;
 
 
-            /* COINS */
+            /* ===========================
+               COINS
+            =========================== */
 
             user.coins += 5;
 
 
-            /* STREAK */
+            /* ===========================
+               STREAK
+            =========================== */
 
-            if (user.completedToday.length === 1) {
+            /*
+               Streak increases only once
+               when the first habit of the
+               current day is completed.
+            */
+
+            if (
+                user.completedToday.length === 1
+            ) {
 
                 user.streak += 1;
 
             }
 
 
+            /* ===========================
+               SAVE
+            =========================== */
+
             saveUser();
 
 
             /* ===========================
-               UPDATE BUTTON
+               BUTTON
             =========================== */
 
             button.textContent =
@@ -99,15 +118,43 @@ function createHabits() {
 
 
             /* ===========================
-               UPDATE EVERYTHING
+               UPDATE HOME
             =========================== */
 
             updateProgress();
 
-            updateProfile();
 
-            updateGarden();
+            /* ===========================
+               UPDATE PROFILE
+            =========================== */
 
+            if (
+                typeof updateProfile ===
+                "function"
+            ) {
+
+                updateProfile();
+
+            }
+
+
+            /* ===========================
+               UPDATE GARDEN
+            =========================== */
+
+            if (
+                typeof updateGarden ===
+                "function"
+            ) {
+
+                updateGarden();
+
+            }
+
+
+            /* ===========================
+               UPDATE STATISTICS
+            =========================== */
 
             if (
                 typeof updateStatistics ===
@@ -153,6 +200,10 @@ function updateProgress() {
             );
 
 
+    /* ===========================
+       PROGRESS BAR
+    =========================== */
+
     const bar =
         document.getElementById(
             "progressFill"
@@ -166,6 +217,10 @@ function updateProgress() {
 
     }
 
+
+    /* ===========================
+       PROGRESS TEXT
+    =========================== */
 
     const text =
         document.getElementById(
@@ -195,35 +250,39 @@ function updateProgress() {
 
         if (percent === 0) {
 
-            tree.textContent = "🌱";
+            tree.textContent =
+                "🌱";
 
         }
 
         else if (percent < 30) {
 
-            tree.textContent = "🌿";
+            tree.textContent =
+                "🌿";
 
         }
 
         else if (percent < 60) {
 
-            tree.textContent = "🌳";
+            tree.textContent =
+                "🌳";
 
         }
 
         else if (percent < 100) {
 
-            tree.textContent = "🌲";
+            tree.textContent =
+                "🌲";
 
         }
 
         else {
 
-            tree.textContent = "🌸";
+            tree.textContent =
+                "🌸";
 
         }
 
     }
 
 }
-```
