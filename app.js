@@ -1,65 +1,73 @@
-console.log("Evergreen — app.js");
+console.log("Evergreen app.js loaded");
 
 /* ===========================
    SCREENS
 =========================== */
 
-const Screens = {
+const screens = document.querySelectorAll(".screen");
 
-    welcome: document.getElementById("welcome"),
-    interests: document.getElementById("interests"),
-    home: document.getElementById("home"),
-    garden: document.getElementById("garden"),
-    shop: document.getElementById("shop"),
-    progress: document.getElementById("progress"),
-    profile: document.getElementById("profile")
+const welcome = document.getElementById("welcome");
+const interests = document.getElementById("interests");
+const home = document.getElementById("home");
+const garden = document.getElementById("garden");
+const shop = document.getElementById("shop");
+const progress = document.getElementById("progress");
+const profile = document.getElementById("profile");
 
-};
+
+/* ===========================
+   NAVIGATION BUTTONS
+=========================== */
+
+const homeNav = document.getElementById("homeNav");
+const gardenNav = document.getElementById("gardenNav");
+const progressNav = document.getElementById("progressNav");
+const profileNav = document.getElementById("profileNav");
+
+const nextBtn = document.getElementById("nextBtn");
+const continueBtn = document.getElementById("continueBtn");
+
+const openShopBtn = document.getElementById("openShopBtn");
+const backGarden = document.getElementById("backGarden");
 
 
 /* ===========================
    USER DATA
 =========================== */
 
-let user =
+const defaultUser = {
+
+    name: "Madinabonu",
+
+    interests: [],
+
+    completedToday: [],
+
+    xp: 0,
+
+    coins: 0,
+
+    streak: 0,
+
+    lastActiveDate: null
+
+};
+
+
+let savedUser =
     JSON.parse(
         localStorage.getItem("evergreenUser")
-    ) || {
+    );
 
-        interests: [],
-        xp: 0,
-        coins: 0,
-        level: 1,
-        streak: 0,
-        completedToday: [],
-        lastActiveDate: null
 
+let user = savedUser
+    ? {
+        ...defaultUser,
+        ...savedUser
+    }
+    : {
+        ...defaultUser
     };
-
-
-/* ===========================
-   CLEAN USER DATA
-=========================== */
-
-if (!Array.isArray(user.interests)) {
-    user.interests = [];
-}
-
-if (!Array.isArray(user.completedToday)) {
-    user.completedToday = [];
-}
-
-if (typeof user.xp !== "number") {
-    user.xp = Number(user.xp) || 0;
-}
-
-if (typeof user.coins !== "number") {
-    user.coins = Number(user.coins) || 0;
-}
-
-if (typeof user.streak !== "number") {
-    user.streak = Number(user.streak) || 0;
-}
 
 
 /* ===========================
@@ -77,39 +85,26 @@ function saveUser() {
 
 
 /* ===========================
-   OPEN SCREEN
+   SCREEN
 =========================== */
 
 function openScreen(screen) {
 
-    if (!screen) {
-        console.error("Screen does not exist.");
-        return;
-    }
+    if (!screen) return;
 
+    screens.forEach(screenElement => {
 
-    document
-        .querySelectorAll(".screen")
-        .forEach(element => {
+        screenElement.classList.remove("active");
 
-            element.classList.remove("active");
-
-        });
-
+    });
 
     screen.classList.add("active");
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 
 }
 
 
 /* ===========================
-   NAVIGATION
+   ACTIVE NAVIGATION
 =========================== */
 
 function setActiveNav(button) {
@@ -124,36 +119,12 @@ function setActiveNav(button) {
 
 
     if (button) {
+
         button.classList.add("active");
+
     }
 
 }
-
-
-/* ===========================
-   BUTTONS
-=========================== */
-
-const nextBtn =
-    document.getElementById("nextBtn");
-
-const homeNav =
-    document.getElementById("homeNav");
-
-const gardenNav =
-    document.getElementById("gardenNav");
-
-const progressNav =
-    document.getElementById("progressNav");
-
-const profileNav =
-    document.getElementById("profileNav");
-
-const openShopBtn =
-    document.getElementById("openShopBtn");
-
-const backGarden =
-    document.getElementById("backGarden");
 
 
 /* ===========================
@@ -162,16 +133,61 @@ const backGarden =
 
 if (nextBtn) {
 
-    nextBtn.addEventListener(
-        "click",
-        () => {
+    nextBtn.onclick = () => {
 
-            openScreen(
-                Screens.interests
+        openScreen(interests);
+
+        setActiveNav(null);
+
+    };
+
+}
+
+
+/* ===========================
+   CONTINUE
+=========================== */
+
+if (continueBtn) {
+
+    continueBtn.onclick = () => {
+
+        if (user.interests.length < 5) {
+
+            alert(
+                "Choose at least 5 interests 🌱"
             );
 
+            return;
+
         }
-    );
+
+
+        saveUser();
+
+        openScreen(home);
+
+        setActiveNav(homeNav);
+
+
+        if (
+            typeof createHabits === "function"
+        ) {
+
+            createHabits();
+
+        }
+
+
+        if (
+            typeof updateStatistics === "function"
+        ) {
+
+            updateStatistics();
+
+        }
+
+    };
 
 }
 
@@ -182,18 +198,21 @@ if (nextBtn) {
 
 if (homeNav) {
 
-    homeNav.addEventListener(
-        "click",
-        () => {
+    homeNav.onclick = () => {
 
-            openScreen(
-                Screens.home
-            );
+        openScreen(home);
 
-            setActiveNav(homeNav);
+        setActiveNav(homeNav);
+
+        if (
+            typeof createHabits === "function"
+        ) {
+
+            createHabits();
 
         }
-    );
+
+    };
 
 }
 
@@ -204,27 +223,13 @@ if (homeNav) {
 
 if (gardenNav) {
 
-    gardenNav.addEventListener(
-        "click",
-        () => {
+    gardenNav.onclick = () => {
 
-            openScreen(
-                Screens.garden
-            );
+        openScreen(garden);
 
-            setActiveNav(gardenNav);
+        setActiveNav(gardenNav);
 
-
-            if (
-                typeof updateGarden === "function"
-            ) {
-
-                updateGarden();
-
-            }
-
-        }
-    );
+    };
 
 }
 
@@ -235,27 +240,22 @@ if (gardenNav) {
 
 if (progressNav) {
 
-    progressNav.addEventListener(
-        "click",
-        () => {
+    progressNav.onclick = () => {
 
-            openScreen(
-                Screens.progress
-            );
+        openScreen(progress);
 
-            setActiveNav(progressNav);
+        setActiveNav(progressNav);
 
 
-            if (
-                typeof updateStatistics === "function"
-            ) {
+        if (
+            typeof updateStatistics === "function"
+        ) {
 
-                updateStatistics();
-
-            }
+            updateStatistics();
 
         }
-    );
+
+    };
 
 }
 
@@ -266,18 +266,15 @@ if (progressNav) {
 
 if (profileNav) {
 
-    profileNav.addEventListener(
-        "click",
-        () => {
+    profileNav.onclick = () => {
 
-            openScreen(
-                Screens.profile
-            );
+        openScreen(profile);
 
-            setActiveNav(profileNav);
+        setActiveNav(profileNav);
 
-        }
-    );
+        updateProfile();
+
+    };
 
 }
 
@@ -288,55 +285,172 @@ if (profileNav) {
 
 if (openShopBtn) {
 
-    openShopBtn.addEventListener(
-        "click",
-        () => {
+    openShopBtn.onclick = () => {
 
-            openScreen(
-                Screens.shop
-            );
+        openScreen(shop);
 
-        }
-    );
+    };
 
 }
 
-
-/* ===========================
-   BACK TO GARDEN
-=========================== */
 
 if (backGarden) {
 
-    backGarden.addEventListener(
-        "click",
-        () => {
+    backGarden.onclick = () => {
 
-            openScreen(
-                Screens.garden
-            );
+        openScreen(garden);
 
-            setActiveNav(gardenNav);
+        setActiveNav(gardenNav);
 
-        }
-    );
+    };
 
 }
 
 
 /* ===========================
-   START
+   PROFILE DATA
 =========================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+function updateProfile() {
+
+    const nameElement =
+        document.getElementById("profileName");
+
+    if (nameElement) {
+
+        nameElement.textContent =
+            user.name;
+
+    }
+
+
+    const coinElement =
+        document.getElementById("coinCount");
+
+    if (coinElement) {
+
+        coinElement.textContent =
+            user.coins;
+
+    }
+
+
+    const xpElement =
+        document.getElementById("xpValue");
+
+    if (xpElement) {
+
+        xpElement.textContent =
+            user.xp;
+
+    }
+
+}
+
+
+/* ===========================
+   GARDEN DATA
+=========================== */
+
+function updateGarden() {
+
+    const coinElement =
+        document.getElementById("coins");
+
+    if (coinElement) {
+
+        coinElement.textContent =
+            user.coins;
+
+    }
+
+
+    const coinElement2 =
+        document.getElementById("coinCount");
+
+    if (coinElement2) {
+
+        coinElement2.textContent =
+            user.coins;
+
+    }
+
+}
+
+
+/* ===========================
+   DAILY DATE
+=========================== */
+
+function getToday() {
+
+    const date = new Date();
+
+    return date.toISOString()
+        .split("T")[0];
+
+}
+
+
+/* ===========================
+   DAILY CHECK
+=========================== */
+
+function checkNewDay() {
+
+    const today = getToday();
+
+
+    if (!user.lastActiveDate) {
+
+        user.lastActiveDate =
+            today;
 
         saveUser();
 
-        openScreen(
-            Screens.welcome
-        );
+        return;
 
     }
-);
+
+
+    if (
+        user.lastActiveDate !== today
+    ) {
+
+        user.completedToday = [];
+
+        user.lastActiveDate =
+            today;
+
+        saveUser();
+
+    }
+
+}
+
+
+/* ===========================
+   START APP
+=========================== */
+
+window.onload = () => {
+
+    checkNewDay();
+
+    updateProfile();
+
+    updateGarden();
+
+
+    if (
+        typeof updateStatistics === "function"
+    ) {
+
+        updateStatistics();
+
+    }
+
+
+    openScreen(welcome);
+
+};
