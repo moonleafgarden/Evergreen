@@ -1,5 +1,4 @@
-console.log("Statistics loaded");
-
+console.log("Evergreen statistics.js loaded");
 
 /* ===========================
    UPDATE STATISTICS
@@ -7,30 +6,30 @@ console.log("Statistics loaded");
 
 function updateStatistics() {
 
-    if (typeof user === "undefined") {
-        return;
-    }
-
-
     const completed =
         user.completedToday.length;
 
     const total =
-        document.querySelectorAll(".habit").length;
-
+        document.querySelectorAll(
+            "#habitContainer .habit"
+        ).length;
 
     const percent =
         total === 0
-        ? 0
-        : Math.round(
-            (completed / total) * 100
-        );
+            ? 0
+            : Math.round(
+                (completed / total) * 100
+            );
 
 
-    /* Completed */
+    /* ===========================
+       COMPLETED
+    =========================== */
 
     const completedElement =
-        document.getElementById("statCompleted");
+        document.getElementById(
+            "statCompleted"
+        );
 
     if (completedElement) {
 
@@ -40,23 +39,31 @@ function updateStatistics() {
     }
 
 
-    /* Total */
+    /* ===========================
+       TOTAL INTERESTS
+    =========================== */
 
     const totalElement =
-        document.getElementById("statTotal");
+        document.getElementById(
+            "statTotal"
+        );
 
     if (totalElement) {
 
         totalElement.textContent =
-            total;
+            user.interests.length;
 
     }
 
 
-    /* Percentage */
+    /* ===========================
+       PERCENT
+    =========================== */
 
     const percentElement =
-        document.getElementById("statPercent");
+        document.getElementById(
+            "statPercent"
+        );
 
     if (percentElement) {
 
@@ -66,10 +73,14 @@ function updateStatistics() {
     }
 
 
-    /* Level */
+    /* ===========================
+       LEVEL
+    =========================== */
 
     const levelElement =
-        document.getElementById("statLevel");
+        document.getElementById(
+            "statLevel"
+        );
 
     if (levelElement) {
 
@@ -81,43 +92,18 @@ function updateStatistics() {
 
     }
 
-
-    /* XP */
-
-    const xpElement =
-        document.getElementById("xpValue");
-
-    if (xpElement) {
-
-        xpElement.textContent =
-            user.xp;
-
-    }
-
-
-    /* Coins */
-
-    const coinElement =
-        document.getElementById("coinCount");
-
-    if (coinElement) {
-
-        coinElement.textContent =
-            user.coins;
-
-    }
-
 }
 
 
 /* ===========================
-   START
+   UPDATE WHEN PAGE LOADS
 =========================== */
 
-if (
-    typeof user !== "undefined"
-) {
+window.addEventListener(
+    "load",
+    () => {
 
-    updateStatistics();
+        updateStatistics();
 
-}
+    }
+);
