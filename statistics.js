@@ -1,18 +1,36 @@
+```javascript
 console.log("Evergreen statistics.js loaded");
 
 /* ===========================
-   UPDATE STATISTICS
+   STATISTICS
 =========================== */
 
 function updateStatistics() {
 
-    const completed =
-        user.completedToday.length;
+    if (typeof user === "undefined") {
+        return;
+    }
+
 
     const total =
-        document.querySelectorAll(
-            "#habitContainer .habit"
-        ).length;
+        user.interests
+            ? user.interests.length
+            : 0;
+
+
+    const completed =
+        user.completedToday
+            ? user.completedToday.length
+            : 0;
+
+
+    const xp =
+        Number(user.xp) || 0;
+
+
+    const coins =
+        Number(user.coins) || 0;
+
 
     const percent =
         total === 0
@@ -22,8 +40,16 @@ function updateStatistics() {
             );
 
 
+    /*
+       Every 100 XP = 1 level
+    */
+
+    const level =
+        Math.floor(xp / 100) + 1;
+
+
     /* ===========================
-       COMPLETED
+       UPDATE STATISTICS
     =========================== */
 
     const completedElement =
@@ -39,10 +65,6 @@ function updateStatistics() {
     }
 
 
-    /* ===========================
-       TOTAL INTERESTS
-    =========================== */
-
     const totalElement =
         document.getElementById(
             "statTotal"
@@ -51,14 +73,10 @@ function updateStatistics() {
     if (totalElement) {
 
         totalElement.textContent =
-            user.interests.length;
+            total;
 
     }
 
-
-    /* ===========================
-       PERCENT
-    =========================== */
 
     const percentElement =
         document.getElementById(
@@ -73,10 +91,6 @@ function updateStatistics() {
     }
 
 
-    /* ===========================
-       LEVEL
-    =========================== */
-
     const levelElement =
         document.getElementById(
             "statLevel"
@@ -84,11 +98,34 @@ function updateStatistics() {
 
     if (levelElement) {
 
-        const level =
-            Math.floor(user.xp / 100) + 1;
-
         levelElement.textContent =
             level;
+
+    }
+
+
+    const xpElement =
+        document.getElementById(
+            "statXP"
+        );
+
+    if (xpElement) {
+
+        xpElement.textContent =
+            xp;
+
+    }
+
+
+    const coinsElement =
+        document.getElementById(
+            "statCoins"
+        );
+
+    if (coinsElement) {
+
+        coinsElement.textContent =
+            coins;
 
     }
 
@@ -99,11 +136,18 @@ function updateStatistics() {
    UPDATE WHEN PAGE LOADS
 =========================== */
 
-window.addEventListener(
-    "load",
-    () => {
+if (
+    document.readyState === "loading"
+) {
 
-        updateStatistics();
+    document.addEventListener(
+        "DOMContentLoaded",
+        updateStatistics
+    );
 
-    }
-);
+} else {
+
+    updateStatistics();
+
+}
+```
