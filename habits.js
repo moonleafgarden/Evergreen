@@ -1,225 +1,21 @@
+```javascript
 console.log("Evergreen habits.js loaded");
 
 /* ===========================
-   HABIT CONTAINER
-=========================== */
-
-const habitContainer =
-    document.getElementById("habitContainer");
-
-
-/* ===========================
-   HABIT IDEAS
-=========================== */
-
-const habitIdeas = {
-
-    Learning: [
-        "Read 10 pages 📖",
-        "Learn 5 new words ✨",
-        "Study for 20 minutes 📚"
-    ],
-
-    Science: [
-        "Learn one new science fact 🔬",
-        "Read about space 🌌",
-        "Explore nature 🌿"
-    ],
-
-    Technology: [
-        "Practice coding 💻",
-        "Learn a new tech skill",
-        "Build something"
-    ],
-
-    Creativity: [
-        "Draw something 🎨",
-        "Write a short idea ✍️",
-        "Create something new ✨"
-    ],
-
-    Health: [
-        "Drink enough water 💧",
-        "Stretch for 10 minutes",
-        "Go for a walk 🚶"
-    ],
-
-    Growth: [
-        "Write a journal entry 📔",
-        "Plan tomorrow",
-        "Reflect on your day 🌱"
-    ]
-
-};
-
-
-/* ===========================
-   CREATE HABITS
+   HABITS
 =========================== */
 
 function createHabits() {
 
-    if (!habitContainer) return;
+    const container =
+        document.getElementById("habitContainer");
 
+    if (!container) return;
 
-    habitContainer.innerHTML = "";
+    container.innerHTML = "";
 
-
-    let habits = [];
-
-
-    /*
-       Для каждого выбранного интереса
-       ищем подходящую категорию.
-    */
 
     user.interests.forEach(interest => {
-
-        for (const category in habitIdeas) {
-
-            /*
-               Пока используем простое
-               соответствие интересов категориям.
-            */
-
-            const learning =
-                [
-                    "Reading",
-                    "English",
-                    "Spanish",
-                    "French",
-                    "Japanese",
-                    "Math",
-                    "SAT",
-                    "IELTS"
-                ];
-
-            const science =
-                [
-                    "Space",
-                    "Nature",
-                    "Biology",
-                    "Physics",
-                    "Astronomy"
-                ];
-
-            const technology =
-                [
-                    "Programming",
-                    "Web Development",
-                    "AI",
-                    "App Development",
-                    "UI Design"
-                ];
-
-            const creativity =
-                [
-                    "Drawing",
-                    "Photography",
-                    "Music",
-                    "Dancing",
-                    "Cooking",
-                    "Baking"
-                ];
-
-            const health =
-                [
-                    "Cycling",
-                    "Badminton",
-                    "Running",
-                    "Yoga",
-                    "Sleep",
-                    "Healthy Eating"
-                ];
-
-            const growth =
-                [
-                    "Discipline",
-                    "Goals",
-                    "Confidence",
-                    "Time Management",
-                    "Journaling"
-                ];
-
-
-            let categoryList = [];
-
-
-            if (category === "Learning") {
-                categoryList = learning;
-            }
-
-            if (category === "Science") {
-                categoryList = science;
-            }
-
-            if (category === "Technology") {
-                categoryList = technology;
-            }
-
-            if (category === "Creativity") {
-                categoryList = creativity;
-            }
-
-            if (category === "Health") {
-                categoryList = health;
-            }
-
-            if (category === "Growth") {
-                categoryList = growth;
-            }
-
-
-            if (
-                categoryList.includes(interest)
-            ) {
-
-                habits.push(
-                    ...habitIdeas[category]
-                );
-
-                break;
-
-            }
-
-        }
-
-    });
-
-
-    /*
-       Убираем одинаковые привычки.
-    */
-
-    habits =
-        [...new Set(habits)];
-
-
-    /*
-       Если почему-то привычек нет,
-       показываем сообщение.
-    */
-
-    if (habits.length === 0) {
-
-        habitContainer.innerHTML = `
-            <div class="habit">
-                <span>
-                    Choose some interests 🌱
-                </span>
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    /* ===========================
-       CREATE EACH HABIT
-    =========================== */
-
-    habits.forEach(habitName => {
 
         const habit =
             document.createElement("div");
@@ -228,25 +24,17 @@ function createHabits() {
 
 
         const completed =
-            user.completedToday.includes(
-                habitName
-            );
+            user.completedToday.includes(interest);
 
 
         habit.innerHTML = `
 
-            <span>${habitName}</span>
+            <span class="habit-name">
+                ${interest}
+            </span>
 
-            <button class="done-btn ${
-                completed ? "finished" : ""
-            }">
-
-                ${
-                    completed
-                    ? "Completed ✓"
-                    : "Done"
-                }
-
+            <button class="done-btn ${completed ? "finished" : ""}">
+                ${completed ? "Completed ✓" : "Done"}
             </button>
 
         `;
@@ -256,20 +44,10 @@ function createHabits() {
             habit.querySelector(".done-btn");
 
 
-        /* ===========================
-           DONE BUTTON
-        =========================== */
-
         button.onclick = () => {
 
-            /*
-               Уже выполнено —
-               ничего больше не добавляем.
-            */
-
             if (
-                user.completedToday
-                    .includes(habitName)
+                user.completedToday.includes(interest)
             ) {
 
                 return;
@@ -277,35 +55,40 @@ function createHabits() {
             }
 
 
-            /*
-               Добавляем привычку
-               в выполненные сегодня.
-            */
+            /* ===========================
+               COMPLETE HABIT
+            =========================== */
 
             user.completedToday.push(
-                habitName
+                interest
             );
 
 
-            /*
-               Награды
-            */
+            /* XP */
 
             user.xp += 10;
+
+
+            /* COINS */
 
             user.coins += 5;
 
 
-            /*
-               Сохраняем ВСЁ.
-            */
+            /* STREAK */
+
+            if (user.completedToday.length === 1) {
+
+                user.streak += 1;
+
+            }
+
 
             saveUser();
 
 
-            /*
-               Меняем кнопку.
-            */
+            /* ===========================
+               UPDATE BUTTON
+            =========================== */
 
             button.textContent =
                 "Completed ✓";
@@ -315,9 +98,9 @@ function createHabits() {
             );
 
 
-            /*
-               Обновляем интерфейс.
-            */
+            /* ===========================
+               UPDATE EVERYTHING
+            =========================== */
 
             updateProgress();
 
@@ -338,9 +121,7 @@ function createHabits() {
         };
 
 
-        habitContainer.appendChild(
-            habit
-        );
+        container.appendChild(habit);
 
     });
 
@@ -351,15 +132,13 @@ function createHabits() {
 
 
 /* ===========================
-   PROGRESS
+   HOME PROGRESS
 =========================== */
 
 function updateProgress() {
 
     const total =
-        document.querySelectorAll(
-            "#habitContainer .habit"
-        ).length;
+        user.interests.length;
 
 
     const completed =
@@ -368,22 +147,21 @@ function updateProgress() {
 
     const percent =
         total === 0
-        ? 0
-        : Math.min(
-            100,
-            (completed / total) * 100
+            ? 0
+            : Math.round(
+                (completed / total) * 100
+            );
+
+
+    const bar =
+        document.getElementById(
+            "progressFill"
         );
 
 
-    const fill =
-        document.querySelector(
-            ".progress-fill"
-        );
+    if (bar) {
 
-
-    if (fill) {
-
-        fill.style.width =
+        bar.style.width =
             percent + "%";
 
     }
@@ -402,6 +180,10 @@ function updateProgress() {
 
     }
 
+
+    /* ===========================
+       TREE
+    =========================== */
 
     const tree =
         document.getElementById(
@@ -444,10 +226,4 @@ function updateProgress() {
     }
 
 }
-
-
-/* ===========================
-   START
-=========================== */
-
-createHabits();
+```
