@@ -1,325 +1,447 @@
-console.log("Evergreen — app.js");
+console.log("Evergreen habits.js loaded");
 
 /* ===========================
-   SCREENS
+   HABIT CONTAINER
 =========================== */
 
-const Screens = {
+const habitContainer =
+    document.getElementById("habitContainer");
 
-    welcome: document.getElementById("welcome"),
-    interests: document.getElementById("interests"),
-    home: document.getElementById("home"),
-    garden: document.getElementById("garden"),
-    shop: document.getElementById("shop"),
-    progress: document.getElementById("progress"),
-    profile: document.getElementById("profile")
+
+/* ===========================
+   HABIT IDEAS
+=========================== */
+
+const habitIdeas = {
+
+    Learning: [
+        "Read 10 pages 📖",
+        "Learn 5 new words ✨",
+        "Study for 20 minutes 📚"
+    ],
+
+    Science: [
+        "Learn one new science fact 🔬",
+        "Read about space 🌌",
+        "Explore nature 🌿"
+    ],
+
+    Technology: [
+        "Practice coding 💻",
+        "Learn a new tech skill",
+        "Build something"
+    ],
+
+    Creativity: [
+        "Draw something 🎨",
+        "Write a short idea ✍️",
+        "Create something new ✨"
+    ],
+
+    Health: [
+        "Drink enough water 💧",
+        "Stretch for 10 minutes",
+        "Go for a walk 🚶"
+    ],
+
+    Growth: [
+        "Write a journal entry 📔",
+        "Plan tomorrow",
+        "Reflect on your day 🌱"
+    ]
 
 };
 
 
 /* ===========================
-   USER DATA
+   CREATE HABITS
 =========================== */
 
-let user =
-    JSON.parse(
-        localStorage.getItem("evergreenUser")
-    ) || {
-
-        interests: [],
-        xp: 0,
-        coins: 0,
-        level: 1,
-        streak: 0,
-        completedToday: [],
-        lastActiveDate: null
-
-    };
-
-
-/* ===========================
-   CLEAN USER DATA
-=========================== */
-
-if (!Array.isArray(user.interests)) {
-    user.interests = [];
-}
-
-if (!Array.isArray(user.completedToday)) {
-    user.completedToday = [];
-}
-
-if (typeof user.xp !== "number") {
-    user.xp = Number(user.xp) || 0;
-}
-
-if (typeof user.coins !== "number") {
-    user.coins = Number(user.coins) || 0;
-}
-
-if (typeof user.streak !== "number") {
-    user.streak = Number(user.streak) || 0;
-}
-
-
-/* ===========================
-   SAVE USER
-=========================== */
-
-function saveUser() {
-
-    localStorage.setItem(
-        "evergreenUser",
-        JSON.stringify(user)
-    );
-
-}
-
-
-/* ===========================
-   OPEN SCREEN
-=========================== */
-
-function openScreen(screen) {
-
-    if (!screen) {
-        console.error("Screen does not exist.");
-        return;
-    }
-
-
-    document
-        .querySelectorAll(".screen")
-        .forEach(element => {
-
-            element.classList.remove("active");
-
-        });
-
-
-    screen.classList.add("active");
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-/* ===========================
-   NAVIGATION
-=========================== */
-
-function setActiveNav(button) {
-
-    document
-        .querySelectorAll(".nav-btn")
-        .forEach(btn => {
-
-            btn.classList.remove("active");
-
-        });
-
-
-    if (button) {
-        button.classList.add("active");
-    }
-
-}
-
-
-/* ===========================
-   BUTTONS
-=========================== */
-
-const nextBtn =
-    document.getElementById("nextBtn");
-
-const homeNav =
-    document.getElementById("homeNav");
-
-const gardenNav =
-    document.getElementById("gardenNav");
-
-const progressNav =
-    document.getElementById("progressNav");
-
-const profileNav =
-    document.getElementById("profileNav");
-
-const openShopBtn =
-    document.getElementById("openShopBtn");
-
-const backGarden =
-    document.getElementById("backGarden");
-
-
-/* ===========================
-   WELCOME
-=========================== */
-
-if (nextBtn) {
-
-    nextBtn.addEventListener(
-        "click",
-        () => {
-
-            openScreen(
-                Screens.interests
-            );
-
-        }
-    );
-
-}
-
-
-/* ===========================
-   HOME
-=========================== */
-
-if (homeNav) {
-
-    homeNav.addEventListener(
-        "click",
-        () => {
-
-            openScreen(
-                Screens.home
-            );
-
-            setActiveNav(homeNav);
-
-        }
-    );
-
-}
-
-
-/* ===========================
-   GARDEN
-=========================== */
-
-if (gardenNav) {
-
-    gardenNav.addEventListener(
-        "click",
-        () => {
-
-            openScreen(
-                Screens.garden
-            );
-
-            setActiveNav(gardenNav);
+function createHabits() {
+
+    if (!habitContainer) return;
+
+
+    habitContainer.innerHTML = "";
+
+
+    let habits = [];
+
+
+    /*
+       Для каждого выбранного интереса
+       ищем подходящую категорию.
+    */
+
+    user.interests.forEach(interest => {
+
+        for (const category in habitIdeas) {
+
+            /*
+               Пока используем простое
+               соответствие интересов категориям.
+            */
+
+            const learning =
+                [
+                    "Reading",
+                    "English",
+                    "Spanish",
+                    "French",
+                    "Japanese",
+                    "Math",
+                    "SAT",
+                    "IELTS"
+                ];
+
+            const science =
+                [
+                    "Space",
+                    "Nature",
+                    "Biology",
+                    "Physics",
+                    "Astronomy"
+                ];
+
+            const technology =
+                [
+                    "Programming",
+                    "Web Development",
+                    "AI",
+                    "App Development",
+                    "UI Design"
+                ];
+
+            const creativity =
+                [
+                    "Drawing",
+                    "Photography",
+                    "Music",
+                    "Dancing",
+                    "Cooking",
+                    "Baking"
+                ];
+
+            const health =
+                [
+                    "Cycling",
+                    "Badminton",
+                    "Running",
+                    "Yoga",
+                    "Sleep",
+                    "Healthy Eating"
+                ];
+
+            const growth =
+                [
+                    "Discipline",
+                    "Goals",
+                    "Confidence",
+                    "Time Management",
+                    "Journaling"
+                ];
+
+
+            let categoryList = [];
+
+
+            if (category === "Learning") {
+                categoryList = learning;
+            }
+
+            if (category === "Science") {
+                categoryList = science;
+            }
+
+            if (category === "Technology") {
+                categoryList = technology;
+            }
+
+            if (category === "Creativity") {
+                categoryList = creativity;
+            }
+
+            if (category === "Health") {
+                categoryList = health;
+            }
+
+            if (category === "Growth") {
+                categoryList = growth;
+            }
 
 
             if (
-                typeof updateGarden === "function"
+                categoryList.includes(interest)
             ) {
 
-                updateGarden();
+                habits.push(
+                    ...habitIdeas[category]
+                );
+
+                break;
 
             }
 
         }
-    );
 
-}
+    });
 
 
-/* ===========================
-   STATISTICS
-=========================== */
+    /*
+       Убираем одинаковые привычки.
+    */
 
-if (progressNav) {
+    habits =
+        [...new Set(habits)];
 
-    progressNav.addEventListener(
-        "click",
-        () => {
 
-            openScreen(
-                Screens.progress
+    /*
+       Если почему-то привычек нет,
+       показываем сообщение.
+    */
+
+    if (habits.length === 0) {
+
+        habitContainer.innerHTML = `
+            <div class="habit">
+                <span>
+                    Choose some interests 🌱
+                </span>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    /* ===========================
+       CREATE EACH HABIT
+    =========================== */
+
+    habits.forEach(habitName => {
+
+        const habit =
+            document.createElement("div");
+
+        habit.className = "habit";
+
+
+        const completed =
+            user.completedToday.includes(
+                habitName
             );
 
-            setActiveNav(progressNav);
+
+        habit.innerHTML = `
+
+            <span>${habitName}</span>
+
+            <button class="done-btn ${
+                completed ? "finished" : ""
+            }">
+
+                ${
+                    completed
+                    ? "Completed ✓"
+                    : "Done"
+                }
+
+            </button>
+
+        `;
+
+
+        const button =
+            habit.querySelector(".done-btn");
+
+
+        /* ===========================
+           DONE BUTTON
+        =========================== */
+
+        button.onclick = () => {
+
+            /*
+               Уже выполнено —
+               ничего больше не добавляем.
+            */
+
+            if (
+                user.completedToday
+                    .includes(habitName)
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+               Добавляем привычку
+               в выполненные сегодня.
+            */
+
+            user.completedToday.push(
+                habitName
+            );
+
+
+            /*
+               Награды
+            */
+
+            user.xp += 10;
+
+            user.coins += 5;
+
+
+            /*
+               Сохраняем ВСЁ.
+            */
+
+            saveUser();
+
+
+            /*
+               Меняем кнопку.
+            */
+
+            button.textContent =
+                "Completed ✓";
+
+            button.classList.add(
+                "finished"
+            );
+
+
+            /*
+               Обновляем интерфейс.
+            */
+
+            updateProgress();
+
+            updateProfile();
+
+            updateGarden();
 
 
             if (
-                typeof updateStatistics === "function"
+                typeof updateStatistics ===
+                "function"
             ) {
 
                 updateStatistics();
 
             }
 
-        }
-    );
+        };
+
+
+        habitContainer.appendChild(
+            habit
+        );
+
+    });
+
+
+    updateProgress();
 
 }
 
 
 /* ===========================
-   PROFILE
+   PROGRESS
 =========================== */
 
-if (profileNav) {
+function updateProgress() {
 
-    profileNav.addEventListener(
-        "click",
-        () => {
+    const total =
+        document.querySelectorAll(
+            "#habitContainer .habit"
+        ).length;
 
-            openScreen(
-                Screens.profile
-            );
 
-            setActiveNav(profileNav);
+    const completed =
+        user.completedToday.length;
+
+
+    const percent =
+        total === 0
+        ? 0
+        : Math.min(
+            100,
+            (completed / total) * 100
+        );
+
+
+    const fill =
+        document.querySelector(
+            ".progress-fill"
+        );
+
+
+    if (fill) {
+
+        fill.style.width =
+            percent + "%";
+
+    }
+
+
+    const text =
+        document.getElementById(
+            "progressText"
+        );
+
+
+    if (text) {
+
+        text.textContent =
+            `${completed} / ${total} completed`;
+
+    }
+
+
+    const tree =
+        document.getElementById(
+            "treeEmoji"
+        );
+
+
+    if (tree) {
+
+        if (percent === 0) {
+
+            tree.textContent = "🌱";
 
         }
-    );
 
-}
+        else if (percent < 30) {
 
-
-/* ===========================
-   SHOP
-=========================== */
-
-if (openShopBtn) {
-
-    openShopBtn.addEventListener(
-        "click",
-        () => {
-
-            openScreen(
-                Screens.shop
-            );
+            tree.textContent = "🌿";
 
         }
-    );
 
-}
+        else if (percent < 60) {
 
-
-/* ===========================
-   BACK TO GARDEN
-=========================== */
-
-if (backGarden) {
-
-    backGarden.addEventListener(
-        "click",
-        () => {
-
-            openScreen(
-                Screens.garden
-            );
-
-            setActiveNav(gardenNav);
+            tree.textContent = "🌳";
 
         }
-    );
+
+        else if (percent < 100) {
+
+            tree.textContent = "🌲";
+
+        }
+
+        else {
+
+            tree.textContent = "🌸";
+
+        }
+
+    }
 
 }
 
@@ -328,15 +450,4 @@ if (backGarden) {
    START
 =========================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        saveUser();
-
-        openScreen(
-            Screens.welcome
-        );
-
-    }
-);
+createHabits();
