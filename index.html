@@ -1,18 +1,30 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Evergreen</title>
+```
+<meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
-        rel="stylesheet"
-    >
+<title>Evergreen</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet"
+>
+```
+
 </head>
 
 <body>
@@ -21,537 +33,569 @@
      WELCOME
 ===================================================== -->
 
-<section id="welcome" class="screen active">
+<section
+    class="screen active"
+    id="welcome"
+>
 
-    <div class="leaf leaf1">🍃</div>
-    <div class="leaf leaf2">🌿</div>
-    <div class="leaf leaf3">🍀</div>
+```
+<div class="leaf leaf1">🍃</div>
+<div class="leaf leaf2">🌿</div>
+<div class="leaf leaf3">🍀</div>
 
-    <div class="welcome-box">
+<div class="welcome-box">
 
-        <div class="logo-circle">
-            🌲
+    <div class="logo-circle">
+        🌲
+    </div>
+
+    <h1>Evergreen</h1>
+
+    <h3>Grow a little every day.</h3>
+
+    <p>
+        A peaceful place where your goals grow,
+        habits bloom, and every small step matters.
+    </p>
+
+    <div class="mini-cards">
+
+        <div>
+            📚
+            <span>Learn</span>
         </div>
 
-        <h1>Evergreen</h1>
-
-        <h3>Grow a little every day.</h3>
-
-        <p>
-            A peaceful place where your goals grow,
-            habits bloom, and every small step matters.
-        </p>
-
-        <div class="mini-cards">
-
-            <div>
-                📚
-                <span>Learn</span>
-            </div>
-
-            <div>
-                🌱
-                <span>Grow</span>
-            </div>
-
-            <div>
-                ✨
-                <span>Shine</span>
-            </div>
-
+        <div>
+            🌱
+            <span>Grow</span>
         </div>
 
-        <button id="nextBtn">
-            🌱 Start Growing
-        </button>
+        <div>
+            ✨
+            <span>Shine</span>
+        </div>
 
     </div>
 
-</section>
+    <button id="nextBtn">
+        🌱 Start Growing
+    </button>
 
+</div>
+```
+
+</section>
 
 <!-- =====================================================
      PROFILE SETUP
 ===================================================== -->
 
-<section id="profileSetup" class="screen">
+<section
+    class="screen"
+    id="profileSetup"
+>
 
-    <div class="setup-box">
+```
+<div class="setup-box">
 
-        <div class="setup-icon">
-            🌲
-        </div>
-
-        <h1>Welcome to Evergreen</h1>
-
-        <p>
-            What should we call you?
-        </p>
-
-        <input
-            id="nameInput"
-            type="text"
-            placeholder="Your name"
-            maxlength="30"
-            autocomplete="off"
-        >
-
-        <button id="nameContinueBtn">
-            Continue 🌱
-        </button>
-
+    <div class="setup-icon">
+        🌲
     </div>
 
-</section>
+    <h1>Welcome to Evergreen</h1>
 
+    <p>
+        What should we call you?
+    </p>
+
+    <input
+        id="nameInput"
+        type="text"
+        placeholder="Your name"
+        maxlength="30"
+        autocomplete="off"
+    >
+
+    <button id="nameContinueBtn">
+        Continue 🌱
+    </button>
+
+</div>
+```
+
+</section>
 
 <!-- =====================================================
      INTERESTS
 ===================================================== -->
 
-<section id="interests" class="screen">
+<section
+    class="screen"
+    id="interests"
+>
 
-    <div class="top">
+```
+<div class="top">
 
-        <h2>Choose your interests</h2>
+    <h2>Choose your interests</h2>
 
-        <p>
-            Pick at least 5 things you enjoy.
-        </p>
+    <p>
+        Pick at least 5 things you enjoy.
+    </p>
 
-        <input
-            id="search"
-            type="text"
-            placeholder="Search interests..."
-            autocomplete="off"
-        >
+    <input
+        id="search"
+        type="text"
+        placeholder="Search interests..."
+        autocomplete="off"
+    >
 
-    </div>
+</div>
 
-    <div id="interestContainer"></div>
+<div id="interestContainer"></div>
 
-    <div class="bottom">
+<div class="bottom">
 
-        <p id="selectedCount">
-            Selected: 0
-        </p>
+    <p id="selectedCount">
+        Selected: 0
+    </p>
 
-        <button id="continueBtn">
-            Continue 🌱
-        </button>
+    <button id="continueBtn">
+        Continue 🌱
+    </button>
 
-    </div>
+</div>
+```
 
 </section>
-
 
 <!-- =====================================================
      HOME
 ===================================================== -->
 
-<section id="home" class="screen">
+<section
+    class="screen"
+    id="home"
+>
 
-    <header class="home-header">
+```
+<header class="home-header">
 
-        <h1>🌲 Evergreen</h1>
+    <h1>🌲 Evergreen</h1>
 
-        <p id="todayGreeting">
-            Welcome back 🌿
+    <p id="todayGreeting">
+        Welcome back 🌿
+    </p>
+
+</header>
+
+<main>
+
+    <div class="welcome-card">
+
+        <h2 id="dailyTitle">
+            Today is a new beginning.
+        </h2>
+
+        <p id="dailyQuote">
+            Small steps every day create big results.
         </p>
 
-    </header>
-
-    <main>
-
-        <div class="welcome-card">
-
-            <h2 id="dailyTitle">
-                Today is a new beginning.
-            </h2>
-
-            <p id="dailyQuote">
-                Small steps every day create big results.
-            </p>
-
-        </div>
+    </div>
 
 
-        <div class="progress-card">
+    <div class="progress-card">
 
-            <h2>Today's Progress</h2>
+        <h2>Today's Progress</h2>
 
-            <div class="progress-bar">
+        <div class="progress-bar">
 
-                <div
-                    class="progress-fill"
-                    id="progressFill"
-                ></div>
-
-            </div>
-
-            <p id="progressText">
-                0 / 0 completed
-            </p>
+            <div
+                class="progress-fill"
+                id="progressFill"
+            ></div>
 
         </div>
 
+        <p id="progressText">
+            0 / 0 completed
+        </p>
 
-        <div id="habitContainer"></div>
+    </div>
 
-    </main>
+
+    <div id="habitContainer"></div>
+
+</main>
+```
 
 </section>
-
 
 <!-- =====================================================
      GARDEN
 ===================================================== -->
 
-<section id="garden" class="screen">
+<section
+    class="screen"
+    id="garden"
+>
 
-    <header class="page-header">
+```
+<header class="page-header">
 
-        <h1>🌱 Garden</h1>
+    <h1>🌱 Garden</h1>
 
-        <p>
-            Watch yourself grow.
-        </p>
+    <p>
+        Watch yourself grow.
+    </p>
 
-    </header>
+</header>
 
-    <main>
+<main>
 
-        <div class="garden-card">
+    <div class="garden-card">
 
-            <div class="garden-sky"></div>
+        <div class="garden-sky"></div>
 
-            <div class="garden-ground"></div>
+        <div class="garden-ground"></div>
 
-            <div class="coin-bar">
-                🪙 <span id="coins">0</span>
-            </div>
-
-            <div
-                id="treeEmoji"
-                class="tree"
-            >
-                🌱
-            </div>
-
-            <button
-                class="shop-button"
-                id="openShopBtn"
-            >
-                🛒 Shop
-            </button>
-
+        <div class="coin-bar">
+            🪙 <span id="coins">0</span>
         </div>
 
-    </main>
+        <div
+            id="treeEmoji"
+            class="tree"
+        >
+            🌱
+        </div>
+
+        <button
+            class="shop-button"
+            id="openShopBtn"
+        >
+            🛒 Shop
+        </button>
+
+    </div>
+
+</main>
+```
 
 </section>
-
 
 <!-- =====================================================
      SHOP
 ===================================================== -->
 
-<section id="shop" class="screen">
+<section
+    class="screen"
+    id="shop"
+>
 
-    <header class="page-header">
+```
+<header class="page-header">
 
-        <h1>🛒 Garden Shop</h1>
+    <h1>🛒 Garden Shop</h1>
 
-        <p>
-            Buy decorations for your garden.
-        </p>
+    <p>
+        Buy decorations for your garden.
+    </p>
 
-    </header>
+</header>
 
-    <div class="coin-bar shop-coins">
-        🪙 <span id="coinCount">0</span>
-    </div>
-
-
-    <div class="shop-grid">
-
-        <div class="shop-item">
-
-            <div class="shop-icon">🌸</div>
-
-            <h3>Flower</h3>
-
-            <p>20 🪙</p>
-
-            <button
-                class="buyBtn"
-                data-item="flower"
-                data-price="20"
-            >
-                Buy
-            </button>
-
-        </div>
+<div class="coin-bar shop-coins">
+    🪙 <span id="coinCount">0</span>
+</div>
 
 
-        <div class="shop-item">
+<div class="shop-grid">
 
-            <div class="shop-icon">🌳</div>
+    <div class="shop-item">
 
-            <h3>Tree</h3>
+        <div class="shop-icon">🌸</div>
 
-            <p>50 🪙</p>
+        <h3>Flower</h3>
 
-            <button
-                class="buyBtn"
-                data-item="tree"
-                data-price="50"
-            >
-                Buy
-            </button>
+        <p>20 🪙</p>
 
-        </div>
-
-
-        <div class="shop-item">
-
-            <div class="shop-icon">🍄</div>
-
-            <h3>Mushroom</h3>
-
-            <p>15 🪙</p>
-
-            <button
-                class="buyBtn"
-                data-item="mushroom"
-                data-price="15"
-            >
-                Buy
-            </button>
-
-        </div>
-
-
-        <div class="shop-item">
-
-            <div class="shop-icon">🪨</div>
-
-            <h3>Stone</h3>
-
-            <p>10 🪙</p>
-
-            <button
-                class="buyBtn"
-                data-item="stone"
-                data-price="10"
-            >
-                Buy
-            </button>
-
-        </div>
+        <button
+            class="buyBtn"
+            data-item="flower"
+            data-price="20"
+        >
+            Buy
+        </button>
 
     </div>
 
 
-    <button id="backGarden">
-        ⬅ Back to Garden
-    </button>
+    <div class="shop-item">
+
+        <div class="shop-icon">🌳</div>
+
+        <h3>Tree</h3>
+
+        <p>50 🪙</p>
+
+        <button
+            class="buyBtn"
+            data-item="tree"
+            data-price="50"
+        >
+            Buy
+        </button>
+
+    </div>
+
+
+    <div class="shop-item">
+
+        <div class="shop-icon">🍄</div>
+
+        <h3>Mushroom</h3>
+
+        <p>15 🪙</p>
+
+        <button
+            class="buyBtn"
+            data-item="mushroom"
+            data-price="15"
+        >
+            Buy
+        </button>
+
+    </div>
+
+
+    <div class="shop-item">
+
+        <div class="shop-icon">🪨</div>
+
+        <h3>Stone</h3>
+
+        <p>10 🪙</p>
+
+        <button
+            class="buyBtn"
+            data-item="stone"
+            data-price="10"
+        >
+            Buy
+        </button>
+
+    </div>
+
+</div>
+
+
+<button id="backGarden">
+    ⬅ Back to Garden
+</button>
+```
 
 </section>
-
 
 <!-- =====================================================
      STATISTICS
 ===================================================== -->
 
-<section id="progress" class="screen">
+<section
+    class="screen"
+    id="progress"
+>
 
-    <header class="page-header">
+```
+<header class="page-header">
 
-        <h1>📊 Statistics</h1>
+    <h1>📊 Statistics</h1>
 
-        <p>
-            Your growth journey.
-        </p>
+    <p>
+        Your growth journey.
+    </p>
 
-    </header>
+</header>
 
-    <main>
+<main>
 
-        <div class="stats-grid">
+    <div class="stats-grid">
 
-            <div class="stat-card">
+        <div class="stat-card">
 
-                <h3 id="statCompleted">
-                    0
-                </h3>
+            <h3 id="statCompleted">
+                0
+            </h3>
 
-                <p>
-                    Completed Today
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3 id="statTotal">
-                    0
-                </h3>
-
-                <p>
-                    Total Interests
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3 id="statPercent">
-                    0%
-                </h3>
-
-                <p>
-                    Today's Progress
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3 id="statLevel">
-                    1
-                </h3>
-
-                <p>
-                    Level
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3 id="statXP">
-                    0
-                </h3>
-
-                <p>
-                    XP
-                </p>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <h3 id="statCoins">
-                    0
-                </h3>
-
-                <p>
-                    Coins
-                </p>
-
-            </div>
-
-        </div>
-
-    </main>
-
-</section>
-
-
-<!-- =====================================================
-     PROFILE
-===================================================== -->
-
-<section id="profile" class="screen">
-
-    <main>
-
-        <div class="profile-header">
-
-            <div class="profile-avatar">
-                🌲
-            </div>
-
-            <h2 id="profileName">
-                Evergreen User
-            </h2>
-
-            <p class="profile-subtitle">
-                Grow a little every day.
+            <p>
+                Completed Today
             </p>
 
         </div>
 
 
-        <div class="profile-menu">
+        <div class="stat-card">
 
-            <button
-                class="menu-item"
-                id="changeInterestsBtn"
-            >
-                🌱
-                <span>Change Interests</span>
-            </button>
+            <h3 id="statTotal">
+                0
+            </h3>
 
-
-            <button
-                class="menu-item"
-                id="appearanceBtn"
-            >
-                🎨
-                <span>Appearance</span>
-            </button>
-
-
-            <button
-                class="menu-item"
-                id="languageBtn"
-            >
-                🌍
-                <span>Language</span>
-            </button>
-
-
-            <button
-                class="menu-item"
-                id="aboutBtn"
-            >
-                ℹ️
-                <span>About Evergreen</span>
-            </button>
-
-
-            <button
-                class="menu-item danger"
-                id="resetBtn"
-            >
-                🗑️
-                <span>Reset Progress</span>
-            </button>
+            <p>
+                Total Interests
+            </p>
 
         </div>
 
 
-        <div class="profile-footer">
+        <div class="stat-card">
 
-            <p>Evergreen</p>
+            <h3 id="statPercent">
+                0%
+            </h3>
 
-            <small>
-                Version 1.0
-            </small>
+            <p>
+                Today's Progress
+            </p>
 
         </div>
 
-    </main>
+
+        <div class="stat-card">
+
+            <h3 id="statLevel">
+                1
+            </h3>
+
+            <p>
+                Level
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3 id="statXP">
+                0
+            </h3>
+
+            <p>
+                XP
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3 id="statCoins">
+                0
+            </h3>
+
+            <p>
+                Coins
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+```
 
 </section>
 
+<!-- =====================================================
+     PROFILE
+===================================================== -->
+
+<section
+    class="screen"
+    id="profile"
+>
+
+```
+<main>
+
+    <div class="profile-header">
+
+        <div class="profile-avatar">
+            🌲
+        </div>
+
+        <h2 id="profileName">
+            Evergreen User
+        </h2>
+
+        <p class="profile-subtitle">
+            Grow a little every day.
+        </p>
+
+    </div>
+
+
+    <div class="profile-menu">
+
+        <button
+            class="menu-item"
+            id="changeInterestsBtn"
+        >
+            🌱
+            <span>Change Interests</span>
+        </button>
+
+
+        <button
+            class="menu-item"
+            id="appearanceBtn"
+        >
+            🎨
+            <span>Appearance</span>
+        </button>
+
+
+        <button
+            class="menu-item"
+            id="languageBtn"
+        >
+            🌍
+            <span>Language</span>
+        </button>
+
+
+        <button
+            class="menu-item"
+            id="aboutBtn"
+        >
+            ℹ️
+            <span>About Evergreen</span>
+        </button>
+
+
+        <button
+            class="menu-item danger"
+            id="resetBtn"
+        >
+            🗑️
+            <span>Reset Progress</span>
+        </button>
+
+    </div>
+
+
+    <div class="profile-footer">
+
+        <p>Evergreen</p>
+
+        <small>
+            Version 1.0
+        </small>
+
+    </div>
+
+</main>
+```
+
+</section>
 
 <!-- =====================================================
      BOTTOM NAVIGATION
@@ -559,75 +603,81 @@
 
 <nav class="bottom-nav">
 
-    <button
-        class="nav-btn active"
-        id="homeNav"
-    >
+```
+<button
+    class="nav-btn active"
+    id="homeNav"
+>
 
-        🏠
+    🏠
 
-        <span>
-            Home
-        </span>
+    <span>
+        Home
+    </span>
 
-    </button>
-
-
-    <button
-        class="nav-btn"
-        id="gardenNav"
-    >
-
-        🌱
-
-        <span>
-            Garden
-        </span>
-
-    </button>
+</button>
 
 
-    <button
-        class="nav-btn"
-        id="progressNav"
-    >
+<button
+    class="nav-btn"
+    id="gardenNav"
+>
 
-        📊
+    🌱
 
-        <span>
-            Statistics
-        </span>
+    <span>
+        Garden
+    </span>
 
-    </button>
+</button>
 
 
-    <button
-        class="nav-btn"
-        id="profileNav"
-    >
+<button
+    class="nav-btn"
+    id="progressNav"
+>
 
-        👤
+    📊
 
-        <span>
-            Profile
-        </span>
+    <span>
+        Statistics
+    </span>
 
-    </button>
+</button>
+
+
+<button
+    class="nav-btn"
+    id="profileNav"
+>
+
+    👤
+
+    <span>
+        Profile
+    </span>
+
+</button>
+```
 
 </nav>
-
 
 <!-- =====================================================
      JAVASCRIPT
 ===================================================== -->
 
 <script src="app.js"></script>
+
 <script src="interests.js"></script>
+
 <script src="habits.js"></script>
+
 <script src="shop.js"></script>
+
 <script src="profile.js"></script>
+
 <script src="statistics.js"></script>
+
 </body>
 
 </html>
-```
