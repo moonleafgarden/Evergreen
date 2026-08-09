@@ -1,77 +1,36 @@
-console.log("Evergreen — statistics.js");
+console.log("Statistics loaded");
+
 
 /* ===========================
-   STATISTICS
+   UPDATE STATISTICS
 =========================== */
 
 function updateStatistics() {
 
-    const selectedInterests =
-        JSON.parse(
-            localStorage.getItem("selectedInterests")
-        ) || [];
+    if (typeof user === "undefined") {
+        return;
+    }
 
-    const doneHabits =
-        JSON.parse(
-            localStorage.getItem("doneHabits")
-        ) || [];
-
-    const xp =
-        Number(localStorage.getItem("xp")) || 0;
-
-
-    /* ===========================
-       TOTAL
-    =========================== */
-
-    const total =
-        selectedInterests.length;
-
-
-    /* ===========================
-       COMPLETED
-    =========================== */
 
     const completed =
-        doneHabits.length;
+        user.completedToday.length;
 
+    const total =
+        document.querySelectorAll(".habit").length;
 
-    /* ===========================
-       PERCENT
-    =========================== */
 
     const percent =
         total === 0
-            ? 0
-            : Math.round(
-                completed / total * 100
-            );
+        ? 0
+        : Math.round(
+            (completed / total) * 100
+        );
 
 
-    /* ===========================
-       LEVEL
-    =========================== */
-
-    const level =
-        Math.floor(xp / 100) + 1;
-
-
-    /* ===========================
-       UPDATE HTML
-    =========================== */
+    /* Completed */
 
     const completedElement =
         document.getElementById("statCompleted");
-
-    const totalElement =
-        document.getElementById("statTotal");
-
-    const percentElement =
-        document.getElementById("statPercent");
-
-    const levelElement =
-        document.getElementById("statLevel");
-
 
     if (completedElement) {
 
@@ -81,6 +40,11 @@ function updateStatistics() {
     }
 
 
+    /* Total */
+
+    const totalElement =
+        document.getElementById("statTotal");
+
     if (totalElement) {
 
         totalElement.textContent =
@@ -88,6 +52,11 @@ function updateStatistics() {
 
     }
 
+
+    /* Percentage */
+
+    const percentElement =
+        document.getElementById("statPercent");
 
     if (percentElement) {
 
@@ -97,7 +66,15 @@ function updateStatistics() {
     }
 
 
+    /* Level */
+
+    const levelElement =
+        document.getElementById("statLevel");
+
     if (levelElement) {
+
+        const level =
+            Math.floor(user.xp / 100) + 1;
 
         levelElement.textContent =
             level;
@@ -105,39 +82,7 @@ function updateStatistics() {
     }
 
 
-    /* ===========================
-       PROGRESS BAR
-    =========================== */
-
-    const progressFill =
-        document.querySelector(
-            ".progress-fill"
-        );
-
-    if (progressFill) {
-
-        progressFill.style.width =
-            percent + "%";
-
-    }
-
-
-    const progressText =
-        document.getElementById(
-            "progressText"
-        );
-
-    if (progressText) {
-
-        progressText.textContent =
-            `${completed} / ${total} completed`;
-
-    }
-
-
-    /* ===========================
-       XP
-    =========================== */
+    /* XP */
 
     const xpElement =
         document.getElementById("xpValue");
@@ -145,7 +90,20 @@ function updateStatistics() {
     if (xpElement) {
 
         xpElement.textContent =
-            xp;
+            user.xp;
+
+    }
+
+
+    /* Coins */
+
+    const coinElement =
+        document.getElementById("coinCount");
+
+    if (coinElement) {
+
+        coinElement.textContent =
+            user.coins;
 
     }
 
@@ -153,18 +111,13 @@ function updateStatistics() {
 
 
 /* ===========================
-   UPDATE WHEN PAGE OPENS
+   START
 =========================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    updateStatistics
-);
+if (
+    typeof user !== "undefined"
+) {
 
+    updateStatistics();
 
-/* ===========================
-   GLOBAL FUNCTION
-=========================== */
-
-window.updateStatistics =
-    updateStatistics;
+}
