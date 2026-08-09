@@ -1,3 +1,4 @@
+```javascript
 console.log("Evergreen statistics.js loaded");
 
 /* ===========================
@@ -39,22 +40,23 @@ function updateStatistics() {
             );
 
 
-    /*
-       Every 100 XP = 1 level
-    */
+    /* ===========================
+       LEVEL
+    =========================== */
 
     const level =
         Math.floor(xp / 100) + 1;
 
 
     /* ===========================
-       UPDATE STATISTICS
+       COMPLETED
     =========================== */
 
     const completedElement =
         document.getElementById(
             "statCompleted"
         );
+
 
     if (completedElement) {
 
@@ -64,10 +66,15 @@ function updateStatistics() {
     }
 
 
+    /* ===========================
+       TOTAL
+    =========================== */
+
     const totalElement =
         document.getElementById(
             "statTotal"
         );
+
 
     if (totalElement) {
 
@@ -77,10 +84,15 @@ function updateStatistics() {
     }
 
 
+    /* ===========================
+       PERCENT
+    =========================== */
+
     const percentElement =
         document.getElementById(
             "statPercent"
         );
+
 
     if (percentElement) {
 
@@ -90,10 +102,15 @@ function updateStatistics() {
     }
 
 
+    /* ===========================
+       LEVEL
+    =========================== */
+
     const levelElement =
         document.getElementById(
             "statLevel"
         );
+
 
     if (levelElement) {
 
@@ -103,10 +120,15 @@ function updateStatistics() {
     }
 
 
+    /* ===========================
+       XP
+    =========================== */
+
     const xpElement =
         document.getElementById(
             "statXP"
         );
+
 
     if (xpElement) {
 
@@ -116,10 +138,15 @@ function updateStatistics() {
     }
 
 
+    /* ===========================
+       COINS
+    =========================== */
+
     const coinsElement =
         document.getElementById(
             "statCoins"
         );
+
 
     if (coinsElement) {
 
@@ -136,7 +163,8 @@ function updateStatistics() {
 =========================== */
 
 if (
-    document.readyState === "loading"
+    document.readyState ===
+    "loading"
 ) {
 
     document.addEventListener(
