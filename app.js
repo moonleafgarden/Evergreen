@@ -1,284 +1,239 @@
-console.log("Evergreen");
+console.log("Evergreen — app.js");
 
-/* ===========================
+/* =========================
    SCREENS
-=========================== */
+========================= */
 
-const screens =
-document.querySelectorAll(".screen");
+const screens = document.querySelectorAll(".screen");
 
-const welcome =
-document.getElementById("welcome");
+const welcome = document.getElementById("welcome");
+const interests = document.getElementById("interests");
+const home = document.getElementById("home");
+const garden = document.getElementById("garden");
+const shop = document.getElementById("shop");
+const progress = document.getElementById("progress");
+const profile = document.getElementById("profile");
 
-const interestsScreen =
-document.getElementById("interests");
 
-const home =
-document.getElementById("home");
-
-const garden =
-document.getElementById("garden");
-
-const shop =
-document.getElementById("shop");
-
-const progress =
-document.getElementById("progress");
-
-const profile =
-document.getElementById("profile");
-
-/* ===========================
+/* =========================
    BUTTONS
-=========================== */
+========================= */
 
-const nextBtn =
-document.getElementById("nextBtn");
+const nextBtn = document.getElementById("nextBtn");
+const continueBtn = document.getElementById("continueBtn");
 
-const continueBtn =
-document.getElementById("continueBtn");
+const homeNav = document.getElementById("homeNav");
+const gardenNav = document.getElementById("gardenNav");
+const progressNav = document.getElementById("progressNav");
+const profileNav = document.getElementById("profileNav");
 
-const homeNav =
-document.getElementById("homeNav");
+const openShopBtn = document.getElementById("openShopBtn");
+const backGarden = document.getElementById("backGarden");
 
-const gardenNav =
-document.getElementById("gardenNav");
 
-const progressNav =
-document.getElementById("progressNav");
-
-const profileNav =
-document.getElementById("profileNav");
-
-const openShopBtn =
-document.getElementById("openShopBtn");
-
-const backGarden =
-document.getElementById("backGarden");
-
-/* ===========================
+/* =========================
    OPEN SCREEN
-=========================== */
+========================= */
 
-function openScreen(screen){
+function openScreen(screen) {
 
-    screens.forEach(s=>{
+    if (!screen) {
+        console.error("Screen not found");
+        return;
+    }
 
+    screens.forEach(s => {
         s.classList.remove("active");
-
     });
 
     screen.classList.add("active");
 
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
-/* ===========================
-   ACTIVE NAVIGATION
-=========================== */
 
-function setActive(button){
+/* =========================
+   ACTIVE NAV
+========================= */
 
-    document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn=>{
+function setActive(button) {
 
-        btn.classList.remove("active");
+    document.querySelectorAll(".nav-btn")
+        .forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+    if (button) {
+        button.classList.add("active");
+    }
+}
+
+
+/* =========================
+   WELCOME
+========================= */
+
+if (nextBtn) {
+
+    nextBtn.addEventListener("click", () => {
+
+        openScreen(interests);
 
     });
 
-    button.classList.add("active");
+}
+
+
+/* =========================
+   INTERESTS
+========================= */
+
+if (continueBtn) {
+
+    continueBtn.addEventListener("click", () => {
+
+        const selected =
+            JSON.parse(
+                localStorage.getItem("selectedInterests")
+            ) || [];
+
+        if (selected.length < 5) {
+
+            alert("Choose at least 5 interests 🌱");
+
+            return;
+        }
+
+        openScreen(home);
+
+        setActive(homeNav);
+
+        if (typeof createHabits === "function") {
+            createHabits();
+        }
+
+    });
 
 }
 
-/* ===========================
-   START BUTTON
-=========================== */
 
-nextBtn.onclick = ()=>{
+/* =========================
+   HOME
+========================= */
 
-    openScreen(interestsScreen);
+if (homeNav) {
 
-};
+    homeNav.addEventListener("click", () => {
 
-/* ===========================
-   CONTINUE BUTTON
-=========================== */
+        openScreen(home);
 
-continueBtn.onclick = ()=>{
+        setActive(homeNav);
 
-    if(selectedInterests.length < 5){
+    });
 
-        alert("Choose at least 5 interests 🌱");
-        return;
+}
 
-    }
 
-    createHabits();
+/* =========================
+   GARDEN
+========================= */
 
-    openScreen(home);
+if (gardenNav) {
 
-    setActive(homeNav);
+    gardenNav.addEventListener("click", () => {
 
-};
+        openScreen(garden);
 
-/* ===========================
-   BOTTOM NAVIGATION
-=========================== */
+        setActive(gardenNav);
 
-homeNav.onclick = ()=>{
+        if (typeof updateGarden === "function") {
+            updateGarden();
+        }
 
-    openScreen(home);
-    setActive(homeNav);
+    });
 
-};
+}
 
-gardenNav.onclick = ()=>{
 
-    openScreen(garden);
-    setActive(gardenNav);
+/* =========================
+   STATISTICS
+========================= */
 
-};
+if (progressNav) {
 
-progressNav.onclick = ()=>{
+    progressNav.addEventListener("click", () => {
 
-    openScreen(progress);
-    setActive(progressNav);
+        openScreen(progress);
 
-};
+        setActive(progressNav);
 
-profileNav.onclick = ()=>{
+        if (typeof updateStatistics === "function") {
+            updateStatistics();
+        }
 
-    openScreen(profile);
-    setActive(profileNav);
+    });
 
-};
+}
 
-/* ===========================
+
+/* =========================
+   PROFILE
+========================= */
+
+if (profileNav) {
+
+    profileNav.addEventListener("click", () => {
+
+        openScreen(profile);
+
+        setActive(profileNav);
+
+    });
+
+}
+
+
+/* =========================
    SHOP
-=========================== */
+========================= */
 
-if(openShopBtn){
+if (openShopBtn) {
 
-    openShopBtn.onclick = ()=>{
+    openShopBtn.addEventListener("click", () => {
 
         openScreen(shop);
 
-    };
+    });
 
 }
 
-if(backGarden){
 
-    backGarden.onclick = ()=>{
+/* =========================
+   BACK TO GARDEN
+========================= */
+
+if (backGarden) {
+
+    backGarden.addEventListener("click", () => {
 
         openScreen(garden);
+
         setActive(gardenNav);
 
-    };
+    });
 
 }
 
-/* ===========================
-   START APP
-=========================== */
 
-window.onload = ()=>{
-   
+/* =========================
+   START
+========================= */
+
+window.addEventListener("DOMContentLoaded", () => {
 
     openScreen(welcome);
-   checkNewDay();
 
-updateStatistics();
-
-updateCoins();
-
-    if(typeof initInterests === "function"){
-
-        initInterests();
-
-    }
-
-};
-
-/* ===========================
-   UPDATE FUNCTIONS
-=========================== */
-
-function updateCoins(){
-
-    const coin1 =
-    document.getElementById("coinCount");
-
-    const coin2 =
-    document.getElementById("coins");
-
-    if(coin1){
-
-        coin1.textContent = coins;
-
-    }
-
-    if(coin2){
-
-        coin2.textContent = coins;
-
-    }
-
-}
-
-function updateStatistics(){
-
-    const completed =
-    document.getElementById("statCompleted");
-
-    const total =
-    document.getElementById("statTotal");
-
-    const percent =
-    document.getElementById("statPercent");
-
-    const level =
-    document.getElementById("statLevel");
-
-    if(completed){
-
-        completed.textContent =
-        doneHabits.length;
-
-    }
-
-    if(total){
-
-        total.textContent =
-        selectedInterests.length;
-
-    }
-
-    if(percent){
-
-        let value = 0;
-
-        if(selectedInterests.length > 0){
-
-            value = Math.round(
-                doneHabits.length /
-                selectedInterests.length * 100
-            );
-
-        }
-
-        percent.textContent =
-        value + "%";
-
-    }
-
-    if(level){
-
-        level.textContent =
-        Math.floor(xp / 100) + 1;
-
-    }
-
-    updateCoins();
-
-}
+});
