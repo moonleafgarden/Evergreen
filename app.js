@@ -14,6 +14,15 @@ const shop = document.getElementById("shop");
 const progress = document.getElementById("progress");
 const profile = document.getElementById("profile");
 
+const profileSetup =
+    document.getElementById("profileSetup");
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const nameContinueBtn =
+    document.getElementById("nameContinueBtn");
+
 
 /* ===========================
    NAVIGATION BUTTONS
@@ -131,16 +140,23 @@ function setActiveNav(button) {
    WELCOME
 =========================== */
 
-if (nextBtn) {
+  if (nextBtn) {
 
     nextBtn.onclick = () => {
 
-        openScreen(interests);
+        if (user.name) {
 
-        setActiveNav(null);
+            openScreen(interests);
+
+        } else {
+
+            openScreen(profileSetup);
+
+        }
 
     };
 
+}
 }
 
 
