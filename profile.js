@@ -1,4 +1,3 @@
-```javascript
 console.log("Evergreen profile.js loaded");
 
 /* ===========================
