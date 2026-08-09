@@ -1,3 +1,4 @@
+```javascript
 console.log("Evergreen profile.js loaded");
 
 /* ===========================
@@ -10,12 +11,15 @@ function updateProfile() {
         return;
     }
 
+
     const nameElement =
         document.getElementById("profileName");
 
     if (nameElement) {
+
         nameElement.textContent =
             user.name || "Evergreen User";
+
     }
 
 
@@ -23,8 +27,10 @@ function updateProfile() {
         document.getElementById("xpValue");
 
     if (xpElement) {
+
         xpElement.textContent =
             user.xp || 0;
+
     }
 
 
@@ -32,8 +38,10 @@ function updateProfile() {
         document.getElementById("coinCount");
 
     if (coinElement) {
+
         coinElement.textContent =
             user.coins || 0;
+
     }
 
 }
@@ -47,6 +55,7 @@ const changeInterestsBtn =
     document.getElementById(
         "changeInterestsBtn"
     );
+
 
 if (changeInterestsBtn) {
 
@@ -68,6 +77,7 @@ if (changeInterestsBtn) {
 const resetBtn =
     document.getElementById("resetBtn");
 
+
 if (resetBtn) {
 
     resetBtn.onclick = () => {
@@ -76,6 +86,7 @@ if (resetBtn) {
             confirm(
                 "Reset all your Evergreen progress? 🌱"
             );
+
 
         if (!confirmed) {
             return;
@@ -92,14 +103,31 @@ if (resetBtn) {
 
         user.decorations = [];
 
+
         saveUser();
 
 
         updateProfile();
 
-        updateGarden();
 
-        updateProgress();
+        if (
+            typeof updateGarden ===
+            "function"
+        ) {
+
+            updateGarden();
+
+        }
+
+
+        if (
+            typeof updateProgress ===
+            "function"
+        ) {
+
+            updateProgress();
+
+        }
 
 
         if (
@@ -138,6 +166,7 @@ if (resetBtn) {
 const aboutBtn =
     document.getElementById("aboutBtn");
 
+
 if (aboutBtn) {
 
     aboutBtn.onclick = () => {
@@ -163,6 +192,7 @@ const appearanceBtn =
         "appearanceBtn"
     );
 
+
 if (appearanceBtn) {
 
     appearanceBtn.onclick = () => {
@@ -185,6 +215,7 @@ const languageBtn =
     document.getElementById(
         "languageBtn"
     );
+
 
 if (languageBtn) {
 
