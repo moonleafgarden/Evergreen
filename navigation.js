@@ -1,9 +1,13 @@
+```javascript
+console.log("Evergreen navigation.js loaded");
+
 /* ===========================
-   NAVIGATION
+   SCREENS
 =========================== */
 
 const Screens = {
     welcome: document.getElementById("welcome"),
+    profileSetup: document.getElementById("profileSetup"),
     interests: document.getElementById("interests"),
     home: document.getElementById("home"),
     garden: document.getElementById("garden"),
@@ -13,97 +17,480 @@ const Screens = {
 };
 
 
-/* ---------- OPEN SCREEN ---------- */
+/* ===========================
+   OPEN SCREEN
+=========================== */
 
 function openScreen(screen) {
 
-    document.querySelectorAll(".screen").forEach(item => {
-        item.classList.remove("active");
-    });
-
-    if (screen) {
-        screen.classList.add("active");
+    if (!screen) {
+        return;
     }
+
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+
+    screen.classList.add("active");
 
 }
 
 
-/* ---------- ACTIVE NAV ---------- */
+/* ===========================
+   ACTIVE NAV
+=========================== */
 
 function setActiveNav(button) {
 
-    document.querySelectorAll(".nav-btn").forEach(item => {
-        item.classList.remove("active");
-    });
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
 
     if (button) {
+
         button.classList.add("active");
+
     }
 
 }
 
 
-/* ---------- NAVIGATION BUTTONS ---------- */
+/* ===========================
+   HOME
+=========================== */
 
-document.getElementById("homeNav")?.addEventListener("click", () => {
+const homeNav =
+    document.getElementById("homeNav");
 
-    openScreen(Screens.home);
 
-    setActiveNav(
-        document.getElementById("homeNav")
+if (homeNav) {
+
+    homeNav.addEventListener(
+        "click",
+        () => {
+
+            openScreen(Screens.home);
+
+            setActiveNav(homeNav);
+
+
+            if (
+                typeof createHabits ===
+                "function"
+            ) {
+
+                createHabits();
+
+            }
+
+        }
     );
 
-});
+}
 
 
-document.getElementById("gardenNav")?.addEventListener("click", () => {
+/* ===========================
+   GARDEN
+=========================== */
 
-    openScreen(Screens.garden);
+const gardenNav =
+    document.getElementById("gardenNav");
 
-    setActiveNav(
-        document.getElementById("gardenNav")
+
+if (gardenNav) {
+
+    gardenNav.addEventListener(
+        "click",
+        () => {
+
+            openScreen(Screens.garden);
+
+            setActiveNav(gardenNav);
+
+
+            if (
+                typeof updateGarden ===
+                "function"
+            ) {
+
+                updateGarden();
+
+            }
+
+        }
     );
 
-});
+}
 
 
-document.getElementById("progressNav")?.addEventListener("click", () => {
+/* ===========================
+   STATISTICS
+=========================== */
 
-    openScreen(Screens.progress);
+const progressNav =
+    document.getElementById("progressNav");
 
-    setActiveNav(
-        document.getElementById("progressNav")
+
+if (progressNav) {
+
+    progressNav.addEventListener(
+        "click",
+        () => {
+
+            openScreen(Screens.progress);
+
+            setActiveNav(progressNav);
+
+
+            if (
+                typeof updateStatistics ===
+                "function"
+            ) {
+
+                updateStatistics();
+
+            }
+
+        }
     );
 
-});
+}
 
 
-document.getElementById("profileNav")?.addEventListener("click", () => {
+/* ===========================
+   PROFILE
+=========================== */
 
-    openScreen(Screens.profile);
+const profileNav =
+    document.getElementById("profileNav");
 
-    setActiveNav(
-        document.getElementById("profileNav")
+
+if (profileNav) {
+
+    profileNav.addEventListener(
+        "click",
+        () => {
+
+            openScreen(Screens.profile);
+
+            setActiveNav(profileNav);
+
+
+            if (
+                typeof updateProfile ===
+                "function"
+            ) {
+
+                updateProfile();
+
+            }
+
+        }
     );
 
-});
+}
 
 
-/* ---------- GARDEN SHOP ---------- */
+/* ===========================
+   SHOP
+=========================== */
 
-document.getElementById("openShopBtn")?.addEventListener("click", () => {
-
-    openScreen(Screens.shop);
-
-});
+const openShopBtn =
+    document.getElementById("openShopBtn");
 
 
-document.getElementById("backGarden")?.addEventListener("click", () => {
+if (openShopBtn) {
 
-    openScreen(Screens.garden);
+    openShopBtn.addEventListener(
+        "click",
+        () => {
 
-    setActiveNav(
-        document.getElementById("gardenNav")
+            openScreen(Screens.shop);
+
+
+            if (
+                typeof renderShop ===
+                "function"
+            ) {
+
+                renderShop();
+
+            }
+
+        }
     );
 
-});
+}
+
+
+/* ===========================
+   BACK TO GARDEN
+=========================== */
+
+const backGarden =
+    document.getElementById("backGarden");
+
+
+if (backGarden) {
+
+    backGarden.addEventListener(
+        "click",
+        () => {
+
+            openScreen(Screens.garden);
+
+            setActiveNav(gardenNav);
+
+
+            if (
+                typeof updateGarden ===
+                "function"
+            ) {
+
+                updateGarden();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ===========================
+   WELCOME → PROFILE
+=========================== */
+
+const nextBtn =
+    document.getElementById("nextBtn");
+
+
+if (nextBtn) {
+
+    nextBtn.addEventListener(
+        "click",
+        () => {
+
+            if (
+                typeof user !==
+                "undefined" &&
+                user.name
+            ) {
+
+                openScreen(Screens.home);
+
+                setActiveNav(homeNav);
+
+
+                if (
+                    typeof createHabits ===
+                    "function"
+                ) {
+
+                    createHabits();
+
+                }
+
+            } else {
+
+                openScreen(
+                    Screens.profileSetup
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ===========================
+   PROFILE SETUP → INTERESTS
+=========================== */
+
+const nameContinueBtn =
+    document.getElementById(
+        "nameContinueBtn"
+    );
+
+
+if (nameContinueBtn) {
+
+    nameContinueBtn.addEventListener(
+        "click",
+        () => {
+
+            const nameInput =
+                document.getElementById(
+                    "nameInput"
+                );
+
+
+            const name =
+                nameInput
+                    ? nameInput.value.trim()
+                    : "";
+
+
+            if (!name) {
+
+                alert(
+                    "Please enter your name 🌱"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                typeof user ===
+                "undefined"
+            ) {
+
+                return;
+
+            }
+
+
+            user.name = name;
+
+
+            if (
+                typeof saveUser ===
+                "function"
+            ) {
+
+                saveUser();
+
+            }
+
+
+            openScreen(
+                Screens.interests
+            );
+
+        }
+    );
+
+}
+
+
+/* ===========================
+   INTERESTS → HOME
+=========================== */
+
+const continueBtn =
+    document.getElementById(
+        "continueBtn"
+    );
+
+
+if (continueBtn) {
+
+    continueBtn.addEventListener(
+        "click",
+        () => {
+
+            if (
+                typeof user ===
+                "undefined"
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                user.interests.length <
+                5
+            ) {
+
+                alert(
+                    "Choose at least 5 interests 🌱"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                typeof saveUser ===
+                "function"
+            ) {
+
+                saveUser();
+
+            }
+
+
+            openScreen(
+                Screens.home
+            );
+
+            setActiveNav(homeNav);
+
+
+            if (
+                typeof createHabits ===
+                "function"
+            ) {
+
+                createHabits();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ===========================
+   INITIAL SCREEN
+=========================== */
+
+function startNavigation() {
+
+    if (
+        typeof user !==
+        "undefined" &&
+        user.name
+    ) {
+
+        openScreen(Screens.home);
+
+        setActiveNav(homeNav);
+
+
+        if (
+            typeof createHabits ===
+            "function"
+        ) {
+
+            createHabits();
+
+        }
+
+    } else {
+
+        openScreen(Screens.welcome);
+
+    }
+
+}
+```
