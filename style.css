@@ -1139,3 +1139,171 @@ font-size:90px;
     font-size:17px;
     font-weight:600;
 }
+
+
+/* =========================
+   PROFILE NEW DESIGN
+========================= */
+
+#profile main {
+    width: min(92%, 620px);
+    margin: 0 auto;
+    padding: 30px 0 120px;
+}
+
+.profile-back {
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-avatar {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #e8f1e5;
+
+    font-size: 40px;
+}
+
+.profile-header h2 {
+    margin: 5px 0;
+    font-size: 28px;
+}
+
+.profile-subtitle {
+    margin: 0;
+    opacity: .65;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.profile-stat {
+    padding: 18px;
+    text-align: center;
+    border-radius: 18px;
+    background: #f3f7f0;
+}
+
+.profile-stat span {
+    display: block;
+    font-size: 23px;
+}
+
+.profile-stat strong {
+    display: block;
+    font-size: 23px;
+    margin-top: 3px;
+}
+
+.profile-stat small {
+    opacity: .6;
+}
+
+.profile-section {
+    margin-bottom: 25px;
+}
+
+.profile-section h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.profile-interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.profile-interest {
+    padding: 8px 13px;
+    border-radius: 20px;
+    background: #edf4e9;
+    font-size: 14px;
+}
+
+.profile-menu {
+    overflow: hidden;
+    border-radius: 18px;
+    background: #f5f7f3;
+}
+
+.menu-item {
+    width: 100%;
+    min-height: 54px;
+    padding: 14px 17px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: none;
+    border-bottom: 1px solid #e2e7df;
+
+    background: transparent;
+
+    font-size: 15px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item span {
+    flex: 1;
+}
+
+.menu-item b {
+    font-size: 23px;
+    opacity: .4;
+}
+
+.menu-item:hover {
+    background: #eaf1e6;
+}
+
+.menu-item.danger {
+    margin-top: 10px;
+    border-radius: 16px;
+    background: #fff1f1;
+    color: #a34b4b;
+    border: none;
+}
+
+.menu-item.danger:hover {
+    background: #ffe5e5;
+}
+
+.profile-footer {
+    text-align: center;
+    margin-top: 35px;
+    opacity: .55;
+}
+
+.profile-footer p {
+    margin: 0;
+}
+
+.profile-footer small {
+    font-size: 12px;
+}
