@@ -1,133 +1,498 @@
-console.log("Evergreen — garden.js");
+console.log("Evergreen garden.js loaded");
 
-/* ===========================
-   GARDEN
-=========================== */
+/* =========================================
+   GARDEN DATA
+========================================= */
 
-function updateGardenDisplay() {
+const plantTypes = {
 
-    const tree =
-        document.getElementById("treeEmoji");
+    flower: {
+        name: "Flower",
+        emoji: "🌸",
+        stages: ["🌱", "🌿", "🌷", "🌸"],
+        price: 20,
+        reward: 15
+    },
 
-    if (!tree) return;
+    tree: {
+        name: "Tree",
+        emoji: "🌳",
+        stages: ["🌱", "🌿", "🌲", "🌳"],
+        price: 50,
+        reward: 35
+    },
 
-
-    const habitContainer =
-        document.getElementById("habitContainer");
-
-
-    const total =
-        habitContainer
-            ? habitContainer.querySelectorAll(".habit").length
-            : 0;
-
-
-    const completed =
-        typeof getCompletedToday === "function"
-            ? getCompletedToday().length
-            : 0;
-
-
-    const percent =
-        total === 0
-            ? 0
-            : completed / total * 100;
+    mushroom: {
+        name: "Mushroom",
+        emoji: "🍄",
+        stages: ["🌱", "🌿", "🍄", "🍄"],
+        price: 15,
+        reward: 12
+    }
+};
 
 
-    /* ---------- TREE ---------- */
+/* =========================================
+   GARDEN STORAGE
+========================================= */
 
-    if (percent === 0) {
+function getGarden() {
 
-        tree.textContent = "🌱";
+    if (!user.garden) {
 
-    } else if (percent < 30) {
+        user.garden = [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ];
 
-        tree.textContent = "🌿";
-
-    } else if (percent < 60) {
-
-        tree.textContent = "🌳";
-
-    } else if (percent < 100) {
-
-        tree.textContent = "🌲";
-
-    } else {
-
-        tree.textContent = "🌸";
-
+        saveUser();
     }
 
+    return user.garden;
+}
 
-    /* ---------- COINS ---------- */
 
-    updateGardenCoins();
+/* =========================================
+   PLANT
+========================================= */
+
+function plantSeed(plotIndex, plantType) {
+
+    const garden =
+        getGarden();
+
+    const plant =
+        plantTypes[plantType];
+
+    if (!plant) return;
+
+    if (garden[plotIndex]) {
+
+        alert("This plot already has a plant 🌱");
+        return;
+    }
+
+    if (user.coins < plant.price) {
+
+        alert("You don't have enough coins 🪙");
+        return;
+    }
+
+    user.coins -= plant.price;
+
+    garden[plotIndex] = {
+
+        type: plantType,
+
+        stage: 0,
+
+        water: 0,
+
+        lastWatered: null,
+
+        harvested: false
+
+    };
+
+    saveUser();
+
+    renderGarden();
 
 }
 
 
-/* ===========================
-   COINS
-=========================== */
+/* =========================================
+   WATER
+========================================= */
 
-function updateGardenCoins() {
+function waterPlant(plotIndex) {
+
+    const garden =
+        getGarden();
+
+    const plant =
+        garden[plotIndex];
+
+    if (!plant) return;
+
+    if (plant.stage >= 3) {
+
+        alert("This plant is already fully grown 🌸");
+        return;
+    }
+
+    plant.water++;
+
+    plant.lastWatered =
+        Date.now();
+
+    /*
+       Every 2 waters = one growth stage
+    */
+
+    if (plant.water % 2 === 0) {
+
+        plant.stage++;
+
+        if (plant.stage > 3) {
+            plant.stage = 3;
+        }
+
+    }
+
+    saveUser();
+
+    renderGarden();
+
+}
+
+
+/* =========================================
+   HARVEST
+========================================= */
+
+function harvestPlant(plotIndex) {
+
+    const garden =
+        getGarden();
+
+    const plant =
+        garden[plotIndex];
+
+    if (!plant) return;
+
+    const type =
+        plantTypes[plant.type];
+
+    if (plant.stage < 3) {
+
+        alert("Your plant is not fully grown yet 🌱");
+        return;
+    }
+
+    user.coins += type.reward;
+
+    user.xp += 15;
+
+    garden[plotIndex] = null;
+
+    saveUser();
+
+    renderGarden();
 
     if (
-        typeof getCompletedToday !== "function"
+        typeof updateProfile ===
+        "function"
+    ) {
+        updateProfile();
+    }
+
+    if (
+        typeof updateStatistics ===
+        "function"
+    ) {
+        updateStatistics();
+    }
+
+    alert(
+        `You harvested ${type.name}! +${type.reward} 🪙`
+    );
+
+}
+
+
+/* =========================================
+   RENDER GARDEN
+========================================= */
+
+function renderGarden() {
+
+    const gardenCard =
+        document.querySelector(".garden-card");
+
+    if (!gardenCard) return;
+
+    const tree =
+        document.getElementById("treeEmoji");
+
+    const garden =
+        getGarden();
+
+
+    /*
+       If there are no plants,
+       keep the original tree.
+    */
+
+    if (
+        garden.every(
+            plant => plant === null
+        )
+    ) {
+
+        if (tree) {
+            tree.textContent = "🌱";
+        }
+
+        return;
+    }
+
+
+    /*
+       Show number of grown plants
+    */
+
+    const grown =
+        garden.filter(
+            plant =>
+                plant &&
+                plant.stage >= 3
+        ).length;
+
+
+    if (tree) {
+
+        if (grown === 0) {
+            tree.textContent = "🌱";
+        }
+
+        else if (grown < 3) {
+            tree.textContent = "🌿";
+        }
+
+        else if (grown < 6) {
+            tree.textContent = "🌳";
+        }
+
+        else {
+            tree.textContent = "🌸";
+        }
+
+    }
+
+
+    /*
+       Update coins
+    */
+
+    const coins =
+        document.getElementById("coins");
+
+    if (coins) {
+        coins.textContent =
+            user.coins;
+    }
+
+
+    /*
+       Update garden actions
+    */
+
+    garden.forEach(
+        (plant, index) => {
+
+            if (!plant) return;
+
+            console.log(
+                `Plot ${index}:`,
+                plant
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   CREATE SIMPLE PLANT BUTTONS
+========================================= */
+
+function setupGardenButtons() {
+
+    const gardenCard =
+        document.querySelector(".garden-card");
+
+    if (!gardenCard) return;
+
+
+    /*
+       Don't create them twice.
+    */
+
+    if (
+        document.getElementById(
+            "gardenPlantButtons"
+        )
     ) {
         return;
     }
 
 
-    const today =
-        getTodayKey();
+    const container =
+        document.createElement("div");
+
+    container.id =
+        "gardenPlantButtons";
+
+    container.style.display =
+        "grid";
+
+    container.style.gridTemplateColumns =
+        "repeat(2, 1fr)";
+
+    container.style.gap =
+        "10px";
+
+    container.style.marginTop =
+        "20px";
 
 
-    const data =
-        dailyData[today];
+    for (
+        let i = 0;
+        i < 6;
+        i++
+    ) {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "plot-action";
+
+        button.textContent =
+            `🌱 Plot ${i + 1}`;
+
+        button.onclick =
+            () => {
+
+                openPlantMenu(i);
+
+            };
+
+        container.appendChild(
+            button
+        );
+
+    }
 
 
-    const coins =
-        data
-            ? data.coins
-            : 0;
-
-
-    document
-        .querySelectorAll("#coins, #coinCount")
-        .forEach(element => {
-
-            element.textContent = coins;
-
-        });
+    gardenCard.appendChild(
+        container
+    );
 
 }
 
 
-/* ===========================
-   GARDEN INIT
-=========================== */
+/* =========================================
+   PLANT MENU
+========================================= */
 
-function initializeGarden() {
+function openPlantMenu(plotIndex) {
 
-    updateGardenDisplay();
+    const garden =
+        getGarden();
+
+    const existing =
+        garden[plotIndex];
+
+
+    if (existing) {
+
+        const type =
+            plantTypes[existing.type];
+
+        if (
+            existing.stage >= 3
+        ) {
+
+            harvestPlant(
+                plotIndex
+            );
+
+        } else {
+
+            waterPlant(
+                plotIndex
+            );
+
+        }
+
+        return;
+    }
+
+
+    const choice =
+        prompt(
+            "Choose a plant:\n\n" +
+            "flower — 🌸 20 coins\n" +
+            "tree — 🌳 50 coins\n" +
+            "mushroom — 🍄 15 coins"
+        );
+
+
+    if (!choice) return;
+
+
+    const type =
+        choice.trim().toLowerCase();
+
+
+    if (
+        !plantTypes[type]
+    ) {
+
+        alert(
+            "Unknown plant 🌱"
+        );
+
+        return;
+    }
+
+
+    plantSeed(
+        plotIndex,
+        type
+    );
 
 }
 
 
-/* ===========================
-   MAKE AVAILABLE
-=========================== */
+/* =========================================
+   START GARDEN
+========================================= */
 
-window.updateGarden =
-    updateGardenDisplay;
+function startGarden() {
+
+    getGarden();
+
+    setupGardenButtons();
+
+    renderGarden();
+
+}
 
 
-/* ===========================
+/* =========================================
    START
-=========================== */
+========================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    initializeGarden
-);
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        startGarden
+    );
+
+} else {
+
+    startGarden();
+
+}
