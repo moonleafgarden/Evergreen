@@ -1,141 +1,58 @@
-```javascript
 console.log("Evergreen app.js loaded");
 
 /* ===========================
    SCREENS
 =========================== */
 
-const screens =
-    document.querySelectorAll(".screen");
-
-const welcome =
-    document.getElementById("welcome");
-
-const profileSetup =
-    document.getElementById("profileSetup");
-
-const interests =
-    document.getElementById("interests");
-
-const home =
-    document.getElementById("home");
-
-const garden =
-    document.getElementById("garden");
-
-const shop =
-    document.getElementById("shop");
-
-const progress =
-    document.getElementById("progress");
-
-const profile =
-    document.getElementById("profile");
+const welcomeScreen = document.getElementById("welcome");
+const profileSetupScreen = document.getElementById("profileSetup");
+const interestsScreen = document.getElementById("interests");
+const homeScreen = document.getElementById("home");
+const gardenScreen = document.getElementById("garden");
+const shopScreen = document.getElementById("shop");
+const progressScreen = document.getElementById("progress");
+const profileScreen = document.getElementById("profile");
 
 
 /* ===========================
-   BUTTONS
-=========================== */
-
-const nextBtn =
-    document.getElementById("nextBtn");
-
-const nameContinueBtn =
-    document.getElementById(
-        "nameContinueBtn"
-    );
-
-const continueBtn =
-    document.getElementById(
-        "continueBtn"
-    );
-
-const homeNav =
-    document.getElementById("homeNav");
-
-const gardenNav =
-    document.getElementById("gardenNav");
-
-const progressNav =
-    document.getElementById("progressNav");
-
-const profileNav =
-    document.getElementById("profileNav");
-
-const openShopBtn =
-    document.getElementById(
-        "openShopBtn"
-    );
-
-const backGarden =
-    document.getElementById(
-        "backGarden"
-    );
-
-const nameInput =
-    document.getElementById(
-        "nameInput"
-    );
-
-
-/* ===========================
-   USER DATA
+   USER
 =========================== */
 
 const defaultUser = {
-
     name: "",
-
     interests: [],
-
     completedToday: [],
-
     xp: 0,
-
     coins: 0,
-
     streak: 0,
-
     lastActiveDate: null,
-
     decorations: []
-
 };
 
 
-let savedUser = null;
+let user = defaultUser;
 
 
 try {
-
-    savedUser =
+    const saved =
         JSON.parse(
-            localStorage.getItem(
-                "evergreenUser"
-            )
+            localStorage.getItem("evergreenUser")
         );
 
+    if (saved) {
+        user = {
+            ...defaultUser,
+            ...saved
+        };
+    }
+
 } catch (error) {
-
-    console.log(
-        "No valid saved user."
-    );
-
+    console.log("No saved Evergreen user.");
 }
 
 
-let user = savedUser
-    ? {
-        ...defaultUser,
-        ...savedUser
-    }
-    : {
-        ...defaultUser
-    };
-
-
 /* ===========================
-   SAVE USER
+   SAVE
 =========================== */
 
 function saveUser() {
@@ -149,52 +66,80 @@ function saveUser() {
 
 
 /* ===========================
-   SCREEN
+   NAVIGATION
 =========================== */
 
 function openScreen(screen) {
 
-    if (!screen) return;
+    document
+        .querySelectorAll(".screen")
+        .forEach(item => {
+            item.classList.remove("active");
+        });
 
-    screens.forEach(
-        screenElement => {
-
-            screenElement.classList
-                .remove("active");
-
-        }
-    );
-
-    screen.classList.add("active");
-
+    if (screen) {
+        screen.classList.add("active");
+    }
 }
 
-
-/* ===========================
-   NAVIGATION
-=========================== */
 
 function setActiveNav(button) {
 
     document
         .querySelectorAll(".nav-btn")
-        .forEach(btn => {
-
-            btn.classList.remove(
-                "active"
-            );
-
+        .forEach(item => {
+            item.classList.remove("active");
         });
 
-
     if (button) {
+        button.classList.add("active");
+    }
+}
 
-        button.classList.add(
-            "active"
-        );
 
+/* ===========================
+   TODAY
+=========================== */
+
+function getToday() {
+
+    const date = new Date();
+
+    const year = date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1)
+            .padStart(2, "0");
+
+    const day =
+        String(date.getDate())
+            .padStart(2, "0");
+
+    return year + "-" + month + "-" + day;
+}
+
+
+function checkNewDay() {
+
+    const today = getToday();
+
+    if (!user.lastActiveDate) {
+
+        user.lastActiveDate = today;
+
+        saveUser();
+
+        return;
     }
 
+    if (user.lastActiveDate !== today) {
+
+        user.completedToday = [];
+
+        user.lastActiveDate = today;
+
+        saveUser();
+    }
 }
 
 
@@ -202,52 +147,61 @@ function setActiveNav(button) {
    WELCOME
 =========================== */
 
+const nextBtn =
+    document.getElementById("nextBtn");
+
+
 if (nextBtn) {
 
-    nextBtn.onclick = () => {
+    nextBtn.onclick = function () {
 
         if (user.name) {
 
-            openScreen(home);
+            openScreen(homeScreen);
 
-            setActiveNav(homeNav);
-
+            setActiveNav(
+                document.getElementById("homeNav")
+            );
 
             if (
-                typeof createHabits ===
-                "function"
+                typeof createHabits === "function"
             ) {
-
                 createHabits();
-
             }
 
         } else {
 
             openScreen(
-                profileSetup
+                profileSetupScreen
             );
 
         }
 
     };
-
 }
 
 
 /* ===========================
-   PROFILE SETUP
+   NAME
 =========================== */
+
+const nameInput =
+    document.getElementById("nameInput");
+
+const nameContinueBtn =
+    document.getElementById(
+        "nameContinueBtn"
+    );
+
 
 if (nameContinueBtn) {
 
-    nameContinueBtn.onclick = () => {
+    nameContinueBtn.onclick = function () {
 
         const name =
             nameInput
                 ? nameInput.value.trim()
                 : "";
-
 
         if (!name) {
 
@@ -256,72 +210,64 @@ if (nameContinueBtn) {
             );
 
             return;
-
         }
-
 
         user.name = name;
 
         saveUser();
 
-
-        openScreen(interests);
+        openScreen(
+            interestsScreen
+        );
 
     };
-
 }
 
 
 /* ===========================
-   INTERESTS
+   INTERESTS CONTINUE
 =========================== */
+
+const continueBtn =
+    document.getElementById(
+        "continueBtn"
+    );
+
 
 if (continueBtn) {
 
-    continueBtn.onclick = () => {
+    continueBtn.onclick = function () {
 
-        if (
-            user.interests.length < 5
-        ) {
+        if (user.interests.length < 5) {
 
             alert(
                 "Choose at least 5 interests 🌱"
             );
 
             return;
-
         }
-
 
         saveUser();
 
+        openScreen(homeScreen);
 
-        openScreen(home);
-
-        setActiveNav(homeNav);
-
+        setActiveNav(
+            document.getElementById("homeNav")
+        );
 
         if (
-            typeof createHabits ===
-            "function"
+            typeof createHabits === "function"
         ) {
-
             createHabits();
-
         }
 
-
         if (
-            typeof updateStatistics ===
-            "function"
+            typeof updateStatistics === "function"
         ) {
-
             updateStatistics();
-
         }
 
     };
-
 }
 
 
@@ -329,26 +275,25 @@ if (continueBtn) {
    HOME
 =========================== */
 
+const homeNav =
+    document.getElementById("homeNav");
+
+
 if (homeNav) {
 
-    homeNav.onclick = () => {
+    homeNav.onclick = function () {
 
-        openScreen(home);
+        openScreen(homeScreen);
 
         setActiveNav(homeNav);
 
-
         if (
-            typeof createHabits ===
-            "function"
+            typeof createHabits === "function"
         ) {
-
             createHabits();
-
         }
 
     };
-
 }
 
 
@@ -356,18 +301,25 @@ if (homeNav) {
    GARDEN
 =========================== */
 
+const gardenNav =
+    document.getElementById("gardenNav");
+
+
 if (gardenNav) {
 
-    gardenNav.onclick = () => {
+    gardenNav.onclick = function () {
 
-        openScreen(garden);
+        openScreen(gardenScreen);
 
         setActiveNav(gardenNav);
 
-        updateGarden();
+        if (
+            typeof updateGarden === "function"
+        ) {
+            updateGarden();
+        }
 
     };
-
 }
 
 
@@ -375,26 +327,28 @@ if (gardenNav) {
    STATISTICS
 =========================== */
 
+const progressNav =
+    document.getElementById(
+        "progressNav"
+    );
+
+
 if (progressNav) {
 
-    progressNav.onclick = () => {
+    progressNav.onclick = function () {
 
-        openScreen(progress);
+        openScreen(progressScreen);
 
         setActiveNav(progressNav);
-
 
         if (
             typeof updateStatistics ===
             "function"
         ) {
-
             updateStatistics();
-
         }
 
     };
-
 }
 
 
@@ -402,26 +356,28 @@ if (progressNav) {
    PROFILE
 =========================== */
 
+const profileNav =
+    document.getElementById(
+        "profileNav"
+    );
+
+
 if (profileNav) {
 
-    profileNav.onclick = () => {
+    profileNav.onclick = function () {
 
-        openScreen(profile);
+        openScreen(profileScreen);
 
         setActiveNav(profileNav);
-
 
         if (
             typeof updateProfile ===
             "function"
         ) {
-
             updateProfile();
-
         }
 
     };
-
 }
 
 
@@ -429,27 +385,41 @@ if (profileNav) {
    SHOP
 =========================== */
 
+const openShopBtn =
+    document.getElementById(
+        "openShopBtn"
+    );
+
+
 if (openShopBtn) {
 
-    openShopBtn.onclick = () => {
+    openShopBtn.onclick = function () {
 
-        openScreen(shop);
+        openScreen(shopScreen);
 
     };
-
 }
+
+
+const backGarden =
+    document.getElementById(
+        "backGarden"
+    );
 
 
 if (backGarden) {
 
-    backGarden.onclick = () => {
+    backGarden.onclick = function () {
 
-        openScreen(garden);
+        openScreen(gardenScreen);
 
-        setActiveNav(gardenNav);
+        setActiveNav(
+            document.getElementById(
+                "gardenNav"
+            )
+        );
 
     };
-
 }
 
 
@@ -460,250 +430,72 @@ if (backGarden) {
 function updateGarden() {
 
     const coins =
-        document.getElementById(
-            "coins"
-        );
+        document.getElementById("coins");
 
     const coinCount =
         document.getElementById(
             "coinCount"
         );
 
-
     if (coins) {
-
-        coins.textContent =
-            user.coins;
-
+        coins.textContent = user.coins;
     }
-
 
     if (coinCount) {
-
         coinCount.textContent =
             user.coins;
-
     }
-
 }
 
 
 /* ===========================
-   DATE
+   START
 =========================== */
 
-function getToday() {
+window.addEventListener(
+    "load",
+    function () {
 
-    const now =
-        new Date();
+        checkNewDay();
 
-
-    const year =
-        now.getFullYear();
-
-
-    const month =
-        String(
-            now.getMonth() + 1
-        ).padStart(2, "0");
-
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2, "0");
-
-
-    return `${year}-${month}-${day}`;
-
-}
-
-
-/* ===========================
-   NEW DAY
-=========================== */
-
-function checkNewDay() {
-
-    const today =
-        getToday();
-
-
-    if (
-        !user.lastActiveDate
-    ) {
-
-        user.lastActiveDate =
-            today;
-
-        user.completedToday = [];
-
-        saveUser();
-
-        return;
-
-    }
-
-
-    if (
-        user.lastActiveDate !==
-        today
-    ) {
-
-        user.completedToday = [];
-
-        user.lastActiveDate =
-            today;
-
-        saveUser();
-
-        console.log(
-            "🌱 New Evergreen day!"
-        );
-
-    }
-
-}
-
-
-/* ===========================
-   RESET TODAY
-=========================== */
-
-function resetToday() {
-
-    user.completedToday = [];
-
-    user.lastActiveDate =
-        getToday();
-
-
-    saveUser();
-
-
-    if (
-        typeof createHabits ===
-        "function"
-    ) {
-
-        createHabits();
-
-    }
-
-
-    if (
-        typeof updateStatistics ===
-        "function"
-    ) {
-
-        updateStatistics();
-
-    }
-
-
-    if (
-        typeof updateProgress ===
-        "function"
-    ) {
-
-        updateProgress();
-
-    }
-
-}
-
-
-/* ===========================
-   RESET DAY BUTTON
-=========================== */
-
-const resetDayBtn =
-    document.getElementById(
-        "resetDayBtn"
-    );
-
-
-if (resetDayBtn) {
-
-    resetDayBtn.onclick = () => {
-
-        const confirmed =
-            confirm(
-                "Reset today's habits? 🌱"
-            );
-
-
-        if (!confirmed) {
-
-            return;
-
-        }
-
-
-        resetToday();
-
-
-        alert(
-            "Today's habits were reset 🌱"
-        );
-
-    };
-
-}
-
-
-/* ===========================
-   START APP
-=========================== */
-
-window.onload = () => {
-
-    checkNewDay();
-
-    updateGarden();
-
-
-    if (
-        typeof updateProfile ===
-        "function"
-    ) {
-
-        updateProfile();
-
-    }
-
-
-    if (
-        typeof updateStatistics ===
-        "function"
-    ) {
-
-        updateStatistics();
-
-    }
-
-
-    if (user.name) {
-
-        openScreen(home);
-
-        setActiveNav(homeNav);
-
+        updateGarden();
 
         if (
-            typeof createHabits ===
+            typeof updateProfile ===
             "function"
         ) {
+            updateProfile();
+        }
 
-            createHabits();
+        if (
+            typeof updateStatistics ===
+            "function"
+        ) {
+            updateStatistics();
+        }
+
+        if (user.name) {
+
+            openScreen(homeScreen);
+
+            setActiveNav(
+                document.getElementById(
+                    "homeNav"
+                )
+            );
+
+            if (
+                typeof createHabits ===
+                "function"
+            ) {
+                createHabits();
+            }
+
+        } else {
+
+            openScreen(welcomeScreen);
 
         }
 
-    } else {
-
-        openScreen(welcome);
-
     }
-
-};
-```
+);
