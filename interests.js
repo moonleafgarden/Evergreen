@@ -1,23 +1,18 @@
-```javascript
 console.log("Evergreen interests.js loaded");
 
-/* ===========================
-   INTERESTS
-=========================== */
-
 const interestContainer =
-    document.getElementById("interestContainer");
+    document.getElementById(
+        "interestContainer"
+    );
 
 const selectedCount =
-    document.getElementById("selectedCount");
+    document.getElementById(
+        "selectedCount"
+    );
 
 const searchInput =
     document.getElementById("search");
 
-
-/* ===========================
-   INTEREST DATA
-=========================== */
 
 const interestsData = {
 
@@ -77,11 +72,7 @@ const interestsData = {
 };
 
 
-/* ===========================
-   RENDER INTERESTS
-=========================== */
-
-function renderInterests(search = "") {
+function renderInterests(search) {
 
     if (!interestContainer) {
         return;
@@ -90,10 +81,14 @@ function renderInterests(search = "") {
     interestContainer.innerHTML = "";
 
     const query =
-        search.trim().toLowerCase();
+        (search || "")
+            .trim()
+            .toLowerCase();
 
 
-    for (const category in interestsData) {
+    for (
+        const category in interestsData
+    ) {
 
         const filtered =
             interestsData[category].filter(
@@ -123,8 +118,7 @@ function renderInterests(search = "") {
         const cards =
             document.createElement("div");
 
-        cards.className =
-            "cards";
+        cards.className = "cards";
 
 
         filtered.forEach(item => {
@@ -132,36 +126,29 @@ function renderInterests(search = "") {
             const card =
                 document.createElement("div");
 
-            card.className =
-                "card";
+            card.className = "card";
 
-            card.textContent =
-                item;
+            card.textContent = item;
 
 
             if (
-                typeof user !== "undefined" &&
                 user.interests.includes(item)
             ) {
-
                 card.classList.add(
                     "selected"
                 );
-
             }
 
 
-            card.addEventListener(
-                "click",
-                () => {
+            card.onclick =
+                function () {
 
                     toggleInterest(
                         item,
                         card
                     );
 
-                }
-            );
+                };
 
 
             cards.appendChild(card);
@@ -181,16 +168,10 @@ function renderInterests(search = "") {
 }
 
 
-/* ===========================
-   SELECT / UNSELECT
-=========================== */
-
-function toggleInterest(item, card) {
-
-    if (typeof user === "undefined") {
-        return;
-    }
-
+function toggleInterest(
+    item,
+    card
+) {
 
     if (
         user.interests.includes(item)
@@ -210,9 +191,6 @@ function toggleInterest(item, card) {
 
         user.interests.push(item);
 
-        user.interests =
-            [...new Set(user.interests)];
-
         card.classList.add(
             "selected"
         );
@@ -227,39 +205,23 @@ function toggleInterest(item, card) {
 }
 
 
-/* ===========================
-   COUNTER
-=========================== */
-
 function updateSelectedCount() {
 
     if (!selectedCount) {
         return;
     }
 
-    if (typeof user === "undefined") {
-        selectedCount.textContent =
-            "Selected: 0";
-
-        return;
-    }
-
-
     selectedCount.textContent =
-        `Selected: ${user.interests.length}`;
-
+        "Selected: " +
+        user.interests.length;
 }
 
-
-/* ===========================
-   SEARCH
-=========================== */
 
 if (searchInput) {
 
     searchInput.addEventListener(
         "input",
-        () => {
+        function () {
 
             renderInterests(
                 searchInput.value
@@ -271,9 +233,4 @@ if (searchInput) {
 }
 
 
-/* ===========================
-   INITIAL RENDER
-=========================== */
-
 renderInterests();
-```
