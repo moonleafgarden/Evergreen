@@ -505,165 +505,225 @@
 </section>
 
 
-    /* ===========================
-PROFILE
-=========================== */
+   <!-- =========================
+     PROFILE SCREEN
+========================= -->
 
-    
-    <main>
+<section id="profile" class="screen">
 
-    <button
-        class="profile-back"
-        onclick="openScreen(home); setActiveNav(homeNav)"
-    >
-        ←
-    </button>
+    <main class="profile-page">
 
+        <!-- BACK -->
 
-    <div class="profile-header">
-
-        <div class="profile-avatar">
-            🌲
-        </div>
-
-        <h2 id="profileName">
-            Evergreen User
-        </h2>
-
-        <p class="profile-subtitle">
-            Grow a little every day.
-        </p>
-
-    </div>
-
-
-    <!-- XP & COINS -->
-
-    <div class="profile-stats">
-
-        <div class="profile-stat">
-            <span>⭐</span>
-            <strong id="xpValue">0</strong>
-            <small>XP</small>
-        </div>
-
-        <div class="profile-stat">
-            <span>🪙</span>
-            <strong id="coinCount">0</strong>
-            <small>Coins</small>
-        </div>
-
-    </div>
-
-
-    <!-- INTERESTS -->
-
-    <div class="profile-section">
-
-        <h3>
-            🌱 My interests
-        </h3>
-
-        <div
-            id="profileInterests"
-            class="profile-interests"
+        <button
+            class="profile-back"
+            id="profileBackBtn"
+            type="button"
         >
-            <span>No interests yet</span>
-        </div>
-
-    </div>
+            ←
+        </button>
 
 
-    <!-- SETTINGS -->
+        <!-- HEADER -->
 
-    <div class="profile-section">
+        <div class="profile-header">
 
-        <h3>
-            ⚙️ Settings
-        </h3>
+            <div class="profile-avatar">
+                🌲
+            </div>
 
-        <div class="profile-menu">
+            <h2 id="profileName">
+                Evergreen User
+            </h2>
 
-            <button
-                class="menu-item"
-                id="changeInterestsBtn"
-            >
-                <span>
-                    🌱
-                    Change Interests
-                </span>
-
-                <b>›</b>
-            </button>
-
-
-            <button
-                class="menu-item"
-                id="appearanceBtn"
-            >
-                <span>
-                    🎨
-                    Appearance
-                </span>
-
-                <b>›</b>
-            </button>
-
-
-            <button
-                class="menu-item"
-                id="languageBtn"
-            >
-                <span>
-                    🌍
-                    Language
-                </span>
-
-                <b>›</b>
-            </button>
-
-
-            <button
-                class="menu-item"
-                id="aboutBtn"
-            >
-                <span>
-                    ℹ️
-                    About Evergreen
-                </span>
-
-                <b>›</b>
-            </button>
+            <p class="profile-subtitle">
+                Grow a little every day.
+            </p>
 
         </div>
 
-    </div>
+
+        <!-- XP / COINS -->
+
+        <div class="profile-stats">
+
+            <div class="profile-stat">
+
+                <span class="profile-stat-icon">
+                    ⭐
+                </span>
+
+                <strong id="xpValue">
+                    0
+                </strong>
+
+                <small>
+                    XP
+                </small>
+
+            </div>
 
 
-    <!-- RESET -->
+            <div class="profile-stat">
 
-    <button
-        class="menu-item danger"
-        id="resetBtn"
-    >
-        🗑️
-        <span>
-            Reset Progress
-        </span>
-    </button>
+                <span class="profile-stat-icon">
+                    🪙
+                </span>
+
+                <strong id="coinCount">
+                    0
+                </strong>
+
+                <small>
+                    Coins
+                </small>
+
+            </div>
+
+        </div>
 
 
-    <div class="profile-footer">
+        <!-- MY INTERESTS -->
 
-        <p>Evergreen</p>
+        <div class="profile-section">
 
-        <small>
-            Version 1.0
-        </small>
+            <h3>
+                🌱 My interests
+            </h3>
 
-    </div>
+            <div
+                id="profileInterests"
+                class="profile-interests"
+            >
 
-</main>
+                <span class="empty-interests">
+                    No interests yet
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SETTINGS -->
+
+        <div class="profile-section">
+
+            <h3>
+                ⚙️ Settings
+            </h3>
+
+
+            <div class="profile-menu">
+
+                <button
+                    class="menu-item"
+                    id="changeInterestsBtn"
+                    type="button"
+                >
+
+                    <span>
+                        🌱 Change Interests
+                    </span>
+
+                    <b>
+                        ›
+                    </b>
+
+                </button>
+
+
+                <button
+                    class="menu-item"
+                    id="appearanceBtn"
+                    type="button"
+                >
+
+                    <span>
+                        🎨 Appearance
+                    </span>
+
+                    <b>
+                        ›
+                    </b>
+
+                </button>
+
+
+                <button
+                    class="menu-item"
+                    id="languageBtn"
+                    type="button"
+                >
+
+                    <span>
+                        🌍 Language
+                    </span>
+
+                    <b>
+                        ›
+                    </b>
+
+                </button>
+
+
+                <button
+                    class="menu-item"
+                    id="aboutBtn"
+                    type="button"
+                >
+
+                    <span>
+                        ℹ️ About Evergreen
+                    </span>
+
+                    <b>
+                        ›
+                    </b>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESET -->
+
+        <button
+            class="menu-item danger"
+            id="resetBtn"
+            type="button"
+        >
+
+            <span>
+                🗑️ Reset Progress
+            </span>
+
+            <b>
+                ›
+            </b>
+
+        </button>
+
+
+        <!-- FOOTER -->
+
+        <div class="profile-footer">
+
+            <p>
+                Evergreen
+            </p>
+
+            <small>
+                Version 1.0
+            </small>
+
+        </div>
+
+    </main>
+
+</section>
 <!-- =====================================================
      BOTTOM NAVIGATION
 ===================================================== -->
