@@ -1,47 +1,38 @@
-```javascript
 console.log("Evergreen profile.js loaded");
 
-/* ===========================
-   PROFILE
-=========================== */
 
 function updateProfile() {
 
-    if (typeof user === "undefined") {
-        return;
-    }
-
-
     const nameElement =
-        document.getElementById("profileName");
-
-    if (nameElement) {
-
-        nameElement.textContent =
-            user.name || "Evergreen User";
-
-    }
-
+        document.getElementById(
+            "profileName"
+        );
 
     const xpElement =
-        document.getElementById("xpValue");
-
-    if (xpElement) {
-
-        xpElement.textContent =
-            user.xp || 0;
-
-    }
-
+        document.getElementById(
+            "xpValue"
+        );
 
     const coinElement =
-        document.getElementById("coinCount");
+        document.getElementById(
+            "coinCount"
+        );
+
+
+    if (nameElement) {
+        nameElement.textContent =
+            user.name ||
+            "Evergreen User";
+    }
+
+    if (xpElement) {
+        xpElement.textContent =
+            user.xp;
+    }
 
     if (coinElement) {
-
         coinElement.textContent =
-            user.coins || 0;
-
+            user.coins;
     }
 
 }
@@ -59,102 +50,95 @@ const changeInterestsBtn =
 
 if (changeInterestsBtn) {
 
-    changeInterestsBtn.onclick = () => {
+    changeInterestsBtn.onclick =
+        function () {
 
-        openScreen(interests);
+            openScreen(
+                document.getElementById(
+                    "interests"
+                )
+            );
 
-        setActiveNav(null);
+            setActiveNav(null);
 
-    };
+            if (
+                typeof renderInterests ===
+                "function"
+            ) {
+                renderInterests();
+            }
+
+        };
 
 }
 
 
 /* ===========================
-   RESET PROGRESS
+   RESET
 =========================== */
 
 const resetBtn =
-    document.getElementById("resetBtn");
+    document.getElementById(
+        "resetBtn"
+    );
 
 
 if (resetBtn) {
 
-    resetBtn.onclick = () => {
+    resetBtn.onclick =
+        function () {
 
-        const confirmed =
-            confirm(
-                "Reset all your Evergreen progress? 🌱"
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
+            const confirmed =
+                confirm(
+                    "Reset all your Evergreen progress? 🌱"
+                );
 
 
-        user.xp = 0;
-
-        user.coins = 0;
-
-        user.streak = 0;
-
-        user.completedToday = [];
-
-        user.decorations = [];
+            if (!confirmed) {
+                return;
+            }
 
 
-        saveUser();
+            user.xp = 0;
+
+            user.coins = 0;
+
+            user.streak = 0;
+
+            user.completedToday = [];
+
+            user.decorations = [];
 
 
-        updateProfile();
+            saveUser();
 
 
-        if (
-            typeof updateGarden ===
-            "function"
-        ) {
+            updateProfile();
 
             updateGarden();
 
-        }
+
+            if (
+                typeof createHabits ===
+                "function"
+            ) {
+                createHabits();
+            }
 
 
-        if (
-            typeof updateProgress ===
-            "function"
-        ) {
-
-            updateProgress();
-
-        }
+            if (
+                typeof updateStatistics ===
+                "function"
+            ) {
+                updateStatistics();
+            }
 
 
-        if (
-            typeof updateStatistics ===
-            "function"
-        ) {
+            alert(
+                "Your progress has been reset 🌱"
+            );
 
-            updateStatistics();
-
-        }
-
-
-        if (
-            typeof createHabits ===
-            "function"
-        ) {
-
-            createHabits();
-
-        }
-
-
-        alert(
-            "Your progress has been reset 🌱"
-        );
-
-    };
+        };
 
 }
 
@@ -164,21 +148,24 @@ if (resetBtn) {
 =========================== */
 
 const aboutBtn =
-    document.getElementById("aboutBtn");
+    document.getElementById(
+        "aboutBtn"
+    );
 
 
 if (aboutBtn) {
 
-    aboutBtn.onclick = () => {
+    aboutBtn.onclick =
+        function () {
 
-        alert(
-            "🌲 Evergreen\n\n" +
-            "Grow a little every day.\n\n" +
-            "Build habits, learn new things " +
-            "and watch your garden grow."
-        );
+            alert(
+                "🌲 Evergreen\n\n" +
+                "Grow a little every day.\n\n" +
+                "Build habits, learn new things " +
+                "and watch your garden grow."
+            );
 
-    };
+        };
 
 }
 
@@ -195,14 +182,15 @@ const appearanceBtn =
 
 if (appearanceBtn) {
 
-    appearanceBtn.onclick = () => {
+    appearanceBtn.onclick =
+        function () {
 
-        alert(
-            "🎨 Appearance settings " +
-            "will be available soon."
-        );
+            alert(
+                "🎨 Appearance settings " +
+                "will be available soon."
+            );
 
-    };
+        };
 
 }
 
@@ -219,14 +207,14 @@ const languageBtn =
 
 if (languageBtn) {
 
-    languageBtn.onclick = () => {
+    languageBtn.onclick =
+        function () {
 
-        alert(
-            "🌍 Language settings " +
-            "will be available soon."
-        );
+            alert(
+                "🌍 Language settings " +
+                "will be available soon."
+            );
 
-    };
+        };
 
 }
-```
