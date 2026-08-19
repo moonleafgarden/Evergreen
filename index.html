@@ -245,47 +245,64 @@
     id="garden"
 >
 
-```
-<header class="page-header">
+    <header class="garden-header">
 
-    <h1>🌱 Garden</h1>
+        <div>
+            <h1 class="garden-title">
+                🌱 Garden
+            </h1>
 
-    <p>
-        Watch yourself grow.
-    </p>
+            <p class="garden-subtitle">
+                Watch yourself grow.
+            </p>
+        </div>
 
-</header>
-
-<main>
-
-    <div class="garden-card">
-
-        <div class="garden-sky"></div>
-
-        <div class="garden-ground"></div>
-
-        <div class="coin-bar">
+        <div class="garden-coins">
             🪙 <span id="coins">0</span>
         </div>
 
-        <div
-            id="treeEmoji"
-            class="tree"
-        >
-            🌱
+    </header>
+
+
+    <!-- 🧑‍🌾 GARDENER -->
+
+    <div class="gardener-area">
+
+        <div class="gardener-character">
+            🧑‍🌾
         </div>
 
-        <button
-            class="shop-button"
-            id="openShopBtn"
-        >
-            🛒 Shop
-        </button>
+        <div class="gardener-info">
+
+            <h3>
+                Your Gardener
+            </h3>
+
+            <p>
+                Take care of your little garden 🌱
+            </p>
+
+        </div>
 
     </div>
 
-</main>
-```
+
+    <!-- 🌱 GARDEN PLOTS -->
+
+    <div class="garden-area">
+        <!-- garden.js creates plots here -->
+    </div>
+
+
+    <!-- 🛒 SHOP -->
+
+    <button
+        class="garden-back"
+        id="openShopBtn"
+        type="button"
+    >
+        🛒 Garden Shop
+    </button>
 
 </section>
 
