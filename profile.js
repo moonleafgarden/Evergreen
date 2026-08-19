@@ -236,7 +236,6 @@ if (resetBtn) {
         }
 
         user.xp = 0;
-        user.coins = 0;
         user.streak = 0;
 
         user.completedToday = [];
