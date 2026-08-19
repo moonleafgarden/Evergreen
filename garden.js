@@ -394,73 +394,169 @@ function setupGardenButtons() {
 
 function openPlantMenu(plotIndex) {
 
-    const garden =
-        getGarden();
+    const garden = getGarden();
 
-    const existing =
-        garden[plotIndex];
-
+    const existing = garden[plotIndex];
 
     if (existing) {
 
-        const type =
-            plantTypes[existing.type];
-
-        if (
-            existing.stage >= 3
-        ) {
-
-            harvestPlant(
-                plotIndex
-            );
-
+        if (existing.stage >= 3) {
+            harvestPlant(plotIndex);
         } else {
-
-            waterPlant(
-                plotIndex
-            );
-
+            waterPlant(plotIndex);
         }
 
         return;
     }
 
+    const oldMenu =
+        document.getElementById("plantMenu");
 
-    const choice =
-        prompt(
-            "Choose a plant:\n\n" +
-            "flower — 🌸 20 coins\n" +
-            "tree — 🌳 50 coins\n" +
-            "mushroom — 🍄 15 coins"
-        );
-
-
-    if (!choice) return;
-
-
-    const type =
-        choice.trim().toLowerCase();
-
-
-    if (
-        !plantTypes[type]
-    ) {
-
-        alert(
-            "Unknown plant 🌱"
-        );
-
-        return;
+    if (oldMenu) {
+        oldMenu.remove();
     }
 
 
-    plantSeed(
-        plotIndex,
-        type
-    );
+    /* ===========================
+       CREATE MENU
+    =========================== */
+
+    const menu =
+        document.createElement("div");
+
+    menu.id = "plantMenu";
+
+    menu.className = "plant-menu";
+
+
+    menu.innerHTML = `
+
+        <div class="plant-menu-box">
+
+            <button
+                class="plant-menu-close"
+                id="closePlantMenu"
+            >
+                ×
+            </button>
+
+            <h2>🌱 Choose a Seed</h2>
+
+            <p>
+                Choose something to grow
+                in your garden.
+            </p>
+
+
+            <div class="seed-options">
+
+                <button
+                    class="seed-option"
+                    data-seed="flower"
+                >
+
+                    <span class="seed-icon">
+                        🌸
+                    </span>
+
+                    <strong>
+                        Flower
+                    </strong>
+
+                    <small>
+                        20 🪙
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="seed-option"
+                    data-seed="mushroom"
+                >
+
+                    <span class="seed-icon">
+                        🍄
+                    </span>
+
+                    <strong>
+                        Mushroom
+                    </strong>
+
+                    <small>
+                        15 🪙
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="seed-option"
+                    data-seed="tree"
+                >
+
+                    <span class="seed-icon">
+                        🌳
+                    </span>
+
+                    <strong>
+                        Tree
+                    </strong>
+
+                    <small>
+                        50 🪙
+                    </small>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(menu);
+
+
+    /* ===========================
+       CLOSE
+    =========================== */
+
+    document
+        .getElementById("closePlantMenu")
+        .onclick = () => {
+
+            menu.remove();
+
+        };
+
+
+    /* ===========================
+       SELECT SEED
+    =========================== */
+
+    menu
+        .querySelectorAll(".seed-option")
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                const seed =
+                    button.dataset.seed;
+
+                menu.remove();
+
+                plantSeed(
+                    plotIndex,
+                    seed
+                );
+
+            };
+
+        });
 
 }
-
 
 /* =========================================
    START GARDEN
