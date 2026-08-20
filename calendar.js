@@ -1,424 +1,330 @@
-/* =========================================
-   EVERGREEN — CALENDAR
-========================================= */
+document.addEventListener("DOMContentLoaded", () => {
 
-console.log("Evergreen calendar.js loaded");
-
-
-/* =========================================
-   ELEMENTS
-========================================= */
-
-const calendarTitle = document.getElementById("calendarTitle");
-const calendarDays = document.getElementById("calendarDays");
-const prevMonthBtn = document.getElementById("prevMonth");
-const nextMonthBtn = document.getElementById("nextMonth");
-
-
-/* =========================================
-   MONTH NAMES
-========================================= */
-
-const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
-
-
-/* =========================================
-   CURRENT MONTH
-========================================= */
-
-const today = new Date();
-
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
-
-
-/* =========================================
-   DATE KEY
-========================================= */
-
-function getDateKey(year, month, day) {
-
-    return (
-        year +
-        "-" +
-        String(month + 1).padStart(2, "0") +
-        "-" +
-        String(day).padStart(2, "0")
-    );
-
-}
-
-
-/* =========================================
-   TODAY KEY
-========================================= */
-
-function getTodayKey() {
-
-    return getDateKey(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate()
-    );
-
-}
-
-
-/* =========================================
-   GET COMPLETED DAYS
-========================================= */
-
-function getCompletedDays() {
-
-    const keys = [
-        "doneHabits",
-        "completedHabits",
-        "habitHistory",
-        "evergreenHabitHistory"
-    ];
-
-    for (const key of keys) {
-
-        const saved =
-            localStorage.getItem(key);
-
-        if (!saved) {
-            continue;
-        }
-
-        try {
-
-            const data =
-                JSON.parse(saved);
-
-
-            /* -----------------------------
-               ARRAY
-            ----------------------------- */
-
-            if (Array.isArray(data)) {
-
-                return data
-                    .map(item => {
-
-                        if (
-                            typeof item === "string"
-                        ) {
-                            return item;
-                        }
-
-                        if (
-                            item &&
-                            item.date
-                        ) {
-                            return item.date;
-                        }
-
-                        return null;
-
-                    })
-                    .filter(Boolean);
-
-            }
-
-
-            /* -----------------------------
-               OBJECT
-            ----------------------------- */
-
-            if (
-                typeof data === "object" &&
-                data !== null
-            ) {
-
-                return Object.keys(data)
-                    .filter(date => {
-
-                        const value =
-                            data[date];
-
-                        return (
-                            value === true ||
-                            value === 1 ||
-                            value === "true" ||
-                            (
-                                Array.isArray(value) &&
-                                value.length > 0
-                            )
-                        );
-
-                    });
-
-            }
-
-        } catch (error) {
-
-            console.warn(
-                "Calendar could not read:",
-                key
-            );
-
-        }
-
-    }
-
-    return [];
-
-}
-
-
-/* =========================================
-   RENDER CALENDAR
-========================================= */
-
-function renderCalendar() {
+    const calendarTitle = document.getElementById("calendarTitle");
+    const calendarDays = document.getElementById("calendarDays");
+    const prevMonthBtn = document.getElementById("prevMonth");
+    const nextMonthBtn = document.getElementById("nextMonth");
 
     if (
         !calendarTitle ||
-        !calendarDays
+        !calendarDays ||
+        !prevMonthBtn ||
+        !nextMonthBtn
     ) {
-
-        console.warn(
-            "Calendar elements not found."
-        );
-
+        console.error("Calendar elements not found.");
         return;
-
     }
 
 
-    /* -------------------------------------
-       TITLE
-    ------------------------------------- */
+    // =========================================
+    // CURRENT MONTH
+    // =========================================
 
-    calendarTitle.textContent =
-        `${monthNames[currentMonth]} ${currentYear}`;
+    let currentDate = new Date();
 
-
-    /* -------------------------------------
-       CLEAR CALENDAR
-    ------------------------------------- */
-
-    calendarDays.innerHTML = "";
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
 
 
-    /* -------------------------------------
-       FIRST DAY OF MONTH
-    ------------------------------------- */
+    // =========================================
+    // MONTH NAMES
+    // =========================================
 
-    const firstDay =
-        new Date(
-            currentYear,
-            currentMonth,
-            1
-        );
-
-
-    /*
-        JavaScript:
-
-        Sunday = 0
-        Monday = 1
-        Tuesday = 2
-        ...
-
-        Our calendar starts Monday.
-    */
-
-    let startDay =
-        firstDay.getDay();
-
-    if (startDay === 0) {
-        startDay = 6;
-    } else {
-        startDay -= 1;
-    }
+    const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ];
 
 
-    /* -------------------------------------
-       NUMBER OF DAYS
-    ------------------------------------- */
+    // =========================================
+    // TODAY
+    // =========================================
 
-    const daysInMonth =
-        new Date(
-            currentYear,
-            currentMonth + 1,
-            0
-        ).getDate();
-
-
-    /* -------------------------------------
-       COMPLETED DAYS
-    ------------------------------------- */
-
-    const completedDays =
-        new Set(
-            getCompletedDays()
-        );
-
+    const today = new Date();
 
     const todayKey =
-        getTodayKey();
+        `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
 
-    /* -------------------------------------
-       EMPTY CELLS
-    ------------------------------------- */
+    // =========================================
+    // GET COMPLETED DAYS
+    // =========================================
 
-    for (
-        let i = 0;
-        i < startDay;
-        i++
-    ) {
+    function getCompletedDays() {
 
-        const empty =
-            document.createElement("div");
+        /*
+         * We expect habits.js to save completed days.
+         *
+         * Supported formats:
+         *
+         * completedDates = [
+         *   "2026-08-01",
+         *   "2026-08-02"
+         * ]
+         *
+         * If there is no saved data,
+         * the calendar simply shows no completed days.
+         */
 
-        empty.className =
-            "calendar-day empty";
+        try {
 
-        calendarDays.appendChild(
-            empty
+            const saved =
+                localStorage.getItem("completedDates");
+
+            if (!saved) {
+                return [];
+            }
+
+            const data = JSON.parse(saved);
+
+            if (Array.isArray(data)) {
+                return data;
+            }
+
+            return [];
+
+        } catch (error) {
+
+            console.error(
+                "Could not read completed dates:",
+                error
+            );
+
+            return [];
+        }
+    }
+
+
+    // =========================================
+    // CREATE DATE KEY
+    // =========================================
+
+    function createDateKey(year, month, day) {
+
+        return (
+            `${year}-` +
+            `${String(month + 1).padStart(2, "0")}-` +
+            `${String(day).padStart(2, "0")}`
         );
 
     }
 
 
-    /* -------------------------------------
-       CREATE DAYS
-    ------------------------------------- */
+    // =========================================
+    // RENDER CALENDAR
+    // =========================================
 
-    for (
-        let day = 1;
-        day <= daysInMonth;
-        day++
-    ) {
+    function renderCalendar() {
 
-        const dayElement =
-            document.createElement("div");
-
-        dayElement.className =
-            "calendar-day";
+        calendarDays.innerHTML = "";
 
 
-        /* ---------------------------------
-           DATE KEY
-        --------------------------------- */
+        // Month title
 
-        const dateKey =
-            getDateKey(
+        calendarTitle.textContent =
+            `${monthNames[currentMonth]} ${currentYear}`;
+
+
+        // First day of month
+
+        const firstDay =
+            new Date(
                 currentYear,
                 currentMonth,
-                day
+                1
             );
 
 
-        /* ---------------------------------
-           NUMBER
-        --------------------------------- */
+        // Number of days in month
 
-        const number =
-            document.createElement("span");
-
-        number.className =
-            "calendar-day-number";
-
-        number.textContent =
-            day;
-
-        dayElement.appendChild(
-            number
-        );
+        const daysInMonth =
+            new Date(
+                currentYear,
+                currentMonth + 1,
+                0
+            ).getDate();
 
 
-        /* ---------------------------------
-           TODAY
-        --------------------------------- */
+        /*
+         * JS:
+         *
+         * Sunday = 0
+         * Monday = 1
+         *
+         * Our calendar:
+         *
+         * Monday = first column
+         *
+         * Therefore convert Sunday from 0 to 7.
+         */
 
-        if (
-            dateKey === todayKey
+        let startingDay =
+            firstDay.getDay();
+
+        if (startingDay === 0) {
+            startingDay = 7;
+        }
+
+        startingDay -= 1;
+
+
+        // =========================================
+        // EMPTY DAYS BEFORE MONTH
+        // =========================================
+
+        for (
+            let i = 0;
+            i < startingDay;
+            i++
         ) {
 
-            dayElement.classList.add(
-                "today"
+            const emptyDay =
+                document.createElement("div");
+
+            emptyDay.classList.add(
+                "calendar-day",
+                "empty"
             );
 
+            calendarDays.appendChild(
+                emptyDay
+            );
         }
 
 
-        /* ---------------------------------
-           COMPLETED
-        --------------------------------- */
+        // =========================================
+        // COMPLETED DAYS
+        // =========================================
 
-        if (
-            completedDays.has(dateKey)
+        const completedDays =
+            getCompletedDays();
+
+
+        // =========================================
+        // CREATE DAYS
+        // =========================================
+
+        for (
+            let day = 1;
+            day <= daysInMonth;
+            day++
         ) {
 
+            const dayElement =
+                document.createElement("div");
+
+
             dayElement.classList.add(
-                "completed"
+                "calendar-day"
             );
 
 
-            const icon =
+            // Number
+
+            const number =
                 document.createElement("span");
 
-            icon.className =
-                "calendar-day-icon";
-
-            icon.textContent =
-                "🌱";
-
-            dayElement.appendChild(
-                icon
+            number.classList.add(
+                "calendar-number"
             );
 
-        }
+            number.textContent = day;
 
 
-        /* ---------------------------------
-           CLICK
-        --------------------------------- */
+            dayElement.appendChild(
+                number
+            );
 
-        dayElement.addEventListener(
-            "click",
-            () => {
 
-                console.log(
-                    "Selected date:",
-                    dateKey
+            // Date key
+
+            const dateKey =
+                createDateKey(
+                    currentYear,
+                    currentMonth,
+                    day
                 );
 
+
+            // =====================================
+            // TODAY
+            // =====================================
+
+            if (dateKey === todayKey) {
+
+                dayElement.classList.add(
+                    "today"
+                );
+
+                const todayMark =
+                    document.createElement("span");
+
+                todayMark.classList.add(
+                    "today-mark"
+                );
+
+                todayMark.textContent = "✨";
+
+                dayElement.appendChild(
+                    todayMark
+                );
             }
-        );
 
 
-        calendarDays.appendChild(
-            dayElement
-        );
+            // =====================================
+            // COMPLETED
+            // =====================================
+
+            if (
+                completedDays.includes(
+                    dateKey
+                )
+            ) {
+
+                dayElement.classList.add(
+                    "completed"
+                );
+
+                const completedMark =
+                    document.createElement("span");
+
+                completedMark.classList.add(
+                    "completed-mark"
+                );
+
+                completedMark.textContent = "🌱";
+
+                dayElement.appendChild(
+                    completedMark
+                );
+            }
+
+
+            // =====================================
+            // ADD DAY
+            // =====================================
+
+            calendarDays.appendChild(
+                dayElement
+            );
+        }
 
     }
 
-}
 
-
-/* =========================================
-   PREVIOUS MONTH
-========================================= */
-
-if (prevMonthBtn) {
+    // =========================================
+    // PREVIOUS MONTH
+    // =========================================
 
     prevMonthBtn.addEventListener(
         "click",
@@ -426,9 +332,7 @@ if (prevMonthBtn) {
 
             currentMonth--;
 
-            if (
-                currentMonth < 0
-            ) {
+            if (currentMonth < 0) {
 
                 currentMonth = 11;
                 currentYear--;
@@ -440,14 +344,10 @@ if (prevMonthBtn) {
         }
     );
 
-}
 
-
-/* =========================================
-   NEXT MONTH
-========================================= */
-
-if (nextMonthBtn) {
+    // =========================================
+    // NEXT MONTH
+    // =========================================
 
     nextMonthBtn.addEventListener(
         "click",
@@ -455,9 +355,7 @@ if (nextMonthBtn) {
 
             currentMonth++;
 
-            if (
-                currentMonth > 11
-            ) {
+            if (currentMonth > 11) {
 
                 currentMonth = 0;
                 currentYear++;
@@ -469,23 +367,34 @@ if (nextMonthBtn) {
         }
     );
 
-}
+
+    // =========================================
+    // INITIAL RENDER
+    // =========================================
+
+    renderCalendar();
 
 
-/* =========================================
-   REFRESH CALENDAR
-========================================= */
+    // =========================================
+    // UPDATE WHEN STORAGE CHANGES
+    // =========================================
 
-window.refreshEvergreenCalendar =
-    function () {
+    window.addEventListener(
+        "storage",
+        () => {
 
-        renderCalendar();
+            renderCalendar();
 
-    };
+        }
+    );
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
+    /*
+     * Allows other JS files to refresh
+     * the calendar after completing a habit.
+     */
 
-renderCalendar();
+    window.refreshEvergreenCalendar =
+        renderCalendar;
+
+});
